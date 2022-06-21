@@ -1,0 +1,33 @@
+.constructor-wrapper {
+    margin-top: var(--x25);
+    margin-left: var(--x10);
+}
+
+.constructor-element_pos_top,
+.constructor-element_pos_bottom {
+    margin-left: 28px;
+}
+
+.constructor-price-footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    margin-top: var(--x10);
+    align-items:center;
+}
+.total-price-text {
+    margin-right: var(--x10);
+    align-items: center;
+    display:flex;
+}
+
+.total-price-text p {
+    margin-right: 8px;
+    font-family: 'Iceland';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 36px;
+    color: #F2F2F3;
+}

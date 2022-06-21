@@ -1,0 +1,29 @@
+.order-details-wrapper {
+   margin-top:120px !important;
+   display: flex !important;
+}
+
+.order-details-info {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #8585AD;
+}
+
+.order-details-info-active {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #F2F2F3;
+}
+
+.order-details-id-text {
+    
+}
+

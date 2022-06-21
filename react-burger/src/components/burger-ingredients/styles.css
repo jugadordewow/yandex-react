@@ -1,0 +1,69 @@
+
+.main-header {
+    width: 100%;
+    max-width:600px;
+    height: 40px;
+    margin-top: var(--x10);
+    text-align: left;
+}
+.ingridient-wrapper {
+    width:100%;
+    display: flex;
+    align-items: center;
+    max-width:568px;
+}
+.burger-ingridients-wrapper {
+    width: 100%;
+    max-width:568px;
+}
+.tabs-wrapper-dashed {
+    margin-top: var(--x5);
+}
+.section-name {
+    margin-top: var(--x10);
+    text-align: left;
+}
+.card-items-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+}
+.card-item {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    width: 50%;
+    max-width: 272px;
+    height: 208px;
+    position: relative;
+    margin-top: 32px;
+}
+.card-item:hover {
+    cursor:pointer;
+}
+.card-price {
+    font-family: 'Iceland';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 24px;
+    text-align: center;
+    margin-right: 8px;
+}
+.card-price-wrapper {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.card-name {
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #F2F2F3;
+}
