@@ -20,6 +20,8 @@ const [data, setData] = useState([]);
 
 const [selectedItem, setSelectedItem] = useState(null);
 
+const [order, setOrderInfo] = useState(false);
+
     useEffect(() => {
       const onRequest = () => {
         burgerService.getAllData()
@@ -34,6 +36,10 @@ const onItemSelected = (id) => {
   setSelectedItem(selectedItem => id);
 }  
 
+const setOrder = () => {
+    setOrderInfo(order => true);
+}
+
 const content = (selectedItem != null) ? (<OrderDetails id = {onItemSelected}/>) : (null)  
 
   return (
@@ -44,10 +50,13 @@ const content = (selectedItem != null) ? (<OrderDetails id = {onItemSelected}/>)
          {data.length > 0 ? <BurgerIngredients 
             onItemSelected = {onItemSelected}
             props = {data}/> : null }
-          {data.length > 0 ? <BurgerConstructor props = {data} /> : null}
-         {/* <Modal >
+          {data.length > 0 ? <BurgerConstructor 
+                                  props = {data} 
+                                  setOrder = {setOrder}
+                              /> : null}
+         <Modal >
             {content}
-         </Modal> */}
+         </Modal>
       </div>
     </div>
   );

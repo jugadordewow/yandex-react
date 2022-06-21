@@ -66,7 +66,7 @@ const ingridients = data.props.filter(item => item.type !== 'bun')
               <CurrencyIcon type="primary" />    
           </div>
           
-           <Button type="primary" size="large">
+           <Button type="primary" size="large" onClick = {() => props.setOrder(true)}>
                 Заказать
            </Button>
       </div>
