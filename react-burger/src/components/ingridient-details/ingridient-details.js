@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react';
 import React, { Fragment } from "react";
 import Modal from "../modal/modal";
 import PropTypes from 'prop-types';
@@ -6,6 +7,10 @@ import styles from "./ingridient-details.module.css";
 const IngridientDetails = (props) => {
     
     const itemInfo = {...props.itemSelected}
+
+    const [details, setDetails] = useState(null);
+
+    console.log(props)
 
     return (
         <Modal  onClose={props.onClose}  itemSelected={props.itemSelected}>
