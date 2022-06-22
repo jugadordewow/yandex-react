@@ -1,50 +1,37 @@
 import  { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import {CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-//import OrderDetails from '../oder-details/order-details';
-//import IngridientDetails from "../ingridient-details/ingridient-details";
+import OrderDetails from '../oder-details/order-details';
+import IngridientDetails from "../ingridient-details/ingridient-details";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import styles from './styles.css';
 
+
+
 const Modal = (props) => {
-
-    const [display, setDisplay] = useState('hidden');
-
-    console.log(display, props.children)
-
-    const close = useRef();
-
-    useEffect(()=> {
-        onDisplay()
-    }, [display])
-
-    // useEffect(() => {
-    //     window.addEventListener('click', onClose);
-
-    //     return () => {
-    //         window.removeEventListener('click');
-    //     }
-    // })
+    
+    const [display, setDisplay] = useState(props.modal);
 
     const onDisplay = () => {
-        if(props.children) {
-            setDisplay('active')
-        }
+        setDisplay(display => props.modal)
     }
 
-    const onClose = () => {
-        setDisplay('hidden');
-    }
+    console.log(props.modal)
+
+    console.log(display)
 
     return (
+        
       <div className={"modal " + display}>
-             
-            <ModalOverlay onClick={() => onClose} />
+           
+            <ModalOverlay onClick={() => setDisplay('hidden')} />
                 <div className = {'modal-wrapepr'}>
-                    <CloseIcon type="primary"  ref = {close} className="btn-close" />
+                    <CloseIcon type="primary" 
+                    onClick={() => setDisplay('hidden')}
+                    className="btn-close" />
                     {props.children}
                 </div>
-         
+           
      </div>
     )
 }

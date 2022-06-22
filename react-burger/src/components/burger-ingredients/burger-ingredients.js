@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect, useRef, setState } from "react";
+import PropTypes from 'prop-types';
 import { render } from "@testing-library/react";
 import styles from './styles.css';
 import { Tab, Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -121,6 +122,12 @@ const BurgerIngredients = (props) => {
             
         </div>
     );
+}
+
+
+BurgerIngredients.propTypes = {
+  onItemSelected: PropTypes.func,
+  setOrder: PropTypes.bool
 }
 
 export default BurgerIngredients;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import './App.css';
 import AppHeader from '../app-header/app-header';
 import BurgerService from "../../utils/data";
@@ -22,6 +23,8 @@ const [selectedItem, setSelectedItem] = useState(null);
 
 const [order, setOrderInfo] = useState(false);
 
+const [modal, setModal] = useState('hidden');
+
     useEffect(() => {
       const onRequest = () => {
         burgerService.getAllData()
@@ -31,7 +34,10 @@ const [order, setOrderInfo] = useState(false);
       onRequest();
     }, [] );
    
-    
+    useEffect(() => {
+      setModalInfo();
+    }, [order, selectedItem])
+
 const onItemSelected = (id) => {
   setSelectedItem(selectedItem => id);
 }  
@@ -40,7 +46,14 @@ const setOrder = () => {
     setOrderInfo(order => true);
 }
 
-const content = (selectedItem != null) ? (<OrderDetails id = {onItemSelected}/>) : (null)  
+const setModalInfo = () => {
+  if(selectedItem !== null || order !== false) {
+      setModal('active');
+  }
+}
+
+const itemInfo = (selectedItem !== null && selectedItem !== '') ? <IngridientDetails onItemSelected = {selectedItem}  /> :null;
+const orderInfo = (order !== false && order !== null) ? <OrderDetails setOrder = {order} /> : null;
 
   return (
     
@@ -54,12 +67,18 @@ const content = (selectedItem != null) ? (<OrderDetails id = {onItemSelected}/>)
                                   props = {data} 
                                   setOrder = {setOrder}
                               /> : null}
-         <Modal >
-            {content}
+         <Modal modal ={modal} >
+            {itemInfo}
+            {orderInfo}
          </Modal>
       </div>
     </div>
   );
+}
+
+App.propTypes = {
+  onItemSelected: PropTypes.func,
+  setOrder: PropTypes.bool
 }
 
 export default App;
