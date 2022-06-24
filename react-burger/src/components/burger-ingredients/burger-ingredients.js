@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect, useRef, setState } from "react";
+import PropTypes from 'prop-types';
 import { render } from "@testing-library/react";
 import styles from './styles.css';
 import { Tab, Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -36,7 +37,8 @@ const BurgerIngredients = (props) => {
         const {_id, name, type, price, image, image_mobile, image_large} = item;
         return (
               <div className="card-item" 
-              onClick = {() => {props.onItemSelected(_id)}} 
+              onClick = {() => {props.onItemSelected(_id);
+                                props.onShowProduct()}} 
               key={_id}>
                   <Counter count={1} size="default" />
                   <img src ={image} alt={name} />
@@ -56,7 +58,8 @@ const BurgerIngredients = (props) => {
       
         return (
           <div className="card-item" 
-                onClick = {() => { props.onItemSelected(_id)}} 
+                onClick = {() => { props.onItemSelected(_id);
+                                   props.onShowProduct()}} 
                 key={_id}>
               <Counter count={1} size="default" />
               <img src ={image} alt={name} />
@@ -77,7 +80,8 @@ const BurgerIngredients = (props) => {
         const {_id, name, type, price, image, image_mobile, image_large} = item;
         return (
           <div className="card-item" 
-                onClick = {() => {props.onItemSelected(_id)}} 
+                onClick = {() => {props.onItemSelected(_id);
+                                  props.onShowProduct()}} 
                 key={_id}>
                   <Counter count={1} size="default" />
                   <img src ={image} alt={name} />
@@ -122,5 +126,10 @@ const BurgerIngredients = (props) => {
         </div>
     );
 }
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.array
+}
+
 
 export default BurgerIngredients;

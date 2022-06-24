@@ -1,4 +1,5 @@
 import { useState, useEffect} from "react";
+import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon, CurrencyIcon,  Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.css';
 
@@ -66,7 +67,7 @@ const ingridients = data.props.filter(item => item.type !== 'bun')
               <CurrencyIcon type="primary" />    
           </div>
           
-           <Button type="primary" size="large">
+           <Button type="primary" size="large" onClick={props.onShowOrder}>
                 Заказать
            </Button>
       </div>
@@ -75,6 +76,10 @@ const ingridients = data.props.filter(item => item.type !== 'bun')
 
   )
  }
+
+ BurgerConstructor.propTypes = {
+  data: PropTypes.array,
+}
 
 export default BurgerConstructor;
 

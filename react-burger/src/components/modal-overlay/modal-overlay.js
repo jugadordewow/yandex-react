@@ -1,8 +1,10 @@
 import styles from './styles.css';
 
-const  ModalOverlay = () => {
+const  ModalOverlay = (props) => {
+    const toggler = props.onHideProduct ? props.onHideProduct : props.onHideOrder;
     return (
-        <div className="modal-overlay-wrapper" >
+        <div className="modal-overlay-wrapper" 
+             onClick={toggler}>
             
         </div>
     )
