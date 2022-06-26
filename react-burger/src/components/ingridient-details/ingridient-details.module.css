@@ -1,4 +1,4 @@
-.ingridient-item-wrapper {
+.ingridient_item_wrapper {
     font-family: 'JetBrains Mono', sans-serif;
     font-style: normal;
     margin-top: var(--x15);
@@ -9,7 +9,7 @@
     flex-direction: column;
     align-items: center;
 }
-.ingridient-detailes-heading {
+.ingridient_detailes_heading {
     font-family: 'JetBrains Mono', sans-serif;
     font-style: normal;
     font-weight: 700;
@@ -23,7 +23,7 @@
     left: var(--x10);
     margin-top: 0;
 }
-.ingridient-item-name {
+.ingridient_item_name {
     margin-top: var(--x4);
     font-weight: 700;
     font-size: 24px;
@@ -31,7 +31,7 @@
     text-align: center;
     color: #F2F2F3;
 }
-.ingridient-details-info-wrapper {
+.ingridient_details_info_wrapper {
     font-family: 'JetBrains Mono', sans-serif;
     width:100%;
     max-width:520px;
@@ -47,10 +47,13 @@
     text-align: center;
     color: #8585AD;
 }
-.ingridient-details-info-item {
+.ingridient_details_info_item {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width:112px;
     height:56px;
+}
+.ingridient_item_img {
+    width:100%;
 }

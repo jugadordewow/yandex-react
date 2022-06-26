@@ -1,9 +1,9 @@
-import styles from './styles.css';
+import styles from './modal-overlay.module.css';
 
 const  ModalOverlay = (props) => {
-    const toggler = props.onHideProduct ? props.onHideProduct : props.onHideOrder;
+    const toggler = props.onClose ? props.onClose : null;
     return (
-        <div className="modal-overlay-wrapper" 
+        <div className={styles.modal_overlay_wrapper}
              onClick={toggler}>
             
         </div>

@@ -1,16 +1,13 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import './App.css';
+import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerService from "../../utils/data";
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import Modal from '../modal/modal';
-import ModalOverlay from '../modal-overlay/modal-overlay';
 import OrderDetails from '../oder-details/order-details';
 import IngridientDetails from '../ingridient-details/ingridient-details';
-import { setConstantValue } from 'typescript';
 
 
 const App = () => {
@@ -58,16 +55,16 @@ const hideProductInfo = () => {
 }
 
   return (
-    <div className="App">
+    <div className={styles.App}>
       <AppHeader/>
-      <div className="main">
+      <div className={styles.main}>
          {data.length > 0 ? <BurgerIngredients 
             onItemSelected = {onItemSelected}
             onShowProduct = {showProductInfo}
             props = {data}/> : null }
           {data.length > 0 ? <BurgerConstructor props = {data} onShowOrder = {showOrderInfo} /> : null}
-         { productInfo && <IngridientDetails onHideProduct={hideProductInfo} itemSelected={itemSelected}/>}
-         { orderVisible && <OrderDetails onHideOrder = {hideOrderInfo}/> }
+         { productInfo && <IngridientDetails onClose={hideProductInfo} itemSelected={itemSelected}/>}
+         { orderVisible && <OrderDetails onClose = {hideOrderInfo}/> }
       </div>
     </div>
   );

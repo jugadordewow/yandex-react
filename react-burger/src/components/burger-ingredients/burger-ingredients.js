@@ -1,9 +1,8 @@
 import React, { Fragment, useState, useEffect, useRef, setState } from "react";
 import PropTypes from 'prop-types';
 import { render } from "@testing-library/react";
-import styles from './styles.css';
+import styles from './burger-ingridients.module.css';
 import { Tab, Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-
 
 
 const Tabs = () => {
@@ -31,22 +30,23 @@ const BurgerIngredients = (props) => {
 
   const [data, setData] = useState(props);
 
-
+    
     const cardMain = data.props.filter(item => item.type.match('main')).map(
       item => {
         const {_id, name, type, price, image, image_mobile, image_large} = item;
+        console.log(styles.card)
         return (
-              <div className="card-item" 
+              <div className={styles.card} 
               onClick = {() => {props.onItemSelected(_id);
                                 props.onShowProduct()}} 
-              key={_id}>
+              key={_id} >
                   <Counter count={1} size="default" />
                   <img src ={image} alt={name} />
-                  <div className="card-price-wrapper">
-                  <span className="card-price">{price}</span>
+                  <div className={styles.card_price_wrapper}>
+                  <span className={styles.card_price}>{price}</span>
                   <CurrencyIcon type="primary" />
             </div>
-            <span className="card-name">{name}</span>
+            <span className={styles.card_name}>{name}</span>
         </div>
          )
       }
@@ -57,17 +57,17 @@ const BurgerIngredients = (props) => {
         const {_id, name, type, price, image, image_mobile, image_large} = item;
       
         return (
-          <div className="card-item" 
+          <div className={styles.card} 
                 onClick = {() => { props.onItemSelected(_id);
                                    props.onShowProduct()}} 
-                key={_id}>
+                key={_id} >
               <Counter count={1} size="default" />
               <img src ={image} alt={name} />
-              <div className="card-price-wrapper">
-                <span className="card-price">{price}</span>
+              <div className={styles.card_price_wrapper}>
+                <span className={styles.card_price}>{price}</span>
                 <CurrencyIcon type="primary" />
               </div>
-              <span className="card-name">{name}</span>
+              <span className={styles.card_name}>{name}</span>
               
           </div>
          )
@@ -79,17 +79,17 @@ const BurgerIngredients = (props) => {
       item => {
         const {_id, name, type, price, image, image_mobile, image_large} = item;
         return (
-          <div className="card-item" 
+          <div className={styles.card}  
                 onClick = {() => {props.onItemSelected(_id);
                                   props.onShowProduct()}} 
-                key={_id}>
+                key={_id} >
                   <Counter count={1} size="default" />
                   <img src ={image} alt={name} />
-                  <div className="card-price-wrapper">
-                      <span className="card-price">{price}</span>
+                  <div className={styles.card_price_wrapper}>
+                      <span className={styles.card_price}>{price}</span>
                       <CurrencyIcon type="primary" />
                   </div>
-              <span className="card-name">{name}</span>
+              <span className={styles.card_name}>{name}</span>
         
     </div>
          )
@@ -97,30 +97,31 @@ const BurgerIngredients = (props) => {
     );
   
     return(
-        <div className="burger-ingridients-wrapper">
-           <header className="main-header">
+        <div className={styles.burger_ingridients_wrapper}>
+           <div className={styles.main_header}>
                 <h1 className="text text_type_main-large">Соберите бургер </h1>
-           </header>
+           </div>
             <Tabs />
-            <section>
-              <h2 className="section-name text text_type_main-medium">Булки</h2>
-              <div className="card-items-wrapper">
-                  {cardBun}
-              </div>
-            </section>
-            <section>
-              <h2 className="section-name text text_type_main-medium">Соусы</h2>
-              <div className="card-items-wrapper">
-                  {cardSauce}
-              </div>
-            </section>
-            <section>
-              <h2 className="section-name text text_type_main-medium">Начинка</h2>
-              <div className="card-items-wrapper">
-                  {cardMain}
-              </div>
-            </section>
-            
+            <div className={styles.ingridients_items_wrapper}>
+                <section>
+                  <h2 className={styles.section_name + " text text_type_main-medium"}>Булки</h2>
+                  <div className={styles.card_items_wrapper}>
+                      {cardBun}
+                  </div>
+                </section>
+                <section>
+                  <h2 className={styles.section_name + " text text_type_main-medium"}>Соусы</h2>
+                  <div className={styles.card_items_wrapper}>
+                      {cardSauce}
+                  </div>
+                </section>
+                <section>
+                  <h2 className={styles.section_name + " text text_type_main-medium"}>Начинка</h2>
+                  <div className={styles.card_items_wrapper}>
+                      {cardMain}
+                  </div>
+                </section>
+            </div>
             
             
         </div>
@@ -128,7 +129,7 @@ const BurgerIngredients = (props) => {
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.array
+  props: PropTypes.array.isRequired
 }
 
 

@@ -1,38 +1,39 @@
 import React, { Fragment } from "react";
 import Modal from "../modal/modal";
 import PropTypes from 'prop-types';
-import styles from "./styles.css";
+import styles from "./ingridient-details.module.css";
 
 const IngridientDetails = (props) => {
+    
     const itemInfo = {...props.itemSelected}
-    console.log(itemInfo)
+
     return (
-        <Modal onHideProduct={props.onHideProduct} itemSelected={props.itemSelected}>
-            <h3 className="ingridient-detailes-heading">Детали ингридиента</h3>
-            <div className="ingridient-item-wrapper">
-                <div className="ingridient-item-img">
+        <Modal  onClose={props.onClose}  itemSelected={props.itemSelected}>
+            <h3 className={styles.ingridient_detailes_heading }>Детали ингридиента</h3>
+            <div className={styles.ingridient_item_wrapper}>
+                <div>
                     <img src={itemInfo.image_large} alt="ingridient-img"/>
                 </div>
-                 <div className="ingridient-item-name">
+                 <div className={styles.ingridient_item_name}>
                     {itemInfo.name}
                 </div>
-                <div className="ingridient-details-info-wrapper">
-                    <div className="ingridient-details-info-item">
+                <div className={styles.ingridient_details_info_wrapper}>
+                    <div className={styles.ingridient_details_info_item}>
                         <span>Калории,ккал</span>
                         <span className="text text_type_digits-default">    {itemInfo.calories}
                         </span>
                     </div>
-                    <div className="ingridient-details-info-item">
+                    <div className={styles.ingridient_details_info_item}>
                         <span>Белки, г</span>
                         <span className="text text_type_digits-default">    {itemInfo.proteins}
                         </span>
                     </div>
-                    <div className="ingridient-details-info-item">
+                    <div className={styles.ingridient_details_info_item}>
                         <span>Жиры, г</span>
                         <span className="text text_type_digits-default">    {itemInfo.fat}
                         </span>
                     </div>
-                    <div className="ingridient-details-info-item">
+                    <div className={styles.ingridient_details_info_item}>
                         <span>Углеводы, г</span>
                         <span className="text text_type_digits-default">    {itemInfo.carbohydrates}
                         </span>
@@ -44,7 +45,8 @@ const IngridientDetails = (props) => {
 }
 
 IngridientDetails.propTypes = {
-    props: PropTypes.array
+    itemSelected: PropTypes.func,
+    onClose: PropTypes.func
   }
 
 export default IngridientDetails;

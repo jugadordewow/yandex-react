@@ -1,7 +1,7 @@
 import { useState, useEffect} from "react";
 import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon, CurrencyIcon,  Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from './styles.css';
+import styles from './burger-constructor.module.css';
 
 
 const BurgerConstructor = (props) => {
@@ -16,19 +16,20 @@ const ingridients = data.props.filter(item => item.type !== 'bun')
 
  let totalItemsPrice = 2*bun.price;
 
- const ingridient = ingridients.slice(0,5).map(item => {
-
+ const ingridient = ingridients.slice(0,9).map(item => {
+  
   totalItemsPrice += item.price
 
    return (
       
-    <div className="ingridient-wrapper">
+    <div className={styles.ingridientWrapper}
+         key={item._id}>
          <DragIcon type="primary" />
           <ConstructorElement
               text={item.name}
               price={item.price}
               thumbnail={item.image}
-              key={item.id}
+              // key={item._id}
             />
         </div>
    )
@@ -37,31 +38,33 @@ const ingridients = data.props.filter(item => item.type !== 'bun')
 
   return (
   
-    <div className="constructor-wrapper">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+    <div className={styles.constructorWrapper} >
+      <div className={styles.constructor}>
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={bun.name} 
-          key = {bun.id}
+          text={bun.name + '(верх)'} 
+          key = {bun._id}
           price={bun.price}
           thumbnail={bun.image}
         />
-        
-        {ingridient}
+
+        <div className={styles.constructorIngridientWrapper}>
+          {ingridient}
+        </div>
         
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={bun.name}
+          text={bun.name + '(низ)'}
           price={bun.price}
           thumbnail={bun.image}
-          key={bun.id}
+          key={bun._id+1}
         />
       </div>
-      <div className = "constructor-price-footer">
-          <div className = "total-price-text">
-              <p className="text text_type_main-default">
+      <div className = {styles.constructorPriceFooter}>
+          <div className = {styles.totalPriceText} >
+              <p className={styles.totalPriceTextP + " text text_type_main-default"} >
                   {totalItemsPrice}
               </p>
               <CurrencyIcon type="primary" />    
@@ -78,7 +81,7 @@ const ingridients = data.props.filter(item => item.type !== 'bun')
  }
 
  BurgerConstructor.propTypes = {
-  data: PropTypes.array,
+  props: PropTypes.array.isRequired,
 }
 
 export default BurgerConstructor;
