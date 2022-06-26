@@ -1,34 +1,39 @@
 
-.main-header {
+.main_header {
     width: 100%;
     max-width:600px;
     height: 40px;
     margin-top: var(--x10);
     text-align: left;
 }
-.ingridient-wrapper {
+.ingridient_wrapper {
     width:100%;
     display: flex;
     align-items: center;
     max-width:568px;
 }
-.burger-ingridients-wrapper {
+.ingridients_items_wrapper {
+    height:700px;
+    overflow-y: scroll;
+}
+
+.burger_ingridients_wrapper {
     width: 100%;
     max-width:568px;
 }
-.tabs-wrapper-dashed {
+.tabs_wrapper_dashed {
     margin-top: var(--x5);
 }
-.section-name {
+.section_name {
     margin-top: var(--x10);
     text-align: left;
 }
-.card-items-wrapper {
+.card_items_wrapper {
     display: flex;
     flex-direction: row;
     flex-wrap:wrap;
 }
-.card-item {
+.card {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -39,10 +44,10 @@
     position: relative;
     margin-top: 32px;
 }
-.card-item:hover {
-    cursor:pointer;
+.card_item:hover {
+    cursor:pointer !important;
 }
-.card-price {
+.card_price {
     font-family: 'Iceland';
     font-style: normal;
     font-weight: 400;
@@ -51,13 +56,13 @@
     text-align: center;
     margin-right: 8px;
 }
-.card-price-wrapper {
+.card_price_wrapper {
     display: flex;
     justify-content: center;
     align-content: center;
 }
 
-.card-name {
+.card_name {
     margin-top: 10px;
     font-family: 'JetBrains Mono', sans-serif;
     font-style: normal;

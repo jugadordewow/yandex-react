@@ -1,14 +1,27 @@
-.constructor-wrapper {
+.constructorWrapper {
     margin-top: var(--x25);
     margin-left: var(--x10);
 }
 
-.constructor-element_pos_top,
-.constructor-element_pos_bottom {
+
+.constructorIngridientWrapper {
+    height: calc(400px + 16px*5);
+    overflow-y: scroll;
+    margin-bottom: var(--x4);
+    margin-left: -28px;
+}
+
+.ingridientWrapper {
+    margin-top: var(--x4);
+}
+
+
+.constructorElementPosTop,
+.constructorElementPosBottom {
     margin-left: 28px;
 }
 
-.constructor-price-footer {
+.constructorPriceFooter {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -16,13 +29,13 @@
     margin-top: var(--x10);
     align-items:center;
 }
-.total-price-text {
+.totalPriceText {
     margin-right: var(--x10);
     align-items: center;
     display:flex;
 }
 
-.total-price-text p {
+.totalPriceTextP {
     margin-right: 8px;
     font-family: 'Iceland';
     font-style: normal;
@@ -30,4 +43,12 @@
     font-size: 48px;
     line-height: 36px;
     color: #F2F2F3;
+}
+.constructor-element {
+    min-width: 488px;
+}
+.constructor {
+    display: 'flex';
+    flex-direction: 'column';
+    gap: '10px';
 }
