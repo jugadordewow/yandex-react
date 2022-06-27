@@ -70,12 +70,6 @@ const hideProductInfo = () => {
   );
 }
 
-App.propTypes = {
-  selectedItem: PropTypes.string,
-  orderVisible: PropTypes.func,
-  productInfo: PropTypes.func
-}
-
 export default App;
 
 
