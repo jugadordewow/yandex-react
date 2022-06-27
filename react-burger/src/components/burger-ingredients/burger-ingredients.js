@@ -9,7 +9,7 @@ const Tabs = () => {
  
     const [current, setCurrent] = React.useState('one')
     return (
-      <div style={{ display: 'flex' }} className="tabs-wrapper-dashed">
+      <div className={styles.tabs_wrapper_dashed}>
         <Tab value="one" active={current === 'one'} onClick={setCurrent} >
           Булки
         </Tab>
@@ -99,24 +99,24 @@ const BurgerIngredients = (props) => {
     return(
         <div className={styles.burger_ingridients_wrapper}>
            <div className={styles.main_header}>
-                <h1 className="text text_type_main-large">Соберите бургер </h1>
+                <h1 className={styles.text_type_main_large}>Соберите бургер </h1>
            </div>
             <Tabs />
             <div className={styles.ingridients_items_wrapper}>
                 <section>
-                  <h2 className={styles.section_name + " text text_type_main-medium"}>Булки</h2>
+                  <h2 className={styles.section_name}>Булки</h2>
                   <div className={styles.card_items_wrapper}>
                       {cardBun}
                   </div>
                 </section>
                 <section>
-                  <h2 className={styles.section_name + " text text_type_main-medium"}>Соусы</h2>
+                  <h2 className={styles.section_name}>Соусы</h2>
                   <div className={styles.card_items_wrapper}>
                       {cardSauce}
                   </div>
                 </section>
                 <section>
-                  <h2 className={styles.section_name + " text text_type_main-medium"}>Начинка</h2>
+                  <h2 className={styles.section_name}>Начинка</h2>
                   <div className={styles.card_items_wrapper}>
                       {cardMain}
                   </div>

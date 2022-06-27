@@ -27,6 +27,12 @@
 .section_name {
     margin-top: var(--x10);
     text-align: left;
+    font-family: 'JetBrains Mono', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    color: #F2F2F3;
 }
 .card_items_wrapper {
     display: flex;
@@ -71,4 +77,20 @@
     line-height: 24px;
     text-align: center;
     color: #F2F2F3;
+}
+.text_type_main_large {
+    font-family: 'JetBrains Mono', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 40px;
+    color: #F2F2F3;
+}
+.tabs_wrapper_dashed {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width:100%;
+    max-width:600px;
+    height:56px;
 }

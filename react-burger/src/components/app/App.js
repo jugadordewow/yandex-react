@@ -71,7 +71,6 @@ const hideProductInfo = () => {
 }
 
 App.propTypes = {
-  data: PropTypes.array,
   selectedItem: PropTypes.string,
   orderVisible: PropTypes.func,
   productInfo: PropTypes.func

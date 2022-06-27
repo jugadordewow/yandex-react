@@ -20,22 +20,22 @@ const IngridientDetails = (props) => {
                 <div className={styles.ingridient_details_info_wrapper}>
                     <div className={styles.ingridient_details_info_item}>
                         <span>Калории,ккал</span>
-                        <span className="text text_type_digits-default">    {itemInfo.calories}
+                        <span className={styles.text_type_digits_default}>    {itemInfo.calories}
                         </span>
                     </div>
                     <div className={styles.ingridient_details_info_item}>
                         <span>Белки, г</span>
-                        <span className="text text_type_digits-default">    {itemInfo.proteins}
+                        <span className={styles.text_type_digits_default}>    {itemInfo.proteins}
                         </span>
                     </div>
                     <div className={styles.ingridient_details_info_item}>
                         <span>Жиры, г</span>
-                        <span className="text text_type_digits-default">    {itemInfo.fat}
+                        <span className={styles.text_type_digits_default}>    {itemInfo.fat}
                         </span>
                     </div>
                     <div className={styles.ingridient_details_info_item}>
                         <span>Углеводы, г</span>
-                        <span className="text text_type_digits-default">    {itemInfo.carbohydrates}
+                        <span className={styles.text_type_digits_default}>    {itemInfo.carbohydrates}
                         </span>
                     </div>
                 </div>

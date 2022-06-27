@@ -64,7 +64,7 @@ const ingridients = data.props.filter(item => item.type !== 'bun')
       </div>
       <div className = {styles.constructorPriceFooter}>
           <div className = {styles.totalPriceText} >
-              <p className={styles.totalPriceTextP + " text text_type_main-default"} >
+              <p className={styles.totalPriceTextP } >
                   {totalItemsPrice}
               </p>
               <CurrencyIcon type="primary" />    
