@@ -45,8 +45,8 @@ const IngridientDetails = (props) => {
 }
 
 IngridientDetails.propTypes = {
-    itemSelected: PropTypes.func,
-    onClose: PropTypes.func
+    itemSelected: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired
   }
 
 export default IngridientDetails;

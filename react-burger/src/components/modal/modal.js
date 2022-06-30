@@ -37,21 +37,17 @@ const Modal = (props) => {
 
     const portalEl = document.getElementById('modal');
     
-    return (
-      <div className={styles.modal}>     
-        
-            {ReactDOM.createPortal(
-            <>
-                <ModalOverlay  onClose={props.onClose}/>
-                <ModalWindow onClose={props.onClose}>
-                    {props.children}
-                </ModalWindow>
-            </>, portalEl)}
-        </div>
-    )
+    return ReactDOM.createPortal(
+                <div className={styles.modal}>
+                    <ModalOverlay  onClose={props.onClose}/>
+                    <ModalWindow onClose={props.onClose}>
+                        {props.children}
+                    </ModalWindow>
+                </div>, portalEl)
+
 }
 Modal.propTypes = {
-    toggler: PropTypes.bool,
+    onClose: PropTypes.func.isRequired
 }
 
 export default Modal;

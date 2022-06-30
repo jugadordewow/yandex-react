@@ -1,12 +1,5 @@
-.hidden {
-    display:none;
-}
-
-.active {
-    display: flex;
-}
 .modal_wrapepr {
-    position:absolute;
+    position:fixed;
     margin: auto;
     border: 2px solid #4C4CFF;
     width: 60%;

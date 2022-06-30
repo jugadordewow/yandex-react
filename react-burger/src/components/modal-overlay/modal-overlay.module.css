@@ -1,5 +1,5 @@
 .modal_overlay_wrapper {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: calc(100vh + 700px);
     top:0;

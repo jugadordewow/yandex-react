@@ -129,7 +129,9 @@ const BurgerIngredients = (props) => {
 }
 
 BurgerIngredients.propTypes = {
-  props: PropTypes.array.isRequired
+  props: PropTypes.array.isRequired,
+  onItemSelected: PropTypes.func.isRequired,
+  onShowProduct: PropTypes.func.isRequired
 }
 
 

@@ -45,7 +45,7 @@
     color: #F2F2F3;
 }
 .constructor-element {
-    min-width: 488px;
+    width:100% ;
 }
 .constructor {
     display: 'flex';
