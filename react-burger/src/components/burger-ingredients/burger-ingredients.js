@@ -29,7 +29,6 @@ const Tabs = () => {
 const BurgerIngredients = (props) => {
 
   const [data, setData] = useState(props);
-
     
     const cardMain = data.props.filter(item => item.type.match('main')).map(
       item => {
