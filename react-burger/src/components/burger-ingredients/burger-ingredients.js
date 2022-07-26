@@ -127,7 +127,7 @@ const BurgerIngredients = (props) => {
     );
 }
 
-<<<<<<< HEAD
+
 BurgerIngredients.propTypes = {
   props: PropTypes.array.isRequired,
   onItemSelected: PropTypes.func.isRequired,
@@ -135,12 +135,5 @@ BurgerIngredients.propTypes = {
 }
 
 
-=======
 
-BurgerIngredients.propTypes = {
-  onItemSelected: PropTypes.func,
-  setOrder: PropTypes.bool
-}
-
->>>>>>> 0186b68ea8d4088e9e0850fa5d89c9877376a4f1
 export default BurgerIngredients;
