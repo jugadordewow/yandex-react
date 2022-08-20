@@ -3,15 +3,19 @@ import { isTemplateExpression } from "typescript";
 class BurgerService {
    _apiURL = 'https://norma.nomoreparties.space/api/ingredients';
 
-   getResource = async (url) => {
+   getResource = async (url, body) => {
 
       const settings = {
-         method: 'GET',
+         method: body ? 'POST':'GET',
          headers: {
              Accept: 'application/json',
              'Content-Type': 'application/json',
          }
      };
+
+     if(body){
+         settings.body = json.stringify(body)
+     }
 
      try {
          const result = await fetch(url, settings);
@@ -25,23 +29,8 @@ class BurgerService {
    
 
    getAllData = () => {
-     return this.getResource(`${this._apiURL}`)
+     return this.getResource(`${this._apiURL}`,{})
                 .then(res => res.data)
-   }
-
-   getBuns = () => {
-      return this.getResource(`${this._apiURL}`)
-      .then(res => res.data.filter(item => item.type.match('bun')))
-   }
-
-   getMain = () => {
-      return this.getResource(`${this._apiURL}`)
-      .then(res => res.data.filter(item => item.type.match('main')))
-   }
-
-   getIngridient = (id) => {
-      return this.getResource(`${this._apiURL}`)
-      .then(res => res.data.filter(item => item._id === id))
    }
 
 }
