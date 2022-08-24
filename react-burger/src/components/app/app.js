@@ -1,70 +1,43 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import BurgerService from "../../utils/data";
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import OrderDetails from '../oder-details/order-details';
 import IngridientDetails from '../ingridient-details/ingridient-details';
+import {useDispatch, useSelector} from "react-redux";
+import {loadIngridients} from "../../services/actions/ingridients";
+import Modal from "../modal/modal";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 
 const App = () => {
 
-    const burgerService = new BurgerService();
-
-    const [data, setData] = useState([]);
-
-    const [selectedItem, setSelectedItem] = useState(null);
+    const dispatch = useDispatch()
 
     const [orderVisible, setOrderVisible] = useState(false);
 
-    const [productInfo, setProductInfo] = useState(false);
-
     useEffect(() => {
-        const onRequest = () => {
-            burgerService.getAllData()
-                .then (res => setData([...data, ...res]))
-                .catch();
-        };
-        onRequest();
-    }, [] );
+        dispatch(loadIngridients())
+    }, [])
 
+    const productInfo = useSelector(state => state.ingridients.item)
 
-    const onItemSelected = (id) => {
-        setSelectedItem(selectedItem => id);
-    }
+    const orderInfo = useSelector(state => state.orders.order)
 
-    const itemSelected = data.find(item => item._id === selectedItem);
-
-    const showOrderInfo = () => {
-        setOrderVisible(true)
-    }
-
-    const hideOrderInfo = () => {
-        setOrderVisible(false)
-    }
-
-    const showProductInfo = () => {
-        setProductInfo(true)
-    }
-
-    const hideProductInfo = () => {
-        setProductInfo(false)
-    }
 
     return (
         <div className={styles.App}>
             <AppHeader/>
             <div className={styles.main}>
-                {data.length > 0 ? <BurgerIngredients
-                    onItemSelected = {onItemSelected}
-                    onShowProduct = {showProductInfo}
-                    props = {data}/> : null }
-                {data.length > 0 ? <BurgerConstructor props = {data} onShowOrder = {showOrderInfo} /> : null}
-                { productInfo && <IngridientDetails onClose={hideProductInfo} itemSelected={itemSelected}/>}
-                { orderVisible && <OrderDetails onClose = {hideOrderInfo}/> }
+                <DndProvider backend={HTML5Backend}>
+                    <BurgerIngredients/>
+                    <BurgerConstructor />
+                </DndProvider>
+                { productInfo && <Modal><IngridientDetails /></Modal>}
+                { orderInfo && <Modal><OrderDetails/></Modal> }
             </div>
         </div>
     );

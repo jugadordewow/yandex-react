@@ -3,6 +3,8 @@ import { isTemplateExpression } from "typescript";
 class BurgerService {
    _apiURL = 'https://norma.nomoreparties.space/api/ingredients';
 
+   _orderURL = 'https://norma.nomoreparties.space/api/orders'
+
    getResource = async (url, body) => {
 
       const settings = {
@@ -14,7 +16,7 @@ class BurgerService {
      };
 
      if(body){
-         settings.body = json.stringify(body)
+         settings.body = JSON.stringify(body)
      }
 
      try {
@@ -26,11 +28,14 @@ class BurgerService {
      }
    }
 
-   
-
    getAllData = () => {
-     return this.getResource(`${this._apiURL}`,{})
+     return this.getResource(`${this._apiURL}`)
                 .then(res => res.data)
+   }
+
+   getOrderData = (orderItem) => {
+       return this.getResource(`${this._orderURL}`, {ingredients: orderItem})
+
    }
 
 }

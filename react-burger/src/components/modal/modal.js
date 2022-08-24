@@ -1,62 +1,23 @@
 import  { useEffect, useCallback} from "react";
 import ReactDOM from "react-dom";
 import {CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-<<<<<<< HEAD
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import styles from './modal.module.css';
-import {PropTypes} from 'prop-types';
-=======
-import OrderDetails from '../oder-details/order-details';
-import IngridientDetails from "../ingridient-details/ingridient-details";
-import ModalOverlay from "../modal-overlay/modal-overlay";
-import styles from './styles.css';
-
-
+import {useDispatch} from "react-redux";
+import {RESET_INGRIDIENT_ITEM} from "../../services/actions/ingridients";
+import {ORDER_RESET} from "../../services/actions/order";
+import {RESET_CONSTRUCTOR} from "../../services/actions/constructor";
+import PropTypes from "prop-types";
 
 const Modal = (props) => {
-    
-    const [display, setDisplay] = useState(props.modal);
 
-    const onDisplay = () => {
-        setDisplay(display => props.modal)
-    }
-
-    console.log(props.modal)
-
-    console.log(display)
->>>>>>> 0186b68ea8d4088e9e0850fa5d89c9877376a4f1
-
-const ModalWindow = (props) => {
-    const toggler = props.onClose ? props.onClose : null;
-    return (
-<<<<<<< HEAD
-        <div className = {styles.modal_wrapepr}>
-            <div className={styles.modal_close_wrapper} >
-                <CloseIcon type="primary"  className="btn-close" onClick={toggler}/>
-            </div>    
-            {props.children}
-        </div>
-=======
-        
-      <div className={"modal " + display}>
-           
-            <ModalOverlay onClick={() => setDisplay('hidden')} />
-                <div className = {'modal-wrapepr'}>
-                    <CloseIcon type="primary" 
-                    onClick={() => setDisplay('hidden')}
-                    className="btn-close" />
-                    {props.children}
-                </div>
-           
-     </div>
->>>>>>> 0186b68ea8d4088e9e0850fa5d89c9877376a4f1
-    )
-    
-}
-
-const Modal = (props) => {
+    const dispatch = useDispatch()
    
-    const toggler = props.onClose ? props.onClose : null;
+    const toggler = () => {
+        dispatch({type: RESET_INGRIDIENT_ITEM})
+        dispatch({type: ORDER_RESET})
+        dispatch({type: RESET_CONSTRUCTOR})
+    }
 
     const onPressEsc = useCallback((e) => {
         if(e.key === 'Escape') {
@@ -75,15 +36,19 @@ const Modal = (props) => {
     
     return ReactDOM.createPortal(
                 <div className={styles.modal}>
-                    <ModalOverlay  onClose={props.onClose}/>
-                    <ModalWindow onClose={props.onClose}>
+                    <ModalOverlay  onClose={toggler}/>
+                    <div className = {styles.modal_wrapepr}>
+                        <div className={styles.modal_close_wrapper} >
+                            <CloseIcon type="primary"  className="btn-close" onClick={toggler}/>
+                        </div>
                         {props.children}
-                    </ModalWindow>
+                    </div>
                 </div>, portalEl)
 
 }
-Modal.propTypes = {
-    onClose: PropTypes.func.isRequired
-}
 
 export default Modal;
+
+Modal.propTypes = {
+    children: PropTypes.object
+}
