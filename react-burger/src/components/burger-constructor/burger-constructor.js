@@ -54,11 +54,10 @@ const BurgerConstructor = () => {
         })
     })
 
-    const itemUid = uidKey()
 
     const ingredientCard = items.map((item, index) => {
         return(
-            <Ingridient item={item} index={index} moveListItem={moveListItem} key={itemUid}/>
+            <Ingridient item={item} index={index} moveListItem={moveListItem} key={uidKey()}/>
         )
     })
 

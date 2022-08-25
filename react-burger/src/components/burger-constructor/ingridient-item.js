@@ -8,9 +8,6 @@ import {REMOVE_INGRIDIENT_CONSTRUCTOR} from "../../services/actions/constructor"
 import PropTypes from "prop-types";
 
 
-
-const itemUid = uidKey()
-
 export const Ingridient = ({item, index, moveListItem}) => {
     const {_id, name, price, image} = {...item}
 
@@ -57,9 +54,10 @@ export const Ingridient = ({item, index, moveListItem}) => {
         dispatch({type: REMOVE_INGRIDIENT_CONSTRUCTOR, payload: index})
     }
 
+
     return (
         <div className={styles.ingridientWrapper}
-         key={itemUid}
+
          ref={dragDropRef}
         >
          <DragIcon type="primary" />
@@ -68,6 +66,7 @@ export const Ingridient = ({item, index, moveListItem}) => {
               price={price}
               thumbnail={image}
               id = {_id}
+              key={uidKey()}
               handleClose={deleteItem}
             />
         </div>
@@ -77,12 +76,13 @@ export const Ingridient = ({item, index, moveListItem}) => {
 export const Bun = ({bun, pos}) => {
     const {name, _id, price, image, type} = {...bun}
     let typeText = pos === 'top' ? '(верх)' : '(низ)'
+
     return (
         <ConstructorElement
             type={type}
             isLocked={true}
             text={name + typeText}
-            key = {itemUid}
+            key = {uidKey()}
             price={price}
             thumbnail={image}
             id = {_id}
