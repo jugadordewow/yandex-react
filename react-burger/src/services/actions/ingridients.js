@@ -21,8 +21,12 @@ const setError = (err) => ({
 export const loadIngridients = () => (dispatch, _, burgerConstructor) => {
     dispatch(setLoading())
     burgerConstructor.getAllData()
+        .then(res => res.data)
         .then(res => dispatch(getIngridients(res)))
-        .catch(err => dispatch(setError(err)))
+        .catch((err) => {
+            dispatch(setError(err))
+            console.log(err)
+        })
 }
 
 

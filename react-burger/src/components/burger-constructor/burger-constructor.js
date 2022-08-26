@@ -29,14 +29,15 @@ const BurgerConstructor = () => {
        }
     }
 
-    const moveListItem = useCallback((dragIndex, hoverIndex) => {
+    const moveListItem = (dragIndex, hoverIndex) => {
         dispatch({type: MOVE_INGRIDIENT_CONSTRUCTOR, payload:{dragIndex, hoverIndex}})
-    }, [items])
+    }
 
 
     const [{isOver}, dropRef] = useDrop({
         accept:'card',
         drop: (item) => {
+            item.uid = uidKey()
             addIngridient(item)
         },
         collect: (monitor) => ({
@@ -47,6 +48,8 @@ const BurgerConstructor = () => {
     const [, dropItemRef ] = useDrop({
         accept: 'ingridient',
         drop:(item, index) => {
+            item.uid = uidKey()
+            if (typeof hoverIndex == "undefined") return
             moveListItem(item.index, index)
         },
         collect:(monitor) => ({
@@ -57,7 +60,7 @@ const BurgerConstructor = () => {
 
     const ingredientCard = items.map((item, index) => {
         return(
-            <Ingridient item={item} index={index} moveListItem={moveListItem} key={uidKey()}/>
+            <Ingridient item={item} index={index} moveListItem={moveListItem} key={item.uid}/>
         )
     })
 
@@ -112,9 +115,6 @@ const BurgerConstructor = () => {
   )
  }
 
- BurgerConstructor.propTypes = {
-  props: PropTypes.array,
-}
 
 export default BurgerConstructor;
 

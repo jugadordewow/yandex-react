@@ -55,7 +55,7 @@ const Card = ({_id, image, name, price, item}) => {
 }
 
 Card.propTypes = {
-    item: PropTypes.object,
+    item: PropTypes.object.isRequired,
     name: PropTypes.string,
     _id: PropTypes.string,
     image: PropTypes.any,

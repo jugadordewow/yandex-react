@@ -1,5 +1,4 @@
 import { ConstructorElement, DragIcon, CurrencyIcon,  Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import {v4 as uidKey} from  'uuid'
 import styles from './burger-constructor.module.css';
 import {useRef} from 'react';
 import {useDrag, useDrop} from "react-dnd";
@@ -37,6 +36,8 @@ export const Ingridient = ({item, index, moveListItem}) => {
                 return
             }
 
+
+
             if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return
 
             if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return
@@ -66,7 +67,6 @@ export const Ingridient = ({item, index, moveListItem}) => {
               price={price}
               thumbnail={image}
               id = {_id}
-              key={uidKey()}
               handleClose={deleteItem}
             />
         </div>
@@ -79,10 +79,9 @@ export const Bun = ({bun, pos}) => {
 
     return (
         <ConstructorElement
-            type={type}
+            type={pos}
             isLocked={true}
             text={name + typeText}
-            key = {uidKey()}
             price={price}
             thumbnail={image}
             id = {_id}
@@ -91,13 +90,13 @@ export const Bun = ({bun, pos}) => {
 }
 
 Ingridient.propTypes = {
-    item: PropTypes.object,
-    index: PropTypes.number,
-    moveListItem: PropTypes.func
+    item: PropTypes.object.isRequired,
+    index: PropTypes.number.isRequired,
+    moveListItem: PropTypes.func.isRequired
 }
 
 Bun.propTypes = {
-    bun: PropTypes.object,
-    pos: PropTypes.string
+    bun: PropTypes.object.isRequired,
+    pos: PropTypes.string.isRequired
 }
 

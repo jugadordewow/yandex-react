@@ -9,6 +9,7 @@ import thunk from 'redux-thunk';
 import {rootReducer} from "./services/reducers";
 import BurgerService from "./utils/data";
 
+
 const burgerService = new BurgerService();
 
 declare global {

@@ -7,17 +7,17 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import OrderDetails from '../oder-details/order-details';
 import IngridientDetails from '../ingridient-details/ingridient-details';
 import {useDispatch, useSelector} from "react-redux";
-import {loadIngridients} from "../../services/actions/ingridients";
+import {loadIngridients, RESET_INGRIDIENT_ITEM} from "../../services/actions/ingridients";
 import Modal from "../modal/modal";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
+import {ORDER_RESET} from "../../services/actions/order";
+import {RESET_CONSTRUCTOR} from "../../services/actions/constructor";
 
 
 const App = () => {
 
     const dispatch = useDispatch()
-
-    const [orderVisible, setOrderVisible] = useState(false);
 
     useEffect(() => {
         dispatch(loadIngridients())
@@ -26,6 +26,12 @@ const App = () => {
     const productInfo = useSelector(state => state.ingridients.item)
 
     const orderInfo = useSelector(state => state.orders.order)
+
+    const handleClose = () => {
+        productInfo &&  dispatch({type: RESET_INGRIDIENT_ITEM})
+        orderInfo && dispatch({type: ORDER_RESET})
+        orderInfo &&   dispatch({type: RESET_CONSTRUCTOR})
+    }
 
 
     return (
@@ -36,8 +42,8 @@ const App = () => {
                     <BurgerIngredients/>
                     <BurgerConstructor />
                 </DndProvider>
-                { productInfo && <Modal><IngridientDetails /></Modal>}
-                { orderInfo && <Modal><OrderDetails/></Modal> }
+                { productInfo && <Modal onClose={handleClose}><IngridientDetails /></Modal>}
+                { orderInfo && <Modal onClose={handleClose}><OrderDetails/></Modal> }
             </div>
         </div>
     );

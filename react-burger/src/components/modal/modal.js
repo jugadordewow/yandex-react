@@ -3,21 +3,11 @@ import ReactDOM from "react-dom";
 import {CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import styles from './modal.module.css';
-import {useDispatch} from "react-redux";
-import {RESET_INGRIDIENT_ITEM} from "../../services/actions/ingridients";
-import {ORDER_RESET} from "../../services/actions/order";
-import {RESET_CONSTRUCTOR} from "../../services/actions/constructor";
 import PropTypes from "prop-types";
 
 const Modal = (props) => {
 
-    const dispatch = useDispatch()
-   
-    const toggler = () => {
-        dispatch({type: RESET_INGRIDIENT_ITEM})
-        dispatch({type: ORDER_RESET})
-        dispatch({type: RESET_CONSTRUCTOR})
-    }
+    const toggler = props.onClose ? props.onClose : null;
 
     const onPressEsc = useCallback((e) => {
         if(e.key === 'Escape') {
@@ -50,5 +40,6 @@ const Modal = (props) => {
 export default Modal;
 
 Modal.propTypes = {
-    children: PropTypes.object
+    children: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired
 }

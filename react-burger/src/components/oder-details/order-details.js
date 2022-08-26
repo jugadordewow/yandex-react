@@ -6,8 +6,6 @@ const OrderDetails = () => {
 
     const orderNum = useSelector(state => state.orders.order.order.number)
 
-    console.log(orderNum)
-
     return (
         <div className={styles.order_details_wrapper}>
             <div className="order-details-id text_type_digits-large">{orderNum}</div>
