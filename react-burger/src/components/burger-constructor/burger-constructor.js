@@ -1,76 +1,111 @@
-import { useState, useEffect} from "react";
+import {useCallback, useMemo} from "react";
 import PropTypes from 'prop-types';
-import { ConstructorElement, DragIcon, CurrencyIcon,  Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import {CurrencyIcon,  Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor.module.css';
+import {Bun, Ingridient} from "./ingridient-item";
+import {useDispatch, useSelector} from "react-redux";
+import {v4 as uidKey} from  'uuid'
+import {useDrop} from "react-dnd";
+import {loadOrder} from "../../services/actions/order";
+import {ADD_BUN_CONSTRUCTOR,
+        ADD_INGRIDIENT_CONSTRUCTOR,
+        MOVE_INGRIDIENT_CONSTRUCTOR,
+        } from "../../services/actions/constructor";
 
 
-const BurgerConstructor = (props) => {
+const BurgerConstructor = () => {
 
-const [data, setData] = useState(props);
+    const dispatch = useDispatch()
 
-useEffect(() => {setData(props)}, [props]);
+    const items = useSelector(state => state.burger.items)
 
-const bun = data.props.find(item => item.type === 'bun')
+    const bun = useSelector(state => state.burger.bun)
 
-const ingridients = data.props.filter(item => item.type !== 'bun')
+    const addIngridient = (item) => {
+       if (item.type === 'bun') {
+            dispatch({type: ADD_BUN_CONSTRUCTOR, payload: item})
+       } else {
+            dispatch({type: ADD_INGRIDIENT_CONSTRUCTOR, payload: item})
+       }
+    }
 
- let totalItemsPrice = 2*bun.price;
+    const moveListItem = (dragIndex, hoverIndex) => {
+        dispatch({type: MOVE_INGRIDIENT_CONSTRUCTOR, payload:{dragIndex, hoverIndex}})
+    }
 
- const ingridient = ingridients.slice(0,9).map(item => {
-  
-  totalItemsPrice += item.price
 
-   return (
-      
-    <div className={styles.ingridientWrapper}
-         key={item._id}>
-         <DragIcon type="primary" />
-          <ConstructorElement
-              text={item.name}
-              price={item.price}
-              thumbnail={item.image}
-              // key={item._id}
-            />
-        </div>
-   )
+    const [{isOver}, dropRef] = useDrop({
+        accept:'card',
+        drop: (item) => {
+            item.uid = uidKey()
+            addIngridient(item)
+        },
+        collect: (monitor) => ({
+            isOver: monitor.isOver()
+        })
+    })
 
- })
+    const [, dropItemRef ] = useDrop({
+        accept: 'ingridient',
+        drop:(item, index) => {
+            item.uid = uidKey()
+            if (typeof hoverIndex == "undefined") return
+            moveListItem(item.index, index)
+        },
+        collect:(monitor) => ({
+            isOver:monitor.isOver()
+        })
+    })
+
+
+    const ingredientCard = items.map((item, index) => {
+        return(
+            <Ingridient item={item} index={index} moveListItem={moveListItem} key={item.uid}/>
+        )
+    })
+
+    const totalItemsPrice = useMemo(() => {
+        let sum = 0;
+        if(items || bun) {
+            if(bun) {
+                sum += bun.price * 2
+            }
+            if(items) {
+                items.map(item => sum += item.price)
+            }
+            return sum
+        }
+    }, [bun,items])
+
+    const setOrder = () => {
+        if(items.length > 0 && bun) {
+            const order = [bun._id, ...items.map(item => item._id), bun._id]
+            dispatch(loadOrder(order))
+        }else{
+            alert('Заправь свой Генедар, иначе воткнешься в Дренор так что обязательно булку добавь ну и соусов там накидай и ингридиентов всяких')
+        }
+    }
 
   return (
   
-    <div className={styles.constructorWrapper} >
+    <div className={styles.constructorWrapper} ref={dropRef}>
       <div className={styles.constructor}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={bun.name + '(верх)'} 
-          key = {bun._id}
-          price={bun.price}
-          thumbnail={bun.image}
-        />
+          {bun && <Bun bun={bun} pos="top"/>}
 
-        <div className={styles.constructorIngridientWrapper}>
-          {ingridient}
+        <div className={styles.constructorIngridientWrapper} ref={dropItemRef}>
+          {ingredientCard}
         </div>
-        
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={bun.name + '(низ)'}
-          price={bun.price}
-          thumbnail={bun.image}
-          key={bun._id+1}
-        />
+          {bun && <Bun bun={bun} pos="bottom" /> }
       </div>
       <div className = {styles.constructorPriceFooter}>
           <div className = {styles.totalPriceText} >
               <p className={styles.totalPriceTextP } >
                   {totalItemsPrice}
               </p>
-              <CurrencyIcon type="primary" />    
+              <CurrencyIcon type="primary" />
           </div>
           
-           <Button type="primary" size="large" onClick={props.onShowOrder}>
+           <Button type="primary" size="large"  onClick={setOrder}>
                 Заказать
            </Button>
       </div>
@@ -80,9 +115,6 @@ const ingridients = data.props.filter(item => item.type !== 'bun')
   )
  }
 
- BurgerConstructor.propTypes = {
-  props: PropTypes.array.isRequired,
-}
 
 export default BurgerConstructor;
 

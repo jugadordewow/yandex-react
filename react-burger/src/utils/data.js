@@ -1,47 +1,44 @@
 import { isTemplateExpression } from "typescript";
 
 class BurgerService {
-   _apiURL = 'https://norma.nomoreparties.space/api/ingredients';
 
-   getResource = async (url) => {
+    _baseURL = 'https://norma.nomoreparties.space/api'
+
+   _apiURL = '/ingredients/';
+
+   _orderURL = '/orders'
+
+   getResource = async (url, body) => {
 
       const settings = {
-         method: 'GET',
+         method: body ? 'POST':'GET',
          headers: {
              Accept: 'application/json',
              'Content-Type': 'application/json',
          }
      };
 
+     if(body){
+         settings.body = JSON.stringify(body)
+     }
+
+
+
      try {
          const result = await fetch(url, settings);
-         const res = await result.json();
+         const res = result.ok ? await result.json() : await Promise.reject(result);
          return res;
      }catch(e){
          return e;
      }
    }
 
-   
-
    getAllData = () => {
-     return this.getResource(`${this._apiURL}`)
-                .then(res => res.data)
+     return this.getResource(`${this._baseURL}${this._apiURL}`)
    }
 
-   getBuns = () => {
-      return this.getResource(`${this._apiURL}`)
-      .then(res => res.data.filter(item => item.type.match('bun')))
-   }
-
-   getMain = () => {
-      return this.getResource(`${this._apiURL}`)
-      .then(res => res.data.filter(item => item.type.match('main')))
-   }
-
-   getIngridient = (id) => {
-      return this.getResource(`${this._apiURL}`)
-      .then(res => res.data.filter(item => item._id === id))
+   getOrderData = (orderItem) => {
+       return this.getResource(`${this._baseURL}${this._orderURL}`, {ingredients: orderItem})
    }
 
 }
