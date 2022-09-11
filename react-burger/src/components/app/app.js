@@ -1,7 +1,9 @@
 import React from 'react';
+import {BrowserRouter as Router, Switch, Route, useLocation, useHistory} from "react-router-dom";
 import { useEffect, useState } from 'react';
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
+import {HomePage} from '../../pages';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import OrderDetails from '../oder-details/order-details';
@@ -36,15 +38,28 @@ const App = () => {
 
     return (
         <div className={styles.App}>
+            <Router>
             <AppHeader/>
             <div className={styles.main}>
-                <DndProvider backend={HTML5Backend}>
-                    <BurgerIngredients/>
-                    <BurgerConstructor />
-                </DndProvider>
-                { productInfo && <Modal onClose={handleClose}><IngridientDetails /></Modal>}
-                { orderInfo && <Modal onClose={handleClose}><OrderDetails/></Modal> }
+                    <Switch>
+                        <Route path="/" exact={true} >
+                            <HomePage />
+                        </Route>
+                        <Route path="/login" exact={true} >
+                            <HomePage />
+                        </Route>
+                        <Route path="/" exact={true} >
+                            <HomePage />
+                        </Route>
+                        <Route path="/" exact={true} >
+                            <HomePage />
+                        </Route>
+                        <Route path="/" exact={true} >
+                            <HomePage />
+                        </Route>
+                    </Switch>
             </div>
+            </Router>
         </div>
     );
 }
