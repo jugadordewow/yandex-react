@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Switch, Route, useLocation, useHistory} from "r
 import { useEffect, useState } from 'react';
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import {HomePage} from '../../pages';
+import {HomePage, Login, ResetPassword, Registration, ForgotPassword, Page404} from '../../pages';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import OrderDetails from '../oder-details/order-details';
@@ -46,16 +46,19 @@ const App = () => {
                             <HomePage />
                         </Route>
                         <Route path="/login" exact={true} >
-                            <HomePage />
+                            <Login />
                         </Route>
-                        <Route path="/" exact={true} >
-                            <HomePage />
+                        <Route path="/reset-password" exact={true} >
+                            <ResetPassword />
                         </Route>
-                        <Route path="/" exact={true} >
-                            <HomePage />
+                        <Route path="/register" exact={true} >
+                            <Registration />
                         </Route>
-                        <Route path="/" exact={true} >
-                            <HomePage />
+                        <Route path="/forgot-password" exact={true} >
+                            <ForgotPassword />
+                        </Route>
+                        <Route path="*" exact={true} >
+                            <Page404 />
                         </Route>
                     </Switch>
             </div>
