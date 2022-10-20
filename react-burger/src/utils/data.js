@@ -103,9 +103,6 @@ class BurgerService {
        return this.getResource(`${this._baseURL}${this._orderURL}`, {ingredients: orderItem})
    }
 
-   getUserAuthRequest = (form) => {
-
-   }
 
    remindPswd = (form) => {
         return this.getAuthPswdData(`${this._baseURL}${this._pswdForgot}`, {form}, "POST")
@@ -123,7 +120,7 @@ class BurgerService {
         return this.getAuthData(`${this._baseURL}${this._registerUser}`, {form}, "POST")
     }
 
-   getAuthUser = (form) => {
+   getAuthUser = () => {
         return this.getAuthData(`${this._baseURL}${this._authUser}`, {},"GET")
    }
 

@@ -1,16 +1,7 @@
 import {
-    getUserAuthRequest,
-    remindPswd,
-    resetPswd,
-    authUser,
-    getAuthUser,
-    updateAuthUser,
-    accessToken
-} from '../../utlls/api';
-import {
     deleteCookie,
     setCookie
-} from '../../utlls/cookie';
+} from '../../utils/cookie';
 
 export const FORGOT_PSWD_REQUEST = "FORGOT_PSWD_REQUEST"
 export const FORGOT_PSWD_SUCCESS = "FORGOT_PSWD_SUCCESS"
@@ -143,7 +134,79 @@ export const updateAuth = (form) => (dispatch, _, burgerConstructor) => {
     dispatch({type: UPDATE_USER_REQUEST})
     burgerConstructor.updateAuthUser(form)
         .then(res => {
-
+            if (res && res.success) {
+                dispatch({
+                    type: USER_DATA_SUCCESS,
+                    payload: res.user
+                });
+            } else {
+                dispatch({
+                    type: USER_DATA_FAILED
+                });
+            }
+        })
+        .catch(e => {
+            if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
+                dispatch(getAccessToken());
+                dispatch(updateAuth(form));
+            } else dispatch({
+                type: USER_DATA_FAILED,
+            })
         })
 }
 
+export const getAuth = () => (dispatch, _, burgerConstructor) => {
+    dispatch({
+        type: USER_DATA_REQUEST
+    });
+    burgerConstructor.getAuthUser()
+        .then(res => {
+            if (res && res.success) {
+                dispatch({
+                    type: USER_DATA_SUCCESS,
+                    user: res.user
+                });
+                return res;
+            } else {
+                dispatch({
+                    type: USER_DATA_FAILED,
+                });
+            }
+        })
+        .catch(e => {
+            if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
+                dispatch(getAccessToken());
+                dispatch(getAuth());
+            } else dispatch({
+                type: USER_DATA_FAILED,
+            })
+        });
+}
+
+export const getAccessToken = () => (dispatch, _, burgerConstructor) => {
+        dispatch({ type: AUTH_TOKEN_REQUEST });
+        burgerConstructor.accessToken()
+            .then(res => {
+                const accessToken = res.accessToken.split('Bearer ')[1];
+                const refreshToken = res.refreshToken;
+                setCookie('token', accessToken);
+                localStorage.setItem('refreshToken', refreshToken);
+                if (res && res.success) {
+                    dispatch({
+                        type: AUTH_TOKEN_SUCCESS
+                    });
+                } else {
+                    logout();
+                    dispatch({
+                        type: AUTH_TOKEN_FAILED
+                    });
+                }
+            })
+            .catch(e => {
+                if (e.message === 'Token is invalid') {
+                    dispatch(getAccessToken());
+                } else dispatch({
+                    type: AUTH_TOKEN_FAILED
+                })
+            });
+};
