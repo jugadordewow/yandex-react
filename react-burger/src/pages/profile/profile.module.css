@@ -3,7 +3,7 @@ main {
     margin:0 auto;
     text-align:left;
 }
-.conteiner {
+.container {
     display:flex;
     flex-direction:row;
     justify-content:flex-start;

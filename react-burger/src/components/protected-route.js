@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { getAccessToken } from '../services/action/auth';
+import {getAccessToken} from "../services/actions/auth";
 
 
 export function ProtectedRoute({ children, ...rest }) {
