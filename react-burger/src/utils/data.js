@@ -117,7 +117,11 @@ class BurgerService {
    }
 
     registerUser = (form) => {
-        return this.getAuthData(`${this._baseURL}${this._registerUser}`, {form}, "POST")
+        return this.getAuthData(`${this._baseURL}${this._registerUser}`, {
+            email: form.email,
+            password: form.password,
+            name: form.name
+        }, "POST")
     }
 
    getAuthUser = () => {

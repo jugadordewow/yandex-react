@@ -66,7 +66,7 @@ export const resetPaswd = (form, redirect) => (dispatch, _, burgerConstructor) =
 }
 
 export const userRegister = (form,redirect) => (dispatch, _, burgerConstructor) => {
-    dispatch({REGISTER_USER_REQUEST})
+    dispatch({type:REGISTER_USER_REQUEST})
     burgerConstructor.registerUser(form)
         .then(res => {
             const accessToken = res.accessToken.split('Bearer ')[1];
@@ -89,7 +89,7 @@ export const userRegister = (form,redirect) => (dispatch, _, burgerConstructor) 
 }
 
 export const login = (form) => (dispatch, _, burgerConstructor) => {
-    dispatch({LOGIN_REQUEST})
+    dispatch({type:LOGIN_REQUEST})
     burgerConstructor.authUser(form)
         .then(res => {
             const accessToken = res.accessToken.split('Bearer ')[1];
