@@ -32,7 +32,7 @@ const Login = () => {
                     <EmailInput  name={'email'} onChange={onChange} value={form.email}/>
                 </div>
                 <div className={styles.formField}>
-                    <PasswordInput name={'password'} value={form.password}/>
+                    <PasswordInput name={'password'} onChange={onChange} value={form.password}/>
                 </div>
                 <div className={styles.formField}>
                     <Button type="primary" size="medium">
