@@ -34,7 +34,7 @@ const ProfilePage = () => {
         history.push('/login')
     };
 
-    const llogout = e => {
+    const userLogout = e => {
         e.preventDefault();
         dispatch(logout(redirect));
     };
@@ -61,7 +61,7 @@ const ProfilePage = () => {
                         <ul>
                             <li className={styles.menu_item + ' text text_type_main-medium'}>Профиль</li>
                             <li className={styles.menu_item + ' text text_type_main-medium'}><Link to="/orders" className={styles.link + ' text_color_inactive'}>История заказов</Link></li>
-                            <li className={styles.menu_item + ' text text_type_main-medium'} onClick={llogout}><span className={styles.link + ' text_color_inactive'}>Выйти</span></li>
+                            <li className={styles.menu_item + ' text text_type_main-medium'} onClick={userLogout}><span className={styles.link + ' text_color_inactive'}>Выйти</span></li>
                         </ul>
                         <p className={styles.text + ' text text_type_main-default text_color_inactive mt-20'}>В этом разделе вы можете изменить свои персональные данные</p>
                     </section>

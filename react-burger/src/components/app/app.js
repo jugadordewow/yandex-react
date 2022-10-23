@@ -20,24 +20,7 @@ import { ProtectedRoute } from '../protected-route';
 
 
 const App = () => {
-
-    console.log(useLocation)
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(loadIngridients())
-    }, [])
-    //
-    // const productInfo = useSelector(state => state.ingridients.item)
-    //
-    // const orderInfo = useSelector(state => state.orders.order)
-    //
-    // const handleClose = () => {
-    //     productInfo &&  dispatch({type: RESET_INGRIDIENT_ITEM})
-    //     orderInfo && dispatch({type: ORDER_RESET})
-    //     orderInfo &&   dispatch({type: RESET_CONSTRUCTOR})
-    // }
+    
 
     const location = useLocation();
     const history = useHistory();
