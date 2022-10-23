@@ -90,6 +90,7 @@ class BurgerService {
         if(body){
             settings.body = JSON.stringify(body)
         }
+        console.log(settings.body)
         return await this.checkResponse(url, settings)
     }
 
@@ -109,11 +110,12 @@ class BurgerService {
    }
 
    resetPswd = (form) => {
-       return this.getAuthPswdData(`${this._baseURL}${this._pswdReset}`, {form}, "POST")
+       return this.getAuthPswdData(`${this._baseURL}${this._pswdReset}`, {email: form.email}, "POST")
    }
 
    authUser = (form) => {
-        return this.getAuthData(`${this._baseURL}${this._authLogin}`, {form}, "POST")
+        return this.getAuthData(`${this._baseURL}${this._authLogin}`, {email: form.email,
+            password: form.password}, "POST")
    }
 
     registerUser = (form) => {

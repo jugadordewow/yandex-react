@@ -11,11 +11,13 @@ import {ADD_BUN_CONSTRUCTOR,
         ADD_INGRIDIENT_CONSTRUCTOR,
         MOVE_INGRIDIENT_CONSTRUCTOR,
         } from "../../services/actions/constructor";
+import {useHistory} from "react-router-dom";
 
 
 const BurgerConstructor = () => {
 
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const items = useSelector(state => state.burger.items)
 
@@ -78,12 +80,17 @@ const BurgerConstructor = () => {
     }, [bun,items])
 
     const setOrder = () => {
-        if(items.length > 0 && bun) {
-            const order = [bun._id, ...items.map(item => item._id), bun._id]
-            dispatch(loadOrder(order))
-        }else{
-            alert('Заправь свой Генедар, иначе воткнешься в Дренор так что обязательно булку добавь ну и соусов там накидай и ингридиентов всяких')
+        if(localStorage.refreshToken) {
+            if(items.length > 0 && bun) {
+                const order = [bun._id, ...items.map(item => item._id), bun._id]
+                dispatch(loadOrder(order))
+            }else{
+                alert('Заправь свой Генедар, иначе воткнешься в Дренор так что обязательно булку добавь ну и соусов там накидай и ингридиентов всяких')
+            }
+        } else {
+            history.push('/login')
         }
+
     }
 
   return (
