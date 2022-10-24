@@ -7,7 +7,7 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import {rootReducer} from "./services/reducers";
-import BurgerService from "./utils/data";
+import BurgerService from "./utils/api";
 import {BrowserRouter as Router} from "react-router-dom";
 
 const burgerService = new BurgerService();
