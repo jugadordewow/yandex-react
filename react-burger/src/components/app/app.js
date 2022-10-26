@@ -54,8 +54,9 @@ const App = () => {
                             <ForgotPassword />
                         </Route>
                         <Route path="/ingredients/:id" exact={true}>
-                            { (!modal) ? <IngridientPage /> : <HomePage modal={modal} /> }
+                         { (!modal) ? <IngridientPage /> : <HomePage modal={modal} /> }
                         </Route>
+
                         <ProtectedRoute path="/profile" exact={false}>
                             <ProfilePage />
                         </ProtectedRoute>

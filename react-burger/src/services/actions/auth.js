@@ -2,71 +2,70 @@ import {
     deleteCookie,
     setCookie
 } from '../../utils/cookie';
+import { createAction } from '@reduxjs/toolkit';
 
-export const FORGOT_PSWD_REQUEST = "FORGOT_PSWD_REQUEST"
-export const FORGOT_PSWD_SUCCESS = "FORGOT_PSWD_SUCCESS"
-export const FORGOT_PSWD_FAILED = "FORGOT_PSWD_FAILED"
+export const forgotPswdRequest = createAction("@@forgotPswd/REQUEST")
+export const forgotPswdSuccess = createAction("@@forgotPswd/SUCCESS")
+export const forgotPswdFailed =  createAction('@@forgotPswd/FAILED' )
 
-export const RESET_PSWD_REQUEST = "RESET_PSWD_REQUEST"
-export const RESET_PSWD_SUCCESS = "RESET_PSWD_SUCCESS"
-export const RESET_PSWD_FAILED = "RESET_PSWD_FAILED"
+export const resetPswdRequest = createAction("@@resetPswd/REQUEST")
+export const resetPswdSuccess = createAction("@@resetPswd/SUCCESS")
+export const resetPswdFailed = createAction('@@resetPswd/FAILED' )
 
-export const REGISTER_USER_REQUEST = "REGISTER_USER_REQUEST"
-export const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS"
-export const REGISTER_USER_FAILED = "REGISTER_USER_FAILED"
+export const registerUserRequest = createAction("@@registerUser/REQUEST")
+export const registerUserSuccess = createAction("@@registerUser/SUCCESS")
+export const registerUserFailed = createAction('@@registerUser/FAILED' )
 
-export const LOGIN_REQUEST = "LOGIN_REQUEST"
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
-export const LOGIN_FAILED = "LOGIN_FAILED"
+export const loginUserRequest = createAction("@@loginUser/REQUEST")
+export const loginUserSuccess = createAction("@@loginUser/SUCCESS")
+export const loginUserFailed = createAction('@@loginUser/FAILED' )
 
-export const LOGOUT_REQUEST = "LOGOUT_REQUEST"
-export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS"
-export const LOGOUT_FAILED = "LOGOUT_FAILED"
+export const logoutUserRequest = createAction("@@logoutUser/REQUEST")
+export const logoutUserSuccess = createAction("@@logoutUser/SUCCESS")
+export const logoutUserFailed = createAction('@@logoutUser/FAILED' )
 
-export const USER_DATA_REQUEST = "USER_DATA_REQUEST"
-export const USER_DATA_SUCCESS = "USER_DATA_SUCCESS"
-export const USER_DATA_FAILED = "USER_DATA_FAILED"
+export const userRequest = createAction("@@user/REQUEST")
+export const userSuccess = createAction("@@user/SUCCESS")
+export const userFailed =  createAction('@@user/FAILED' )
 
-export const AUTH_TOKEN_REQUEST = "AUTH_TOKEN_REQUEST"
-export const AUTH_TOKEN_SUCCESS = "AUTH_TOKEN_SUCCESS"
-export const AUTH_TOKEN_FAILED = "AUTH_TOKEN_FAILED"
+export const updateUserRequest = createAction("@@updateUser/REQUEST")
+export const updateUserSuccess = createAction("@@updateUser/SUCCESS")
+export const updateUserFailed =  createAction('@@updateUser/FAILED' )
 
-export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST"
-export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS"
-export const UPDATE_USER_FAILED = "UPDATE_USER_FAILED"
-
-
+export const authTokenRequest = createAction("@@authToken/REQUEST")
+export const authTokenSuccess = createAction("@@authToken/SUCCESS")
+export const authTokenFailed = createAction('@@authToken/FAILED' )
 
 export const forgotPswd = (form, redirect) => (dispatch, _, burgerConstructor) => {
-    dispatch({type: FORGOT_PSWD_REQUEST})
+    dispatch(forgotPswdRequest())
     burgerConstructor.remindPswd(form,redirect)
         .then(res => {
             if(res && res.success){
-                dispatch({type: FORGOT_PSWD_SUCCESS})
+                dispatch(forgotPswdSuccess())
                 redirect()
             } else {
-                dispatch({type: FORGOT_PSWD_FAILED})
+                dispatch(forgotPswdFailed())
             }
         })
-        .catch(() => dispatch({type: FORGOT_PSWD_FAILED}))
+        .catch(error => {dispatch(forgotPswdFailed(error))})
 }
 
 export const resetPaswd = (form, redirect) => (dispatch, _, burgerConstructor) => {
-    dispatch({type:RESET_PSWD_REQUEST})
+    dispatch(resetPswdRequest())
     burgerConstructor.resetPswd(form)
         .then(res => {
             if(res && res.success) {
-                dispatch({type: RESET_PSWD_SUCCESS})
+                dispatch(resetPswdSuccess())
                 redirect()
             }else {
-                dispatch({type: RESET_PSWD_FAILED})
+                dispatch(resetPswdFailed())
             }
         })
-        .catch(() => dispatch({type: RESET_PSWD_FAILED}))
+        .catch((error) => dispatch(resetPswdFailed(error)))
 }
 
 export const userRegister = (form,redirect) => (dispatch, _, burgerConstructor) => {
-    dispatch({type:REGISTER_USER_REQUEST})
+    dispatch(registerUserRequest())
     burgerConstructor.registerUser(form)
         .then(res => {
             const accessToken = res.accessToken.split('Bearer ')[1];
@@ -74,22 +73,18 @@ export const userRegister = (form,redirect) => (dispatch, _, burgerConstructor) 
             setCookie('token', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
             if (res && res.success) {
-                dispatch({
-                    type: REGISTER_USER_SUCCESS,
-                    payload:res.user
-                });
+                dispatch(registerUserSuccess(res.user));
                 redirect();
             } else {
-                dispatch({
-                    type: REGISTER_USER_FAILED
-                });
+                dispatch(registerUserFailed());
             }
         })
+        .catch((error) => dispatch(registerUserFailed(error)))
 
 }
 
 export const login = (form) => (dispatch, _, burgerConstructor) => {
-    dispatch({type:LOGIN_REQUEST})
+    dispatch(loginUserRequest())
     burgerConstructor.authUser(form)
         .then(res => {
             const accessToken = res.accessToken.split('Bearer ')[1];
@@ -97,94 +92,74 @@ export const login = (form) => (dispatch, _, burgerConstructor) => {
             setCookie('token', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
                 if(res && res.success) {
-                    dispatch({type: LOGIN_SUCCESS, payload: res.user})
+                    dispatch(loginUserSuccess(res.user))
                 } else {
-                    dispatch({type: LOGIN_FAILED})
+                    dispatch(loginUserFailed())
                 }
             }
         )
-        .catch(() => {
-            dispatch({type: LOGIN_FAILED})
+        .catch((error) => {
+            dispatch(loginUserFailed(error))
         })
 }
 
 export const logout = (redirect) => (dispatch, _, burgerConstructor) => {
-    dispatch({type: LOGOUT_REQUEST})
+    dispatch(logoutUserRequest())
     burgerConstructor.logoutUser()
         .then(res => {
             localStorage.removeItem('refreshToken');
             deleteCookie('token');
             if (res && res.success) {
-                dispatch({
-                    type: LOGOUT_SUCCESS,
-                });
+                dispatch(logoutUserSuccess());
                 redirect();
             } else {
-                dispatch({
-                    type: LOGOUT_FAILED
-                });
+                dispatch(logoutUserFailed());
             }
         })
-        .catch(() => {
-            dispatch({ type: LOGOUT_FAILED})
+        .catch((error) => {
+            dispatch(logoutUserFailed(error))
         })
 }
 
 export const updateAuth = (form) => (dispatch, _, burgerConstructor) => {
-    dispatch({type: UPDATE_USER_REQUEST})
+    dispatch(updateUserRequest())
     burgerConstructor.updateAuthUser(form)
         .then(res => {
             if (res && res.success) {
-                dispatch({
-                    type: USER_DATA_SUCCESS,
-                    payload: res.user
-                });
+                dispatch(updateUserSuccess(res.user));
             } else {
-                dispatch({
-                    type: USER_DATA_FAILED
-                });
+                dispatch(updateUserFailed());
             }
         })
         .catch(e => {
             if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
                 dispatch(getAccessToken());
                 dispatch(updateAuth(form));
-            } else dispatch({
-                type: USER_DATA_FAILED,
-            })
+            } else dispatch(updateUserFailed())
         })
 }
 
 export const getAuth = () => (dispatch, _, burgerConstructor) => {
-    dispatch({
-        type: USER_DATA_REQUEST
-    });
+    dispatch(userRequest());
     burgerConstructor.getAuthUser()
         .then(res => {
             if (res && res.success) {
-                dispatch({
-                    type: USER_DATA_SUCCESS,
-                    user: res.user
-                });
+                dispatch(userSuccess(res.user));
                 return res;
             } else {
-                dispatch({
-                    type: USER_DATA_FAILED,
-                });
+                dispatch(userFailed());
             }
         })
         .catch(e => {
             if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
                 dispatch(getAccessToken());
                 dispatch(getAuth());
-            } else dispatch({
-                type: USER_DATA_FAILED,
-            })
+            } else dispatch(userFailed(e.message))
         });
 }
 
 export const getAccessToken = () => (dispatch, _, burgerConstructor) => {
-        dispatch({ type: AUTH_TOKEN_REQUEST });
+        dispatch(authTokenRequest());
         burgerConstructor.accessToken()
             .then(res => {
                 const accessToken = res.accessToken.split('Bearer ')[1];
@@ -192,21 +167,15 @@ export const getAccessToken = () => (dispatch, _, burgerConstructor) => {
                 setCookie('token', accessToken);
                 localStorage.setItem('refreshToken', refreshToken);
                 if (res && res.success) {
-                    dispatch({
-                        type: AUTH_TOKEN_SUCCESS
-                    });
+                    dispatch(authTokenSuccess());
                 } else {
                     logout();
-                    dispatch({
-                        type: AUTH_TOKEN_FAILED
-                    });
+                    dispatch(authTokenFailed());
                 }
             })
             .catch(e => {
                 if (e.message === 'Token is invalid') {
                     dispatch(getAccessToken());
-                } else dispatch({
-                    type: AUTH_TOKEN_FAILED
-                })
+                } else dispatch(authTokenFailed(e.message))
             });
 };

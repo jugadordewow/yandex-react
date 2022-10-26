@@ -23,6 +23,16 @@
     left: var(--x10);
     margin-top: 0;
 }
+.ingridient_detailes_page_heading {
+    font-family: 'JetBrains Mono', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 40px;
+    align-items: center;
+    color: #F2F2F3;
+    text-align: center;
+}
 .ingridient_item_name {
     margin-top: var(--x4);
     font-weight: 700;

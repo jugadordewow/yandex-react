@@ -61,7 +61,7 @@ const Registration = () => {
                 </div>
                 <div className={styles.formField}>
                     <Button type="primary" size="medium">
-                        Войти
+                        Регистрация
                     </Button>
                 </div>
             </form>

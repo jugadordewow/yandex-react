@@ -12,11 +12,16 @@ import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {ORDER_RESET} from "../../services/actions/order";
 import {RESET_CONSTRUCTOR} from "../../services/actions/constructor";
+import PropTypes from "prop-types";
+import { useLocation, useHistory } from "react-router-dom";
 
 
-const HomePage = () => {
+const HomePage = ({modal}) => {
 
     const dispatch = useDispatch()
+    const location = useLocation();
+
+
 
     useEffect(() => {
         dispatch(loadIngridients())
@@ -46,3 +51,7 @@ const HomePage = () => {
 }
 
 export default HomePage;
+
+HomePage.propTypes = {
+    modal: PropTypes.bool
+};

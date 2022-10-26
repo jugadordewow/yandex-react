@@ -5,20 +5,18 @@ import {useDispatch, useSelector } from "react-redux";
 import { useDrag } from 'react-dnd';
 import PropTypes from "prop-types";
 import {GET_INGRIDIENT_ITEM} from "../../services/actions/ingridients";
-
+import { Link, useLocation } from 'react-router-dom';
 
 
 const Card = ({_id, image, name, price, item}) => {
 
     const dispatch = useDispatch()
+    const location = useLocation()
 
     const bun = useSelector(state => state.burger.bun)
 
     const burgerItems = useSelector(state=> state.burger.items)
 
-    const onModal = (item) => {
-        dispatch({type: GET_INGRIDIENT_ITEM, payload: item})
-    }
 
     let counter;
 
@@ -38,19 +36,20 @@ const Card = ({_id, image, name, price, item}) => {
     })
 
     return (
-        <div className={styles.card}
-             key={_id}
-             onClick={() => {onModal(item)}}
-             ref = {dragRef}
-        >
-            { counter > 0 && <Counter count={counter} size="default" />}
-            <img src ={image} alt={name} />
-            <div className={styles.card_price_wrapper}>
-                <span className={styles.card_price}>{price}</span>
-                <CurrencyIcon type="primary" />
-            </div>
-            <span className={styles.card_name}>{name}</span>
-        </div>
+        <Link to={{pathname: `/ingredients/${_id}`, state: { background: location } }} className={styles.cardLink}  ref={dragRef}>
+                <div className={styles.card}
+                     key={_id}
+                     ref = {dragRef}
+                >
+                    { counter > 0 && <Counter count={counter} size="default" />}
+                    <img src ={image} alt={name} />
+                    <div className={styles.card_price_wrapper}>
+                        <span className={styles.card_price}>{price}</span>
+                        <CurrencyIcon type="primary" />
+                    </div>
+                    <span className={styles.card_name}>{name}</span>
+                </div>
+        </Link>
     )
 }
 
