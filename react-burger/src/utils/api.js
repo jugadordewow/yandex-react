@@ -24,13 +24,11 @@ class BurgerService {
    _registerUser = '/auth/register';
 
    checkResponse = async (url, settings) => {
-       try {
+
            const result = await fetch(url, settings);
            const res = result.ok ? await result.json() : await Promise.reject(result);
            return res;
-       }catch(e){
-           return e;
-       }
+
    }
 
    getResource = async (url, body) => {

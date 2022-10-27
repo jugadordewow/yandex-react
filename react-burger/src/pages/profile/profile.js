@@ -54,7 +54,7 @@ const ProfilePage = () => {
     );
 
     return (
-        <div>
+        <>
             <main>
                 <div className={styles.container + ' pt-20'}>
                     <section className={styles.menu + ' mr-15'}>
@@ -103,7 +103,7 @@ const ProfilePage = () => {
                     </section>
                 </div>
             </main>
-        </div>
+        </>
     );
 }
 

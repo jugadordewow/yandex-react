@@ -25,7 +25,9 @@ const AppHeader = (props) => {
                         <span className={style.navItemText + " text text_type_main-default text_color_inactive"}>Лента заказов</span>
                     </NavLink>
                 </nav>
-                <Logo />
+                <NavLink to="/">
+                    <Logo />
+                </NavLink>
                 <NavLink to="/profile" className={style.btnEntry} >
                     <ProfileIcon type="secondary" />
                     <span className={style.btnEntryText + " text text_type_main-default text_color_inactive"}>Личный кабинет</span>

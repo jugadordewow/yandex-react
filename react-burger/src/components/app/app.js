@@ -20,6 +20,12 @@ import { ProtectedRoute } from '../protected-route';
 
 
 const App = () => {
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(loadIngridients())
+    }, [])
     
 
     const location = useLocation();

@@ -23,7 +23,7 @@ const Login = () => {
     }
 
     return(
-        <div>
+        <>
         {(localStorage.refreshToken && !logout) ? (<Redirect to='/' />) : (
         <div className={styles.formWrapper}>
             <form className={styles.loginForm} onSubmit={userAuth}>
@@ -50,7 +50,7 @@ const Login = () => {
             </div>
         </div>
         )}
-        </div>
+        </>
     )
 }
 

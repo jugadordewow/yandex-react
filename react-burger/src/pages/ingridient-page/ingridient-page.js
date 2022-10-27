@@ -7,17 +7,12 @@ import IngridientDetails   from "../../components/ingridient-details/ingridient-
 
 const IngridientPage = () => {
 
-    const dispatch = useDispatch();
     const { id } = useParams();
 
-    useEffect(() => {
-        dispatch(loadIngridients())
-    }, [])
-
     return (
-        <div>
+        <>
             <IngridientDetails itemId = {id} />
-        </div>
+        </>
     )
 };
 
