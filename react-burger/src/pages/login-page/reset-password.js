@@ -19,7 +19,7 @@ const ResetPassword = () => {
     const onIconClick = () => {
         setTimeout(() => inputRef.current.focus(), 0)
     }
-    if ((typeof history.location.state == "undefined") || (!history.location.state.reset)) history.push('/forgot-password');
+    if ((typeof history.location.state == "undefined") || (!history.location.state.reset)) { history.push('/forgot-password')};
 
     const redirect = () => {
         history.push('/')
@@ -30,7 +30,7 @@ const ResetPassword = () => {
         dispatch(resetPaswd(form, redirect));
     };
 
-    if (localStorage.refreshToken) redirect();
+    if (localStorage.refreshToken) { redirect() };
 
     return (
         <div className={styles.formWrapper}>

@@ -27,8 +27,8 @@ import {
 } from '../actions/auth';
 
 const initialState = {
-    userName:'',
-    userEmail:'',
+    name:'',
+    email:'',
 
     loginRequest: false,
     loginFailed: false,
@@ -78,8 +78,8 @@ export const authReducer = createReducer(initialState,  builder => {
         })
         .addCase(registerUserSuccess, (state, action) => {
             state.registerRequest = false;
-            state.userName = action.payload.name;
-            state.userEmail = action.payload.email;
+            state.name = action.payload.name;
+            state.email = action.payload.email;
         })
         .addCase(registerUserFailed, state => {
             state.registerFailed = true;
@@ -89,8 +89,8 @@ export const authReducer = createReducer(initialState,  builder => {
         })
         .addCase(userSuccess, (state, action) => {
             state.authRequest = false;
-            state.userName = action.payload.name;
-            state.userEmail = action.payload.email;
+            state.name = action.payload.name;
+            state.email = action.payload.email;
         })
         .addCase(userFailed, state => {
             state.authFailed = true;
@@ -100,8 +100,8 @@ export const authReducer = createReducer(initialState,  builder => {
         })
         .addCase(updateUserSuccess, (state, action) => {
             state.authRequest = false;
-            state.userName = action.payload.name;
-            state.userEmail = action.payload.email;
+            state.name = action.payload.name;
+            state.email = action.payload.email;
         })
         .addCase(updateUserFailed, state => {
             state.authFailed = true;
@@ -111,8 +111,8 @@ export const authReducer = createReducer(initialState,  builder => {
         })
         .addCase(loginUserSuccess, (state, action) => {
             state.loginRequest = false;
-            state.userName = action.payload.name;
-            state.userEmail = action.payload.email;
+            state.name = action.payload.name;
+            state.email = action.payload.email;
         })
         .addCase(loginUserFailed, state => {
             state.loginFailed = true;
@@ -123,6 +123,8 @@ export const authReducer = createReducer(initialState,  builder => {
         .addCase(logoutUserSuccess, state => {
             state.logoutRequest = false;
             state.logoutFailed = false;
+            state.name = '';
+            state.email = '';
         })
         .addCase(logoutUserFailed, state => {
             state.logoutFailed = true;

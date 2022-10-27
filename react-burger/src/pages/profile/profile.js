@@ -14,6 +14,7 @@ const ProfilePage = () => {
         state => state.auth
     );
 
+
     const [form, setForm] = useState({ name:name, email:email, password: '' });
     const onChange = e => {
         setForm({ ...form, [e.target.name]: e.target.value });
