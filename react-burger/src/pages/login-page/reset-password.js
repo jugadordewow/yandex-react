@@ -40,12 +40,11 @@ const ResetPassword = () => {
                     <PasswordInput name={'password'} />
                 </div>
                 <div className={styles.formField}>
-                    <Input  name={'email'}
+                    <Input  name={'token'}
                             placeholder={'Введите код из письма'}
                             onChange={onChange}
                             icon={'CurrencyIcon'}
                             value={form.token}
-                            name="token"
                             error={false}
                             ref={inputRef}
                             onIconClick={onIconClick}
