@@ -15,9 +15,9 @@ import {RESET_CONSTRUCTOR} from "../../services/actions/constructor";
 import PropTypes from "prop-types";
 import { useLocation, useHistory } from "react-router-dom";
 
-const HomePage = ({modal}) => {
+const HomePage: React.FC = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<any>()
 
     const productInfo = useSelector(state => state.ingridients.item)
 

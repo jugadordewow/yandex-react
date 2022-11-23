@@ -1,4 +1,4 @@
-import {useCallback, useMemo} from "react";
+import React, {useCallback, useMemo} from "react";
 import PropTypes from 'prop-types';
 import {CurrencyIcon,  Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor.module.css';
@@ -12,18 +12,18 @@ import {ADD_BUN_CONSTRUCTOR,
         MOVE_INGRIDIENT_CONSTRUCTOR,
         } from "../../services/actions/constructor";
 import {useHistory} from "react-router-dom";
+import {ICard, IConstructor, IItem, IConstructorState} from './types'
 
+const BurgerConstructor:React.FC = () => {
 
-const BurgerConstructor = () => {
+    const dispatch = useDispatch<any>()
+    const history = useHistory<any>()
 
-    const dispatch = useDispatch()
-    const history = useHistory()
+    const items = useSelector<IConstructorState>(state => state.burger.items)
 
-    const items = useSelector(state => state.burger.items)
+    const bun = useSelector<IConstructorState>(state => state.burger.bun)
 
-    const bun = useSelector(state => state.burger.bun)
-
-    const addIngridient = (item) => {
+    const addIngridient = (item:IItem) => {
        if (item.type === 'bun') {
             dispatch({type: ADD_BUN_CONSTRUCTOR, payload: item})
        } else {
@@ -31,14 +31,14 @@ const BurgerConstructor = () => {
        }
     }
 
-    const moveListItem = (dragIndex, hoverIndex) => {
+    const moveListItem = (dragIndex:number, hoverIndex:number) => {
         dispatch({type: MOVE_INGRIDIENT_CONSTRUCTOR, payload:{dragIndex, hoverIndex}})
     }
 
 
     const [{isOver}, dropRef] = useDrop({
         accept:'card',
-        drop: (item) => {
+        drop: (item: IItem) => {
             item.uid = uidKey()
             addIngridient(item)
         },
@@ -47,9 +47,9 @@ const BurgerConstructor = () => {
         })
     })
 
-    const [, dropItemRef ] = useDrop({
+    const [, dropItemRef ] = useDrop<any>({
         accept: 'ingridient',
-        drop:(item, index) => {
+        drop:(item:IItem, index:number) => {
             item.uid = uidKey()
             if (typeof hoverIndex == "undefined") return
             moveListItem(item.index, index)
@@ -60,7 +60,7 @@ const BurgerConstructor = () => {
     })
 
 
-    const ingredientCard = items.map((item, index) => {
+    const ingredientCard = items.map((item:IItem, index:number) => {
         return(
             <Ingridient item={item} index={index} moveListItem={moveListItem} key={item.uid}/>
         )

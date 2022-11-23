@@ -1,6 +1,8 @@
 import { isTemplateExpression } from "typescript";
 import { getCookie } from './cookie';
 
+
+
 class BurgerService {
 
     _baseURL = 'https://norma.nomoreparties.space/api';
@@ -23,7 +25,7 @@ class BurgerService {
 
    _registerUser = '/auth/register';
 
-   checkResponse = async (url, settings) => {
+   checkResponse = async (url:string, settings?:object) => {
 
            const result = await fetch(url, settings);
            const res = result.ok ? await result.json() : await Promise.reject(result);
@@ -31,24 +33,25 @@ class BurgerService {
 
    }
 
-   getResource = async (url, body) => {
+   getResource = async (url : string, body?: object | string | undefined) => {
       const settings = {
          method: body ? 'POST':'GET',
          headers: {
              Accept: 'application/json',
              'Content-Type': 'application/json',
-         }
+         },
+         body: body
      };
 
      if(body){
-         settings.body = JSON.stringify(body)
+         JSON.stringify(body)
      }
 
     return await this.checkResponse(url, settings)
 
    }
 
-    getAuthPswdData = async (url, body, method) => {
+    getAuthPswdData = async (url : string, body: object | string, method:string) => {
 
        const settings = {
            method:method,
@@ -60,16 +63,17 @@ class BurgerService {
            mode: 'cors',
            credentials: 'same-origin',
            redirect: 'follow',
-           referrerPolicy: 'no-referrer'
+           referrerPolicy: 'no-referrer',
+           body: body
        }
 
         if(body){
-            settings.body = JSON.stringify(body)
+            JSON.stringify(body)
         }
         return await this.checkResponse(url, settings)
     }
 
-    getAuthData = async (url, body, method) => {
+    getAuthData = async (url:string, body: object, method:string) => {
 
         const settings = {
             method:method,
@@ -82,13 +86,13 @@ class BurgerService {
             mode: 'cors',
             credentials: 'same-origin',
             redirect: 'follow',
-            referrerPolicy: 'no-referrer'
+            referrerPolicy: 'no-referrer',
+            body: body
         }
 
         if(body){
-            settings.body = JSON.stringify(body)
+            JSON.stringify(body)
         }
-        console.log(settings.body)
         return await this.checkResponse(url, settings)
     }
 
@@ -98,25 +102,25 @@ class BurgerService {
      return this.getResource(`${this._baseURL}${this._apiURL}`)
    }
 
-   getOrderData = (orderItem) => {
+   getOrderData = (orderItem:object) => {
        return this.getResource(`${this._baseURL}${this._orderURL}`, {ingredients: orderItem})
    }
 
 
-   remindPswd = (form) => {
+   remindPswd = (form:object) => {
         return this.getAuthPswdData(`${this._baseURL}${this._pswdForgot}`, {form}, "POST")
    }
 
-   resetPswd = (form) => {
+   resetPswd = (form:{email:string}) => {
        return this.getAuthPswdData(`${this._baseURL}${this._pswdReset}`, {email: form.email}, "POST")
    }
 
-   authUser = (form) => {
+   authUser = (form: {email:string, password: string }) => {
         return this.getAuthData(`${this._baseURL}${this._authLogin}`, {email: form.email,
             password: form.password}, "POST")
    }
 
-    registerUser = (form) => {
+    registerUser = (form: {email: string, password: string, name: string}) => {
         return this.getAuthData(`${this._baseURL}${this._registerUser}`, {
             email: form.email,
             password: form.password,
@@ -128,7 +132,7 @@ class BurgerService {
         return this.getAuthData(`${this._baseURL}${this._authUser}`, {},"GET")
    }
 
-   updateAuthUser = (form) => {
+   updateAuthUser = (form:object) => {
        return this.getAuthData(`${this._baseURL}${this._authUser}`, {form},"PATCH")
    }
 

@@ -3,11 +3,12 @@ import React, {forwardRef} from "react";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import Card from "./card";
+import {IIngridientsList, IIngridientsState} from './types'
 
 
-const IngridientsList = forwardRef(({name, type}, ref) => {
+const IngridientsList = forwardRef<HTMLElement, IIngridientsList>(({name, type}, ref) => {
 
-    const data = useSelector(state => state.ingridients.items)
+    const data = useSelector<IIngridientsState>(state => state.ingridients.items)
 
     return (
         <section ref={ref}>

@@ -4,8 +4,9 @@ import {CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import styles from './modal.module.css';
 import PropTypes from "prop-types";
+import {IModal} from "./types";
 
-const Modal = (props) => {
+const Modal = ({props}: IModal) => {
 
     const toggler = props.onClose ? props.onClose : null;
 
@@ -39,7 +40,3 @@ const Modal = (props) => {
 
 export default Modal;
 
-Modal.propTypes = {
-    children: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired
-}

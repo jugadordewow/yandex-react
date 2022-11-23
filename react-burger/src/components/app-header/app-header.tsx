@@ -9,9 +9,10 @@ import {
     Link,
     useLocation
 } from 'react-router-dom';
+import {FC} from "react";
 
 
-const AppHeader = (props) => {
+const AppHeader:FC = () => {
     return (
         <header>
             <div className={style.header}>
