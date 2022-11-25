@@ -1,32 +1,53 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect, SyntheticEvent} from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, getAuth, updateAuth} from "../../services/actions/auth";
 import styles from './profile.module.css';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const ProfilePage = () => {
+interface IProfile {
+    auth: {
+        name:string,
+        email:string,
+        loginRequest: boolean,
+        loginFailed: boolean,
+        logoutRequest: boolean,
+        logoutFailed: boolean,
+        forgotPswdRequest: boolean,
+        forgotPswdFailed: boolean,
+        resetPswdRequest: boolean,
+        resetPswdFailed: boolean,
+        authRequest: boolean,
+        authFailed: boolean,
+        tokenRequest: boolean,
+        tokenFailed: boolean,
+        registerRequest: boolean,
+        registerFailed:boolean
+    }
+}
+
+const ProfilePage:React.FC = () => {
 
     const history = useHistory();
-    const inputRef = useRef(null);
-    const dispatch = useDispatch();
-    const { name, email } = useSelector(
+    const inputRef = useRef<HTMLInputElement>(null);
+    const dispatch = useDispatch<any>();
+    const { name, email } = useSelector<IProfile, {name: string, email:string}>(
         state => state.auth
     );
 
 
     const [form, setForm] = useState({ name:name, email:email, password: '' });
-    const onChange = e => {
+    const onChange = (e:{target: HTMLInputElement}) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
     const onIconClick = () => {
         setTimeout(() => inputRef.current.focus(), 0)
     }
-    const cancel = e => {
+    const cancel = (e:SyntheticEvent) => {
         e.preventDefault();
         setForm({ name:name, email:email, password: '' });
     }
-    const save = e => {
+    const save = (e:SyntheticEvent) => {
         e.preventDefault();
         dispatch(updateAuth(form));
     }
@@ -35,7 +56,7 @@ const ProfilePage = () => {
         history.push('/login')
     };
 
-    const userLogout = e => {
+    const userLogout = (e:SyntheticEvent) => {
         e.preventDefault();
         dispatch(logout(redirect));
     };

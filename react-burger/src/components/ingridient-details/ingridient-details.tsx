@@ -5,7 +5,7 @@ import {useParams} from "react-router-dom";
 
 const IngridientDetails = ({itemId}) => {
 
-    const { id } = useParams();
+    const { id } = useParams<any>();
     const itemsInfo = useSelector(state => state.ingridients.items)
     const itemModalInfo = (itemsInfo.length > 0 ) ? itemsInfo.find(i => i._id === id) : null;
     const itemPageInfo = (itemsInfo.length > 0 &&  itemId) ? itemsInfo.find(i => i._id === itemId) : null;

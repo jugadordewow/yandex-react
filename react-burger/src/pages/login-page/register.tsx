@@ -1,18 +1,18 @@
 import {Link, useHistory} from "react-router-dom";
-import {useState, useRef} from 'react';
+import React, {useState, useRef, SyntheticEvent} from 'react';
 import { useDispatch, useSelector} from "react-redux";
 import {userRegister} from "../../services/actions/auth";
 import {EmailInput, PasswordInput, Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
 
-const Registration = () => {
+const Registration: React.FC = () => {
 
-    const inputRef = useRef(null);
-    const history = useHistory();
-    const dispatch = useDispatch();
+    const inputRef = useRef<HTMLInputElement>(null);
+    const history = useHistory<any>();
+    const dispatch = useDispatch<any>();
 
-    const [form, setForm] = useState({ name: '', email: '', password: '' });
-    const onChange = e => {
+    const [form, setForm] = useState<any>({ name: '', email: '', password: '' });
+    const onChange = (e:{target: HTMLInputElement}) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
     const onIconClick = () => {
@@ -23,7 +23,7 @@ const Registration = () => {
         history.push('/')
     };
 
-    const register = e => {
+    const register = (e:SyntheticEvent) => {
         e.preventDefault();
         dispatch(userRegister(form, redirect));
     };

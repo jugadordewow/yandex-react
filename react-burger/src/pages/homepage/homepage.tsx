@@ -1,6 +1,4 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import styles from '../../components/app/app.module.css';
 import BurgerIngredients from '../../components/burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
 import OrderDetails from '../../components/oder-details/order-details';
@@ -13,7 +11,7 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {ORDER_RESET} from "../../services/actions/order";
 import {RESET_CONSTRUCTOR} from "../../services/actions/constructor";
 import PropTypes from "prop-types";
-import { useLocation, useHistory } from "react-router-dom";
+
 
 const HomePage: React.FC = () => {
 
