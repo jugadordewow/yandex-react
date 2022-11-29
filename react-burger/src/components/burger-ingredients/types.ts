@@ -5,15 +5,15 @@ export interface IIngridientsList {
 
 export interface IIngridient {
     _id:string,
-    calories:number,
-    carbohydrates:number,
-    fat:number,
+    calories?:number,
+    carbohydrates?:number,
+    fat?:number,
     image:string,
-    image_large:string,
-    image_mobile:string,
+    image_large?:string,
+    image_mobile?:string,
     name:string,
     price:number,
-    proteins:number,
+    proteins?:number,
     type:string,
     item: object
 }
@@ -25,10 +25,11 @@ export interface IIngridientsState {
         itemsFailed: boolean,
     }
     burger: {
-        bun: IIngridient,
+        bun: Array<IIngridient>,
         items: Array<IIngridient>,
     }
-
+    items: Array<IIngridient>,
+    bun: Array<IIngridient>
 }
 
 

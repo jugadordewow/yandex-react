@@ -10,16 +10,41 @@ import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {ORDER_RESET} from "../../services/actions/order";
 import {RESET_CONSTRUCTOR} from "../../services/actions/constructor";
-import PropTypes from "prop-types";
 
 
-const HomePage: React.FC = () => {
+interface IIngridient {
+    ingridients: {
+        item: {
+                _id:string,
+                calories:number,
+                carbohydrates:number,
+                fat:number,
+                image:string,
+                image_large:string,
+                image_mobile:string,
+                name:string,
+                price:number,
+                proteins:number,
+                type:string,
+        }
+    }
+}
+
+interface IOrder {
+    orders: {
+        order: {
+            name: string,
+            number: number
+        }
+    }
+}
+const HomePage:React.FC = () => {
 
     const dispatch = useDispatch<any>()
 
-    const productInfo = useSelector(state => state.ingridients.item)
+    const productInfo = useSelector<IIngridient>(state => state.ingridients.item)
 
-    const orderInfo = useSelector(state => state.orders.order)
+    const orderInfo = useSelector<IOrder>(state => state.orders.order)
 
     const handleClose = () => {
         productInfo &&  dispatch({type: RESET_INGRIDIENT_ITEM})
@@ -40,8 +65,4 @@ const HomePage: React.FC = () => {
     );
 }
 
-export default HomePage;
-
-HomePage.propTypes = {
-    modal: PropTypes.bool
-};
+export default  HomePage;

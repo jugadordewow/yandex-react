@@ -53,7 +53,7 @@ const App:React.FC = () => {
                             <ForgotPassword />
                         </Route>
                         <Route path="/ingredients/:id" exact={true}>
-                         { (!modal) ? <IngridientPage /> : <HomePage modal={modal} /> }
+                         { (!modal) ? <IngridientPage /> : <HomePage/> }
                         </Route>
 
                         <ProtectedRoute path="/profile" exact={false}>
@@ -66,7 +66,7 @@ const App:React.FC = () => {
                 {background && (
                     <Route path='/ingredients/:id' exact={true}>
                         <Modal onClose={returnFromModal}>
-                            <IngridientDetails />
+                            <IngridientDetails  itemId={'/ingredients/:id'}/>
                         </Modal>
                     </Route>
                 )}

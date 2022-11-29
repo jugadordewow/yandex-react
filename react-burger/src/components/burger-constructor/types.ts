@@ -10,10 +10,15 @@ export interface ICard {
     image_mobile:string,
     proteins:number,
     type:string,
+    item?: object,
+    index?: number,
+    moveListItem?: () => void
 }
 
-export interface IConstructor {
-
+export interface ICardProps {
+    item?: ICard,
+    index?: number,
+    moveListItem?: () => void
 }
 
 export interface IItem {
@@ -21,11 +26,27 @@ export interface IItem {
     uid: string,
     type: string,
     index: number,
+    _id : string,
+    name: string,
+    price: number,
+    image: string,
+    calories:number,
+    carbohydrates:number,
+    fat:number,
+    image_large:string,
+    image_mobile:string,
+    proteins:number,
+    moveListItem: () => void | undefined
 }
 
 export interface IConstructorState {
     burger: {
-        items: Array<ICard>,
-        bun: ICard
+        items: Array<ICard> | null,
+        bun: ICard | null
     }
+}
+
+export interface ICardBunProps {
+    bun: ICard,
+    pos: string
 }

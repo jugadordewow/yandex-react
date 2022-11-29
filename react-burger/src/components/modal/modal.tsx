@@ -1,18 +1,18 @@
-import  { useEffect, useCallback} from "react";
+import React, { useEffect, useCallback} from "react";
 import ReactDOM from "react-dom";
 import {CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import styles from './modal.module.css';
-import PropTypes from "prop-types";
 import {IModal} from "./types";
 
-const Modal = ({props}: IModal) => {
+const Modal: React.FC<IModal> = (props) => {
 
     const toggler = props.onClose ? props.onClose : null;
 
-    const onPressEsc = useCallback((e) => {
+    const onPressEsc = useCallback((e:any) => {
         if(e.key === 'Escape') {
-            toggler();
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+            toggler;
         }
     }, [toggler]);
 
@@ -23,14 +23,15 @@ const Modal = ({props}: IModal) => {
         }
     }, [onPressEsc]);
 
-    const portalEl = document.getElementById('modal');
+    const portalEl:any = document.getElementById('modal');
     
+    // @ts-ignore
     return ReactDOM.createPortal(
                 <div className={styles.modal}>
                     <ModalOverlay  onClose={toggler}/>
                     <div className = {styles.modal_wrapepr}>
                         <div className={styles.modal_close_wrapper} >
-                            <CloseIcon type="primary"  className="btn-close" onClick={toggler}/>
+                            <CloseIcon type="primary"  className = "btn-close" onClick={toggler}/>
                         </div>
                         {props.children}
                     </div>

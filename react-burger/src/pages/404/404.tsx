@@ -1,5 +1,5 @@
 import styles from './styles.module.css'
-import {Link, Redirect} from "react-router-dom";
+import {Link, Redirect, NavLink} from "react-router-dom";
 
 const Page404 = () => {
     return (
@@ -7,7 +7,7 @@ const Page404 = () => {
             <span className={styles.notFound}>404</span>
             <span className={styles.text}>
                 Вернуться
-                <Link to="/" className={styles.link} activeClassName={styles.activeLink}>на главную</Link>
+                <NavLink to="/" className={styles.link} activeClassName={styles.activeLink}>на главную</NavLink>
             </span>
         </div>
     )

@@ -8,15 +8,15 @@ import {IIngridientsList, IIngridientsState} from './types'
 
 const IngridientsList = forwardRef<HTMLElement, IIngridientsList>(({name, type}, ref) => {
 
-    const data = useSelector<IIngridientsState>(state => state.ingridients.items)
+    const data:any = useSelector<IIngridientsState>(state => state.ingridients.items)
 
     return (
         <section ref={ref}>
             <h2 className={styles.section_name}>{name}</h2>
             <div className={styles.card_items_wrapper}>
-                {data.filter(item => item.type.match(type)).map(
-                    item=>{
-                        const {_id, name, price, image} = item;
+                {data.filter((item: { type: string; }) => item.type.match(type)).map(
+                    (item: object)=>{
+                        const {_id, name, price, image}:any = {...item};
                         return (
                             <Card _id = {_id}
                                   name = {name}
@@ -33,10 +33,6 @@ const IngridientsList = forwardRef<HTMLElement, IIngridientsList>(({name, type},
     )
 })
 
-IngridientsList.propTypes = {
-    name: PropTypes.string,
-    type: PropTypes.string
-}
 
 export default IngridientsList;
 

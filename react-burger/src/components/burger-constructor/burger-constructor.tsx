@@ -4,7 +4,7 @@ import {CurrencyIcon,  Button} from "@ya.praktikum/react-developer-burger-ui-com
 import styles from './burger-constructor.module.css';
 import {Bun, Ingridient} from "./ingridient-item";
 import {useDispatch, useSelector} from "react-redux";
-import {v4 as uidKey} from  'uuid'
+import {v4 as uidKey} from 'uuid'
 import {useDrop} from "react-dnd";
 import {loadOrder} from "../../services/actions/order";
 import {ADD_BUN_CONSTRUCTOR,
@@ -12,16 +12,16 @@ import {ADD_BUN_CONSTRUCTOR,
         MOVE_INGRIDIENT_CONSTRUCTOR,
         } from "../../services/actions/constructor";
 import {useHistory} from "react-router-dom";
-import {ICard, IConstructor, IItem, IConstructorState} from './types'
+import {ICard, IItem, IConstructorState, ICardProps} from './types'
 
 const BurgerConstructor:React.FC = () => {
 
     const dispatch = useDispatch<any>()
     const history = useHistory<any>()
 
-    const items = useSelector<IConstructorState>(state => state.burger.items)
+    const items:any = useSelector<IConstructorState>(state => state.burger.items)
 
-    const bun = useSelector<IConstructorState>(state => state.burger.bun)
+    const bun:any = useSelector<IConstructorState>(state => state.burger.bun)
 
     const addIngridient = (item:IItem) => {
        if (item.type === 'bun') {
@@ -47,9 +47,9 @@ const BurgerConstructor:React.FC = () => {
         })
     })
 
-    const [, dropItemRef ] = useDrop<any>({
+    const [, dropItemRef ] = useDrop({
         accept: 'ingridient',
-        drop:(item:IItem, index:number) => {
+        drop:(item:IItem, index:number, hoverIndex:number) => {
             item.uid = uidKey()
             if (typeof hoverIndex == "undefined") return
             moveListItem(item.index, index)
@@ -60,7 +60,7 @@ const BurgerConstructor:React.FC = () => {
     })
 
 
-    const ingredientCard = items.map((item:IItem, index:number) => {
+    const ingredientCard = items.map((item:IItem, index:number, moveListItem:() => void) => {
         return(
             <Ingridient item={item} index={index} moveListItem={moveListItem} key={item.uid}/>
         )
@@ -73,7 +73,7 @@ const BurgerConstructor:React.FC = () => {
                 sum += bun.price * 2
             }
             if(items) {
-                items.map(item => sum += item.price)
+                items.map((item: { price: number; }) => sum += item.price)
             }
             return sum
         }
@@ -82,7 +82,7 @@ const BurgerConstructor:React.FC = () => {
     const setOrder = () => {
         if(localStorage.refreshToken) {
             if(items.length > 0 && bun) {
-                const order = [bun._id, ...items.map(item => item._id), bun._id]
+                const order = [bun._id, ...items.map((item: { _id: any; }) => item._id), bun._id]
                 dispatch(loadOrder(order))
             }else{
                 alert('Заправь свой Генедар, иначе воткнешься в Дренор так что обязательно булку добавь ну и соусов там накидай и ингридиентов всяких')
@@ -96,7 +96,7 @@ const BurgerConstructor:React.FC = () => {
   return (
   
     <div className={styles.constructorWrapper} ref={dropRef}>
-      <div className={styles.constructor}>
+      <div className={styles.constructorBlock}>
           {bun && <Bun bun={bun} pos="top"/>}
 
         <div className={styles.constructorIngridientWrapper} ref={dropItemRef}>

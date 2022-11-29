@@ -9,7 +9,7 @@ const ResetPassword: React.FC = () => {
 
     const dispatch = useDispatch<any>();
     const history = useHistory<any>();
-    const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef: any = useRef<HTMLInputElement>(null);
 
     const [form, setForm] = useState({ token: '', password: '' });
     const onChange = (e:{target: HTMLInputElement}) => {
@@ -17,7 +17,7 @@ const ResetPassword: React.FC = () => {
     };
 
     const onIconClick = () => {
-        if(inputRef && inputRef.current){
+        if(inputRef.current !== null){
             setTimeout(() => inputRef.current.focus(), 0)
         }
     }
@@ -27,7 +27,7 @@ const ResetPassword: React.FC = () => {
         history.push('/')
     };
 
-    const reset = e => {
+    const reset = (e:React.SyntheticEvent) => {
         e.preventDefault();
         dispatch(resetPaswd(form, redirect));
     };

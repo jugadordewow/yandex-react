@@ -7,7 +7,7 @@ import styles from './styles.module.css'
 
 const Registration: React.FC = () => {
 
-    const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef: any = useRef<HTMLInputElement>(null);
     const history = useHistory<any>();
     const dispatch = useDispatch<any>();
 

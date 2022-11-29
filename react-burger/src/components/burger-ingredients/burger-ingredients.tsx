@@ -8,10 +8,10 @@ const BurgerIngredients: React.FC = () => {
 
     const [current, setCurrent] = useState<string>('bun');
 
-    const ref = useRef<HTMLInputElement | null>(null)
-    const bunRef = useRef<HTMLInputElement | null>(null)
-    const sauseRef = useRef<HTMLInputElement | null>(null)
-    const mainRef = useRef<HTMLInputElement | null>(null)
+    const ref:any = useRef<HTMLInputElement | null>(null)
+    const bunRef:any = useRef<HTMLInputElement | null>(null)
+    const sauseRef:any = useRef<HTMLInputElement | null>(null)
+    const mainRef:any = useRef<HTMLInputElement | null>(null)
 
     const onScroll = () => {
         const distance: number = ref.current.getBoundingClientRect().y;
@@ -45,7 +45,7 @@ const BurgerIngredients: React.FC = () => {
                 <Tab value="bun" active={current === 'bun'} onClick={handleClick} >
                     Булки
                 </Tab>
-                <Tab value="sause" active={current === 'sauce'} onClick={handleClick} className="tab-border">
+                <Tab value="sause" active={current === 'sauce'} onClick={handleClick} >
                     Соусы
                 </Tab>
                 <Tab value="main" active={current === 'main'} onClick={handleClick} >
