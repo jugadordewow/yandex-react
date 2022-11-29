@@ -2,9 +2,19 @@ import styles from './order-details.module.css';
 import done from '../../images/done.png';
 import {useSelector} from "react-redux";
 
+interface OrderDetails {
+    orders: {
+        order: {
+            order:{
+                number?: string
+            }
+        }
+    }
+}
+
 const OrderDetails = () => {
 
-    const orderNum = useSelector(state => state.orders.order.order.number)
+    const orderNum:any = useSelector<OrderDetails>(state => state.orders.order.order.number)
 
     return (
         <div className={styles.order_details_wrapper}>

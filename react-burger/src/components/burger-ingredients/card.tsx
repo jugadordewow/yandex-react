@@ -17,7 +17,7 @@ const Card: React.FC<IIngridient> = ({_id, image, name, price, item}) => {
     const burgerItems:any = useSelector<IIngridientsState>(state=> state.burger.items)
 
 
-    let counter: number;
+    let counter!: number;
 
     if(bun || burgerItems){
         const arr = [...burgerItems]

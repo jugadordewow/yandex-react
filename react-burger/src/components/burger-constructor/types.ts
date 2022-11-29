@@ -18,7 +18,7 @@ export interface ICard {
 export interface ICardProps {
     item?: ICard,
     index?: number,
-    moveListItem?: () => void
+    moveListItem?: (arg0?: number, arg1?: number) => void
 }
 
 export interface IItem {

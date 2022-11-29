@@ -47,13 +47,17 @@ const BurgerConstructor:React.FC = () => {
         })
     })
 
-    const [, dropItemRef ] = useDrop({
+
+    // @ts-ignore
+    // @ts-ignore
+    const [,dropItemRef ] = useDrop({
         accept: 'ingridient',
         drop:(item:IItem, index:number, hoverIndex:number) => {
             item.uid = uidKey()
             if (typeof hoverIndex == "undefined") return
             moveListItem(item.index, index)
         },
+
         collect:(monitor) => ({
             isOver:monitor.isOver()
         })

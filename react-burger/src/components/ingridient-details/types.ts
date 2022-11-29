@@ -2,7 +2,7 @@ import {ICard} from "../burger-constructor/types";
 
 
 export interface IIngridientId {
-    itemId: string;
+    itemId?: string;
 }
 
 export interface IIngridientDetail {

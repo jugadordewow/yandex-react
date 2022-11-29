@@ -1,19 +1,19 @@
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import { useDispatch } from 'react-redux';
 import {
     Redirect,
     Route,
-    useLocation
+    useLocation,
+    RouteProps
 } from 'react-router-dom';
 import {getCookie} from "../utils/cookie";
-import PropTypes from 'prop-types';
 
 import {getAccessToken} from "../services/actions/auth";
 
 
-export function ProtectedRoute({ children, ...rest }) {
-    const dispatch = useDispatch();
-    const location = useLocation();
+export const ProtectedRoute: React.FC<RouteProps> = ({ children, ...rest }:any) => {
+    const dispatch = useDispatch<any>();
+    const location = useLocation<any>();
     const refreshToken = localStorage.refreshToken;
     const isAuthorized = getCookie('token')
 
@@ -43,6 +43,4 @@ export function ProtectedRoute({ children, ...rest }) {
     );
 };
 
-ProtectedRoute.propTypes = {
-    children: PropTypes.element.isRequired,
-};
+

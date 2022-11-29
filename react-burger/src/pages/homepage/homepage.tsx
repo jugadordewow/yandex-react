@@ -59,7 +59,7 @@ const HomePage:React.FC = () => {
                     <BurgerIngredients/>
                     <BurgerConstructor />
                 </DndProvider>
-                { productInfo && <Modal onClose={handleClose}><IngridientDetails /></Modal>}
+                { productInfo && <Modal onClose={handleClose}><IngridientDetails/></Modal>}
                 { orderInfo && <Modal onClose={handleClose}><OrderDetails/></Modal> }
         </>
     );

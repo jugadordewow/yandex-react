@@ -7,7 +7,7 @@ import {IModal} from "./types";
 
 const Modal: React.FC<IModal> = (props) => {
 
-    const toggler = props.onClose ? props.onClose : null;
+    const toggler = props.onClose ? props.onClose : undefined;
 
     const onPressEsc = useCallback((e:any) => {
         if(e.key === 'Escape') {
@@ -31,7 +31,7 @@ const Modal: React.FC<IModal> = (props) => {
                     <ModalOverlay  onClose={toggler}/>
                     <div className = {styles.modal_wrapepr}>
                         <div className={styles.modal_close_wrapper} >
-                            <CloseIcon type="primary"  className = "btn-close" onClick={toggler}/>
+                            <CloseIcon type="primary"  className="btn-close" onClick={toggler}/>
                         </div>
                         {props.children}
                     </div>

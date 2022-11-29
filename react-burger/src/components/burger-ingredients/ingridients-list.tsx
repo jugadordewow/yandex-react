@@ -24,7 +24,7 @@ const IngridientsList = forwardRef<HTMLElement, IIngridientsList>(({name, type},
                                   image = {image}
                                   item = {item}
                                   key={_id}
-                            />
+                                  type={type}/>
                         )
                     }
                 )}

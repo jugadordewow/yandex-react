@@ -39,7 +39,7 @@ const ResetPassword: React.FC = () => {
             <form className={styles.loginForm} onSubmit={reset}>
                 <h2 className={styles.formHeader}>Восстановление пароля</h2>
                 <div className={styles.formField}>
-                    <PasswordInput name={'password'} />
+                    <PasswordInput name={'password'} onChange={onChange} value={form.password} />
                 </div>
                 <div className={styles.formField}>
                     <Input  name={'token'}

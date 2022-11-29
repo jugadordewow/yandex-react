@@ -4,7 +4,6 @@ import React, {useRef} from 'react';
 import {useDrag, useDrop} from "react-dnd";
 import {useDispatch} from "react-redux";
 import {REMOVE_INGRIDIENT_CONSTRUCTOR} from "../../services/actions/constructor";
-import PropTypes, {number, object} from "prop-types";
 import { ICard, ICardProps, ICardBunProps } from "./types";
 
 
@@ -37,19 +36,23 @@ export const Ingridient:React.FC<ICardProps> = ({item, index, moveListItem}) => 
             if(dragIndex === hoverIndex) {
                 return
             }
+            if(typeof dragIndex !== 'undefined' && typeof hoverIndex !=='undefined') {
+                if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return
 
-            if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return
+                if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return
+                if (moveListItem) {
+                    moveListItem(dragIndex, hoverIndex)
+                }
 
-            if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return
+            }
 
-            moveListItem:void(dragIndex, hoverIndex)
             item.index = hoverIndex
 
         },
     })
 
-    const ref = useRef();
-    const dragDropRef = dragRef(dropItemRef(ref))
+    const ref:any = useRef<HTMLElement | null>();
+    const dragDropRef:any = dragRef(dropItemRef(ref))
 
     const deleteItem = () => {
         dispatch({type: REMOVE_INGRIDIENT_CONSTRUCTOR, payload: index})

@@ -29,7 +29,7 @@ interface IProfile {
 const ProfilePage:React.FC = () => {
 
     const history = useHistory();
-    const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef:any = useRef<HTMLInputElement | null>(null);
     const dispatch = useDispatch<any>();
     const { name, email } = useSelector<IProfile, {name: string, email:string}>(
         state => state.auth
