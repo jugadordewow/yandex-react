@@ -3,15 +3,19 @@ import styles from './burger-constructor.module.css';
 import React, {useRef} from 'react';
 import {useDrag, useDrop} from "react-dnd";
 import {useDispatch} from "react-redux";
-import {REMOVE_INGRIDIENT_CONSTRUCTOR} from "../../services/actions/constructor";
+import {MOVE_INGRIDIENT_CONSTRUCTOR, REMOVE_INGRIDIENT_CONSTRUCTOR} from "../../services/actions/constructor";
 import { ICard, ICardProps, ICardBunProps } from "./types";
 
 
 
-export const Ingridient:React.FC<ICardProps> = ({item, index, moveListItem}) => {
+export const Ingridient:React.FC<ICardProps> = ({item, index}) => {
     const {_id, name, price, image}:any = {...item}
 
     const dispatch = useDispatch()
+
+    const moveListItem = (dragIndex:number, hoverIndex:number) => {
+        dispatch({type: MOVE_INGRIDIENT_CONSTRUCTOR, payload:{dragIndex, hoverIndex}})
+    }
 
     const [{ isDragging }, dragRef] = useDrag({
         type: 'ingridient',

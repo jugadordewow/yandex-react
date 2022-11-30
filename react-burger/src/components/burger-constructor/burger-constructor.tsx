@@ -31,10 +31,6 @@ const BurgerConstructor:React.FC = () => {
        }
     }
 
-    const moveListItem = (dragIndex:number, hoverIndex:number) => {
-        dispatch({type: MOVE_INGRIDIENT_CONSTRUCTOR, payload:{dragIndex, hoverIndex}})
-    }
-
 
     const [{isOver}, dropRef] = useDrop({
         accept:'card',
@@ -48,16 +44,11 @@ const BurgerConstructor:React.FC = () => {
     })
 
 
-    // @ts-ignore
-    // @ts-ignore
     const [,dropItemRef ] = useDrop({
         accept: 'ingridient',
-        drop:(item:IItem, index:number, hoverIndex:number) => {
+        drop:(item:IItem) => {
             item.uid = uidKey()
-            if (typeof hoverIndex == "undefined") return
-            moveListItem(item.index, index)
         },
-
         collect:(monitor) => ({
             isOver:monitor.isOver()
         })
