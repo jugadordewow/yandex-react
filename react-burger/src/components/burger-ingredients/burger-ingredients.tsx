@@ -4,26 +4,26 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngridientsList from "./ingridients-list";
 
 
-const BurgerIngredients = () => {
+const BurgerIngredients: React.FC = () => {
 
-    const [current, setCurrent] = useState('bun');
+    const [current, setCurrent] = useState<string>('bun');
 
-    const ref = useRef(null)
-    const bunRef = useRef(null)
-    const sauseRef = useRef(null)
-    const mainRef = useRef(null)
+    const ref:any = useRef<HTMLInputElement | null>(null)
+    const bunRef:any = useRef<HTMLInputElement | null>(null)
+    const sauseRef:any = useRef<HTMLInputElement | null>(null)
+    const mainRef:any = useRef<HTMLInputElement | null>(null)
 
     const onScroll = () => {
-        const distance = ref.current.getBoundingClientRect().y;
-        const bunDistance = Math.abs(distance - bunRef.current.getBoundingClientRect().y);
-        const sauseDistance = Math.abs(distance - sauseRef.current.getBoundingClientRect().y);
-        const mainDistance = Math.abs(distance - mainRef.current.getBoundingClientRect().y);
-        const minTabDistance = Math.min(bunDistance, sauseDistance, mainDistance);
-        const activeTab = (minTabDistance === sauseDistance ? 'sause' : (minTabDistance === mainDistance ? 'main' : 'bun'));
+        const distance: number = ref.current.getBoundingClientRect().y;
+        const bunDistance: number = Math.abs(distance - bunRef.current.getBoundingClientRect().y);
+        const sauseDistance: number = Math.abs(distance - sauseRef.current.getBoundingClientRect().y);
+        const mainDistance: number = Math.abs(distance - mainRef.current.getBoundingClientRect().y);
+        const minTabDistance: number = Math.min(bunDistance, sauseDistance, mainDistance);
+        const activeTab: string = (minTabDistance === sauseDistance ? 'sause' : (minTabDistance === mainDistance ? 'main' : 'bun'));
         setCurrent(activeTab);
     }
 
-    const handleClick = (current) => {
+    const handleClick = (current: string) => {
         if(current === 'bun') {
             bunRef.current.scrollIntoView(true);
         }
@@ -45,7 +45,7 @@ const BurgerIngredients = () => {
                 <Tab value="bun" active={current === 'bun'} onClick={handleClick} >
                     Булки
                 </Tab>
-                <Tab value="sause" active={current === 'sauce'} onClick={handleClick} className="tab-border">
+                <Tab value="sause" active={current === 'sauce'} onClick={handleClick} >
                     Соусы
                 </Tab>
                 <Tab value="main" active={current === 'main'} onClick={handleClick} >

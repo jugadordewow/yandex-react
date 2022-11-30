@@ -1,16 +1,16 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import { useHistory, Link } from 'react-router-dom';
 import { forgotPswd } from "../../services/actions/auth";
 import { useDispatch, useSelector} from "react-redux";
 import {EmailInput, PasswordInput, Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
 
-const ForgotPassword = () => {
+const ForgotPassword:React.FC = () => {
 
-    const history = useHistory();
-    const dispatch = useDispatch();
-    const [form, setForm] = useState({ email: '' });
-    const onChange = e => {
+    const history = useHistory<any>();
+    const dispatch = useDispatch<any>();
+    const [form, setForm] = useState<any>({ email: '' });
+    const onChange = (e:any) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
@@ -18,7 +18,7 @@ const ForgotPassword = () => {
         history.push('/reset-password', {reset:true})
     };
 
-    const forgotPass = e => {
+    const forgotPass = (e:any) => {
         e.preventDefault();
         dispatch(forgotPswd(form, redirect));
     };
@@ -31,7 +31,7 @@ const ForgotPassword = () => {
             <form className={styles.loginForm} onSubmit={forgotPass}>
                 <h2 className={styles.formHeader}>Вход</h2>
                 <div className={styles.formField}>
-                    <Input  name={'email'}
+                    <Input
                             placeholder={'Укажите E-mail'}
                             onChange={onChange}
                             value={form.email}
@@ -39,7 +39,7 @@ const ForgotPassword = () => {
                     />
                 </div>
                 <div className={styles.formField}>
-                    <Button type="primary" size="medium">
+                    <Button type="primary" size="medium" >
                         Восстановить
                     </Button>
                 </div>

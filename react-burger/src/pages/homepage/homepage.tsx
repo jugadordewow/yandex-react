@@ -1,6 +1,4 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import styles from '../../components/app/app.module.css';
 import BurgerIngredients from '../../components/burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
 import OrderDetails from '../../components/oder-details/order-details';
@@ -12,16 +10,41 @@ import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {ORDER_RESET} from "../../services/actions/order";
 import {RESET_CONSTRUCTOR} from "../../services/actions/constructor";
-import PropTypes from "prop-types";
-import { useLocation, useHistory } from "react-router-dom";
 
-const HomePage = ({modal}) => {
 
-    const dispatch = useDispatch()
+interface IIngridient {
+    ingridients: {
+        item: {
+                _id:string,
+                calories:number,
+                carbohydrates:number,
+                fat:number,
+                image:string,
+                image_large:string,
+                image_mobile:string,
+                name:string,
+                price:number,
+                proteins:number,
+                type:string,
+        }
+    }
+}
 
-    const productInfo = useSelector(state => state.ingridients.item)
+interface IOrder {
+    orders: {
+        order: {
+            name: string,
+            number: number
+        }
+    }
+}
+const HomePage:React.FC = () => {
 
-    const orderInfo = useSelector(state => state.orders.order)
+    const dispatch = useDispatch<any>()
+
+    const productInfo = useSelector<IIngridient>(state => state.ingridients.item)
+
+    const orderInfo = useSelector<IOrder>(state => state.orders.order)
 
     const handleClose = () => {
         productInfo &&  dispatch({type: RESET_INGRIDIENT_ITEM})
@@ -36,14 +59,10 @@ const HomePage = ({modal}) => {
                     <BurgerIngredients/>
                     <BurgerConstructor />
                 </DndProvider>
-                { productInfo && <Modal onClose={handleClose}><IngridientDetails /></Modal>}
+                { productInfo && <Modal onClose={handleClose}><IngridientDetails/></Modal>}
                 { orderInfo && <Modal onClose={handleClose}><OrderDetails/></Modal> }
         </>
     );
 }
 
-export default HomePage;
-
-HomePage.propTypes = {
-    modal: PropTypes.bool
-};
+export default  HomePage;

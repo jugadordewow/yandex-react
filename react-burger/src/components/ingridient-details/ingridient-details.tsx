@@ -2,12 +2,17 @@ import React, { Fragment } from "react";
 import styles from "./ingridient-details.module.css";
 import {useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
+import {IIngridientId, IIngridientDetail, IIngridientState} from "./types";
 
-const IngridientDetails = ({itemId}) => {
 
-    const { id } = useParams();
-    const itemsInfo = useSelector(state => state.ingridients.items)
+
+const IngridientDetails:React.FC<IIngridientId> = ({itemId}) => {
+
+    const { id } = useParams<any>();
+    const itemsInfo = useSelector<IIngridientState>(state => state.ingridients.items)
+    // @ts-ignore
     const itemModalInfo = (itemsInfo.length > 0 ) ? itemsInfo.find(i => i._id === id) : null;
+    // @ts-ignore
     const itemPageInfo = (itemsInfo.length > 0 &&  itemId) ? itemsInfo.find(i => i._id === itemId) : null;
     const modalStyles = styles.ingridient_detailes_heading;
     const pageStyles = styles.ingridient_detailes_page_heading;

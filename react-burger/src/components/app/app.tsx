@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { Switch, Route, useLocation, useHistory} from "react-router-dom";
 import { useEffect} from 'react';
 import styles from './app.module.css';
@@ -12,17 +12,17 @@ import { ProtectedRoute } from '../protected-route';
 
 
 
-const App = () => {
+const App:React.FC = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<any>()
 
     useEffect(() => {
         dispatch(loadIngridients())
     }, [])
     
 
-    const location = useLocation();
-    const history = useHistory();
+    const location = useLocation<any>();
+    const history = useHistory<any>();
     const modal = (window.history.state != null) ? (window.history.state.modal || false) : false;
     const background = location.state && location.state.background;
     const returnFromModal = () => {
@@ -53,7 +53,7 @@ const App = () => {
                             <ForgotPassword />
                         </Route>
                         <Route path="/ingredients/:id" exact={true}>
-                         { (!modal) ? <IngridientPage /> : <HomePage modal={modal} /> }
+                         { (!modal) ? <IngridientPage /> : <HomePage/> }
                         </Route>
 
                         <ProtectedRoute path="/profile" exact={false}>
@@ -66,7 +66,7 @@ const App = () => {
                 {background && (
                     <Route path='/ingredients/:id' exact={true}>
                         <Modal onClose={returnFromModal}>
-                            <IngridientDetails />
+                            <IngridientDetails  itemId={'/ingredients/:id'}/>
                         </Modal>
                     </Route>
                 )}

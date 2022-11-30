@@ -1,16 +1,21 @@
 import { ConstructorElement, DragIcon, CurrencyIcon,  Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor.module.css';
-import {useRef} from 'react';
+import React, {useRef} from 'react';
 import {useDrag, useDrop} from "react-dnd";
 import {useDispatch} from "react-redux";
-import {REMOVE_INGRIDIENT_CONSTRUCTOR} from "../../services/actions/constructor";
-import PropTypes from "prop-types";
+import {MOVE_INGRIDIENT_CONSTRUCTOR, REMOVE_INGRIDIENT_CONSTRUCTOR} from "../../services/actions/constructor";
+import { ICard, ICardProps, ICardBunProps } from "./types";
 
 
-export const Ingridient = ({item, index, moveListItem}) => {
-    const {_id, name, price, image} = {...item}
+
+export const Ingridient:React.FC<ICardProps> = ({item, index}) => {
+    const {_id, name, price, image}:any = {...item}
 
     const dispatch = useDispatch()
+
+    const moveListItem = (dragIndex:number, hoverIndex:number) => {
+        dispatch({type: MOVE_INGRIDIENT_CONSTRUCTOR, payload:{dragIndex, hoverIndex}})
+    }
 
     const [{ isDragging }, dragRef] = useDrag({
         type: 'ingridient',
@@ -22,12 +27,12 @@ export const Ingridient = ({item, index, moveListItem}) => {
 
     const [spec, dropItemRef] = useDrop({
         accept: 'ingridient',
-        hover: (item, monitor) => {
-            const dragIndex = item.index
-            const hoverIndex = index
-            const hoverBoundingRect = ref.current?.getBoundingClientRect()
+        hover: (item:ICard, monitor:any) => {
+            const dragIndex:(number | undefined) = item.index
+            const hoverIndex:(number | undefined) = index
+            const hoverBoundingRect = ref.current.getBoundingClientRect()
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top)/2
-            const hoverActualY = monitor.getClientOffset().y - hoverBoundingRect.top
+            const hoverActualY : (number | undefined) = monitor.getClientOffset().y - hoverBoundingRect.top
 
             if(!ref.current) {
                 return
@@ -35,21 +40,23 @@ export const Ingridient = ({item, index, moveListItem}) => {
             if(dragIndex === hoverIndex) {
                 return
             }
+            if(typeof dragIndex !== 'undefined' && typeof hoverIndex !=='undefined') {
+                if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return
 
+                if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return
+                if (moveListItem) {
+                    moveListItem(dragIndex, hoverIndex)
+                }
 
+            }
 
-            if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return
-
-            if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return
-
-            moveListItem(dragIndex, hoverIndex)
             item.index = hoverIndex
 
         },
     })
 
-    const ref = useRef();
-    const dragDropRef = dragRef(dropItemRef(ref))
+    const ref:any = useRef<HTMLElement | null>();
+    const dragDropRef:any = dragRef(dropItemRef(ref))
 
     const deleteItem = () => {
         dispatch({type: REMOVE_INGRIDIENT_CONSTRUCTOR, payload: index})
@@ -58,7 +65,6 @@ export const Ingridient = ({item, index, moveListItem}) => {
 
     return (
         <div className={styles.ingridientWrapper}
-
          ref={dragDropRef}
         >
          <DragIcon type="primary" />
@@ -73,8 +79,8 @@ export const Ingridient = ({item, index, moveListItem}) => {
     )
 }
 
-export const Bun = ({bun, pos}) => {
-    const {name, _id, price, image, type} = {...bun}
+export const Bun: React.FC<ICardBunProps> = ({bun, pos}) => {
+    const {name, _id, price, image}:any = {...bun}
     let typeText = pos === 'top' ? '(верх)' : '(низ)'
 
     return (
@@ -89,14 +95,5 @@ export const Bun = ({bun, pos}) => {
     )
 }
 
-Ingridient.propTypes = {
-    item: PropTypes.object.isRequired,
-    index: PropTypes.number.isRequired,
-    moveListItem: PropTypes.func.isRequired
-}
 
-Bun.propTypes = {
-    bun: PropTypes.object.isRequired,
-    pos: PropTypes.string.isRequired
-}
 

@@ -1,10 +1,10 @@
-import {useCallback, useMemo} from "react";
+import React, {useCallback, useMemo} from "react";
 import PropTypes from 'prop-types';
 import {CurrencyIcon,  Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor.module.css';
 import {Bun, Ingridient} from "./ingridient-item";
 import {useDispatch, useSelector} from "react-redux";
-import {v4 as uidKey} from  'uuid'
+import {v4 as uidKey} from 'uuid'
 import {useDrop} from "react-dnd";
 import {loadOrder} from "../../services/actions/order";
 import {ADD_BUN_CONSTRUCTOR,
@@ -12,18 +12,18 @@ import {ADD_BUN_CONSTRUCTOR,
         MOVE_INGRIDIENT_CONSTRUCTOR,
         } from "../../services/actions/constructor";
 import {useHistory} from "react-router-dom";
+import {ICard, IItem, IConstructorState, ICardProps} from './types'
 
+const BurgerConstructor:React.FC = () => {
 
-const BurgerConstructor = () => {
+    const dispatch = useDispatch<any>()
+    const history = useHistory<any>()
 
-    const dispatch = useDispatch()
-    const history = useHistory()
+    const items:any = useSelector<IConstructorState>(state => state.burger.items)
 
-    const items = useSelector(state => state.burger.items)
+    const bun:any = useSelector<IConstructorState>(state => state.burger.bun)
 
-    const bun = useSelector(state => state.burger.bun)
-
-    const addIngridient = (item) => {
+    const addIngridient = (item:IItem) => {
        if (item.type === 'bun') {
             dispatch({type: ADD_BUN_CONSTRUCTOR, payload: item})
        } else {
@@ -31,14 +31,10 @@ const BurgerConstructor = () => {
        }
     }
 
-    const moveListItem = (dragIndex, hoverIndex) => {
-        dispatch({type: MOVE_INGRIDIENT_CONSTRUCTOR, payload:{dragIndex, hoverIndex}})
-    }
-
 
     const [{isOver}, dropRef] = useDrop({
         accept:'card',
-        drop: (item) => {
+        drop: (item: IItem) => {
             item.uid = uidKey()
             addIngridient(item)
         },
@@ -47,12 +43,11 @@ const BurgerConstructor = () => {
         })
     })
 
-    const [, dropItemRef ] = useDrop({
+
+    const [,dropItemRef ] = useDrop({
         accept: 'ingridient',
-        drop:(item, index) => {
+        drop:(item:IItem) => {
             item.uid = uidKey()
-            if (typeof hoverIndex == "undefined") return
-            moveListItem(item.index, index)
         },
         collect:(monitor) => ({
             isOver:monitor.isOver()
@@ -60,7 +55,7 @@ const BurgerConstructor = () => {
     })
 
 
-    const ingredientCard = items.map((item, index) => {
+    const ingredientCard = items.map((item:IItem, index:number, moveListItem:() => void) => {
         return(
             <Ingridient item={item} index={index} moveListItem={moveListItem} key={item.uid}/>
         )
@@ -73,7 +68,7 @@ const BurgerConstructor = () => {
                 sum += bun.price * 2
             }
             if(items) {
-                items.map(item => sum += item.price)
+                items.map((item: { price: number; }) => sum += item.price)
             }
             return sum
         }
@@ -82,7 +77,7 @@ const BurgerConstructor = () => {
     const setOrder = () => {
         if(localStorage.refreshToken) {
             if(items.length > 0 && bun) {
-                const order = [bun._id, ...items.map(item => item._id), bun._id]
+                const order = [bun._id, ...items.map((item: { _id: any; }) => item._id), bun._id]
                 dispatch(loadOrder(order))
             }else{
                 alert('Заправь свой Генедар, иначе воткнешься в Дренор так что обязательно булку добавь ну и соусов там накидай и ингридиентов всяких')
@@ -96,7 +91,7 @@ const BurgerConstructor = () => {
   return (
   
     <div className={styles.constructorWrapper} ref={dropRef}>
-      <div className={styles.constructor}>
+      <div className={styles.constructorBlock}>
           {bun && <Bun bun={bun} pos="top"/>}
 
         <div className={styles.constructorIngridientWrapper} ref={dropItemRef}>

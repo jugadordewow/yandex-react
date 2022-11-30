@@ -3,22 +3,21 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import React from "react";
 import {useDispatch, useSelector } from "react-redux";
 import { useDrag } from 'react-dnd';
-import PropTypes from "prop-types";
-import {GET_INGRIDIENT_ITEM} from "../../services/actions/ingridients";
 import { Link, useLocation } from 'react-router-dom';
+import {IIngridientsList, IIngridientsState, IIngridient} from './types'
 
 
-const Card = ({_id, image, name, price, item}) => {
+const Card: React.FC<IIngridient> = ({_id, image, name, price, item}) => {
 
-    const dispatch = useDispatch()
-    const location = useLocation()
+    const dispatch = useDispatch<any>()
+    const location = useLocation<any>()
 
-    const bun = useSelector(state => state.burger.bun)
+    const bun:any = useSelector<IIngridientsState>(state => state.burger.bun)
 
-    const burgerItems = useSelector(state=> state.burger.items)
+    const burgerItems:any = useSelector<IIngridientsState>(state=> state.burger.items)
 
 
-    let counter;
+    let counter!: number;
 
     if(bun || burgerItems){
         const arr = [...burgerItems]
@@ -53,12 +52,6 @@ const Card = ({_id, image, name, price, item}) => {
     )
 }
 
-Card.propTypes = {
-    item: PropTypes.object.isRequired,
-    name: PropTypes.string,
-    _id: PropTypes.string,
-    image: PropTypes.any,
-    price:PropTypes.number
-}
+
 
 export default  Card;
