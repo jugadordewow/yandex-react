@@ -9,10 +9,11 @@ import {
 import {getCookie} from "../utils/cookie";
 
 import {getAccessToken} from "../services/actions/auth";
+import {useAppDispatch} from "../services/hook";
 
 
 export const ProtectedRoute: React.FC<RouteProps> = ({ children, ...rest }:any) => {
-    const dispatch = useDispatch<any>();
+    const dispatch = useAppDispatch();
     const location = useLocation<any>();
     const refreshToken = localStorage.refreshToken;
     const isAuthorized = getCookie('token')
@@ -20,6 +21,7 @@ export const ProtectedRoute: React.FC<RouteProps> = ({ children, ...rest }:any) 
 
     useEffect(() => {
         if (refreshToken) {
+            // @ts-ignore
             dispatch(getAccessToken());
         }
     }, [dispatch, refreshToken]);

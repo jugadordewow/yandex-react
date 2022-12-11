@@ -1,35 +1,12 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import {
-    authActions,
-    authTokenRequest,
-    authTokenFailed,
-    authTokenSuccess,
-    //forgotPswdRequest,
-    //forgotPswdFailed,
-    //forgotPswdSuccess,
-    //resetPswdFailed,
-    //resetPswdRequest,
-    //resetPswdSuccess,
-    registerUserRequest,
-    registerUserSuccess,
-    registerUserFailed,
-    userSuccess,
-    userRequest,
-    userFailed,
-    updateUserFailed,
-    updateUserSuccess,
-    updateUserRequest,
-    logoutUserRequest,
-    logoutUserSuccess,
-    logoutUserFailed,
-    loginUserRequest,
-    loginUserFailed,
-    loginUserSuccess,
+    authActions
 } from '../actions/auth';
 
 export interface IAuthState {
     name: string,
     email: string,
+    error: object,
     loginRequest: boolean,
     loginFailed: boolean,
     logoutRequest: boolean,
@@ -49,6 +26,7 @@ export interface IAuthState {
 const initialState : IAuthState = {
     name:'',
     email:'',
+    error: {},
 
     loginRequest: false,
     loginFailed: false,
@@ -80,9 +58,10 @@ export const authReducer = createReducer(initialState,  builder => {
         .addCase(authActions.forgotPswdSuccess, state => {
             state.forgotPswdRequest = false;
         })
-        .addCase(authActions.forgotPswdFailed, state => {
+        .addCase(authActions.forgotPswdFailed, (state, action) => {
             state.forgotPswdRequest = false;
             state.forgotPswdFailed = true;
+            state.error = action.payload.error;
         })
         .addCase(authActions.resetPswdRequest, state => {
             state.resetPswdRequest = true;
@@ -90,32 +69,33 @@ export const authReducer = createReducer(initialState,  builder => {
         .addCase(authActions.resetPswdSuccess, state => {
             state.resetPswdRequest = false;
         })
-        .addCase(authActions.resetPswdFailed, state => {
+        .addCase(authActions.resetPswdFailed, (state, action) => {
             state.resetPswdFailed = true;
+            state.error = action.payload.error;
         })
-        .addCase(registerUserRequest, state => {
+        .addCase(authActions.registerUserRequest, state => {
             state.registerRequest = true;
         })
-        .addCase(registerUserSuccess, (state, action) => {
+        .addCase(authActions.registerUserSuccess, (state, action) => {
             state.registerRequest = false;
             state.name = action.payload.name;
             state.email = action.payload.email;
         })
-        .addCase(registerUserFailed, state => {
+        .addCase(authActions.registerUserFailed, state => {
             state.registerFailed = true;
         })
-        .addCase(userRequest, state => {
+        .addCase(authActions.userRequest, state => {
             state.authRequest = true;
         })
-        .addCase(userSuccess, (state, action) => {
+        .addCase(authActions.userSuccess, (state, action) => {
             state.authRequest = false;
             state.name = action.payload.name;
             state.email = action.payload.email;
         })
-        .addCase(userFailed, state => {
+        .addCase(authActions.userFailed, state => {
             state.authFailed = true;
         })
-        .addCase(updateUserRequest, state => {
+        .addCase(authActions.updateUserRequest, state => {
             state.authRequest = true;
         })
         .addCase(authActions.updateUserSuccess, (state, action) => {
@@ -123,40 +103,40 @@ export const authReducer = createReducer(initialState,  builder => {
             state.name = action.payload.name;
             state.email = action.payload.email;
         })
-        .addCase(updateUserFailed, state => {
+        .addCase(authActions.updateUserFailed, state => {
             state.authFailed = true;
         })
-        .addCase(loginUserRequest, state => {
+        .addCase(authActions.loginUserRequest, state => {
             state.loginRequest = true;
         })
-        .addCase(loginUserSuccess, (state, action) => {
+        .addCase(authActions.loginUserSuccess, (state, action) => {
             state.loginRequest = false;
             state.name = action.payload.name;
             state.email = action.payload.email;
         })
-        .addCase(loginUserFailed, state => {
+        .addCase(authActions.loginUserFailed, state => {
             state.loginFailed = true;
         })
-        .addCase(logoutUserRequest, state => {
+        .addCase(authActions.logoutUserRequest, state => {
             state.logoutRequest = true;
         })
-        .addCase(logoutUserSuccess, state => {
+        .addCase(authActions.logoutUserSuccess, state => {
             state.logoutRequest = false;
             state.logoutFailed = false;
             state.name = '';
             state.email = '';
         })
-        .addCase(logoutUserFailed, state => {
+        .addCase(authActions.logoutUserFailed, state => {
             state.logoutFailed = true;
         })
-        .addCase(authTokenRequest, state => {
+        .addCase(authActions.authTokenRequest, state => {
             state.tokenRequest = true;
         })
-        .addCase(authTokenSuccess, state => {
+        .addCase(authActions.authTokenSuccess, state => {
             state.tokenRequest = false;
             state.tokenFailed = false;
         })
-        .addCase(authTokenFailed, state => {
+        .addCase(authActions.authTokenFailed, state => {
             state.tokenFailed = true;
         })
 })

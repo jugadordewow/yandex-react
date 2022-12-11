@@ -5,13 +5,14 @@ import {useDrag, useDrop} from "react-dnd";
 import {useDispatch} from "react-redux";
 import {MOVE_INGRIDIENT_CONSTRUCTOR, REMOVE_INGRIDIENT_CONSTRUCTOR} from "../../services/actions/constructor";
 import { ICard, ICardProps, ICardBunProps } from "./types";
+import {useAppDispatch} from "../../services/hook";
 
 
 
 export const Ingridient:React.FC<ICardProps> = ({item, index}) => {
     const {_id, name, price, image}:any = {...item}
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const moveListItem = (dragIndex:number, hoverIndex:number) => {
         dispatch({type: MOVE_INGRIDIENT_CONSTRUCTOR, payload:{dragIndex, hoverIndex}})

@@ -1,15 +1,14 @@
 import React, { Fragment } from "react";
 import styles from "./ingridient-details.module.css";
-import {useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import {IIngridientId, IIngridientDetail, IIngridientState} from "./types";
+import { IIngridientDetail, IIngridientId} from "./types";
+import {useAppSelector} from "../../services/hook";
 
 
-
-const IngridientDetails:React.FC<IIngridientId> = ({itemId}) => {
+const IngridientDetails : React.FC<IIngridientId> = ({itemId}) => {
 
     const { id } = useParams<any>();
-    const itemsInfo = useSelector<IIngridientState>(state => state.ingridients.items)
+    const itemsInfo = useAppSelector(state => state.ingredients.items)
     // @ts-ignore
     const itemModalInfo = (itemsInfo.length > 0 ) ? itemsInfo.find(i => i._id === id) : null;
     // @ts-ignore

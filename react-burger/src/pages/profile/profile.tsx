@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout, getAuth, updateAuth} from "../../services/actions/auth";
 import styles from './profile.module.css';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import {useAppDispatch, useAppSelector} from "../../services/hook";
 
 interface IProfile {
     auth: {
@@ -30,8 +31,8 @@ const ProfilePage:React.FC = () => {
 
     const history = useHistory();
     const inputRef:any = useRef<HTMLInputElement | null>(null);
-    const dispatch = useDispatch<any>();
-    const { name, email } = useSelector<IProfile, {name: string, email:string}>(
+    const dispatch = useAppDispatch();
+    const { name, email } = useAppSelector(
         state => state.auth
     );
 
@@ -49,6 +50,7 @@ const ProfilePage:React.FC = () => {
     }
     const save = (e:SyntheticEvent) => {
         e.preventDefault();
+        // @ts-ignore
         dispatch(updateAuth(form));
     }
 
@@ -58,11 +60,13 @@ const ProfilePage:React.FC = () => {
 
     const userLogout = (e:SyntheticEvent) => {
         e.preventDefault();
+        // @ts-ignore
         dispatch(logout(redirect));
     };
 
     useEffect(
         () => {
+            // @ts-ignore
             dispatch(getAuth());
         },
         [dispatch]

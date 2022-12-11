@@ -5,7 +5,7 @@ import {ADD_INGRIDIENT_CONSTRUCTOR,
         RESET_CONSTRUCTOR,
         IItem, IConstructor, TConstructorActions} from "../actions/constructor";
 
-const initialState = {
+const initialState: IConstructor = {
         items: [],
         bun: null
 }

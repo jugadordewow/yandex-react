@@ -21,7 +21,7 @@ export interface IIngridient {
     type:string;
 }
 
-export interface IIngridients {
+export interface IIngridientsState {
     items: Array<IIngridient>,
     itemsRequest: boolean,
     itemsFailed: boolean,
@@ -30,7 +30,7 @@ export interface IIngridients {
 
 export interface IIngridientsSuccess {
     readonly type: typeof GET_INGRIDIENTS_SUCCESS;
-    payload: IIngridients | null
+    payload: Array<IIngridient>
 }
 
 export interface IIngridientsRequest {
@@ -44,7 +44,7 @@ export interface IIngridientsError {
 
 export interface IGetIngridientItem {
     readonly type: typeof GET_INGRIDIENT_ITEM;
-    payload: object | null
+    payload: IIngridient | null
 }
 
 export interface IResetIngridientItem {
@@ -60,7 +60,7 @@ export type TIngridientsActions =
     | IResetIngridientItem
 
 
-const getIngridients = (ingridients:IIngridients) => ({
+const getIngridients = (ingridients:IIngridientsState) => ({
     type: GET_INGRIDIENTS_SUCCESS,
     payload: ingridients,
 })
@@ -78,7 +78,7 @@ export const loadIngridients:AppThunk = () => (dispatch:AppDispatch, _: any, bur
     dispatch(setLoading())
     burgerConstructor.getAllData()
         .then((res: { data: any }) => res.data)
-        .then((res: IIngridients) => dispatch(getIngridients(res)))
+        .then((res: IIngridientsState) => dispatch(getIngridients(res)))
         .catch((err:object | null) => {
             dispatch(setError(err))
         })

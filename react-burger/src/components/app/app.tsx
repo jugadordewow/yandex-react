@@ -4,19 +4,20 @@ import { useEffect} from 'react';
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import {HomePage, Login, ResetPassword, Registration, ForgotPassword, Page404, ProfilePage, IngridientPage } from '../../pages';
-import IngridientDetails from '../ingridient-details/ingridient-details';
-import {useDispatch} from "react-redux";
+import IngridientDetails from "../ingridient-details/ingridient-details";
 import {loadIngridients} from "../../services/actions/ingridients";
 import Modal from "../modal/modal";
 import { ProtectedRoute } from '../protected-route';
+import {useAppDispatch} from "../../services/hook";
 
 
 
 const App:React.FC = () => {
 
-    const dispatch = useDispatch<any>()
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
+        // @ts-ignore
         dispatch(loadIngridients())
     }, [])
     
@@ -66,7 +67,7 @@ const App:React.FC = () => {
                 {background && (
                     <Route path='/ingredients/:id' exact={true}>
                         <Modal onClose={returnFromModal}>
-                            <IngridientDetails  itemId={'/ingredients/:id'}/>
+                            <IngridientDetails itemId={'/ingredients/:id'}/>
                         </Modal>
                     </Route>
                 )}

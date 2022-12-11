@@ -4,10 +4,11 @@ import { useDispatch, useSelector} from "react-redux";
 import {resetPaswd} from "../../services/actions/auth";
 import {EmailInput, PasswordInput, Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
+import {useAppDispatch} from "../../services/hook";
 
 const ResetPassword: React.FC = () => {
 
-    const dispatch = useDispatch<any>();
+    const dispatch = useAppDispatch();
     const history = useHistory<any>();
     const inputRef: any = useRef<HTMLInputElement>(null);
 
@@ -29,6 +30,7 @@ const ResetPassword: React.FC = () => {
 
     const reset = (e:React.SyntheticEvent) => {
         e.preventDefault();
+        // @ts-ignore
         dispatch(resetPaswd(form, redirect));
     };
 

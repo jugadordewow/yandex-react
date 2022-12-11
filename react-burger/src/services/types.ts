@@ -5,9 +5,10 @@ import { store } from '../index';
 import { TIngridientsActions} from "./actions/ingridients";
 import { TConstructorActions } from "./actions/constructor";
 import {TAuthActions} from "./actions/auth";
+import {rootReducer} from "./reducers";
 
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducer>;
 
 export type TAppActions =
     | TIngridientsActions

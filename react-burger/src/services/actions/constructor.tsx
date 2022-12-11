@@ -20,8 +20,8 @@ export interface IItem {
 }
 
 export interface IConstructor {
-    items: IItem[] | null,
-    bun: IItem | null,
+    items: IItem[] | [],
+    bun?: IItem | null | undefined
 }
 
 export interface IAddIngredientConstructor {

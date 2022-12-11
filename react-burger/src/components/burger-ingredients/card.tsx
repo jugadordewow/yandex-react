@@ -5,16 +5,17 @@ import {useDispatch, useSelector } from "react-redux";
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
 import {IIngridientsList, IIngridientsState, IIngridient} from './types'
+import {useAppDispatch, useAppSelector} from "../../services/hook";
 
 
 const Card: React.FC<IIngridient> = ({_id, image, name, price, item}) => {
 
-    const dispatch = useDispatch<any>()
+    const dispatch = useAppDispatch()
     const location = useLocation<any>()
 
-    const bun:any = useSelector<IIngridientsState>(state => state.burger.bun)
+    const bun:any = useAppSelector(state => state.burger.bun)
 
-    const burgerItems:any = useSelector<IIngridientsState>(state=> state.burger.items)
+    const burgerItems:any = useAppSelector(state=> state.burger.items)
 
 
     let counter!: number;

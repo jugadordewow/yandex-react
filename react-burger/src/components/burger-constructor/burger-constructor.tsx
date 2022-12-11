@@ -13,15 +13,16 @@ import {ADD_BUN_CONSTRUCTOR,
         } from "../../services/actions/constructor";
 import {useHistory} from "react-router-dom";
 import {ICard, IItem, IConstructorState, ICardProps} from './types'
+import {useAppDispatch, useAppSelector} from "../../services/hook";
 
 const BurgerConstructor:React.FC = () => {
 
-    const dispatch = useDispatch<any>()
+    const dispatch = useAppDispatch()
     const history = useHistory<any>()
 
-    const items:any = useSelector<IConstructorState>(state => state.burger.items)
+    const items = useAppSelector(state => state.burger.items)
 
-    const bun:any = useSelector<IConstructorState>(state => state.burger.bun)
+    const bun = useAppSelector(state => state.burger.bun)
 
     const addIngridient = (item:IItem) => {
        if (item.type === 'bun') {
@@ -55,6 +56,7 @@ const BurgerConstructor:React.FC = () => {
     })
 
 
+    // @ts-ignore
     const ingredientCard = items.map((item:IItem, index:number, moveListItem:() => void) => {
         return(
             <Ingridient item={item} index={index} moveListItem={moveListItem} key={item.uid}/>
@@ -76,7 +78,9 @@ const BurgerConstructor:React.FC = () => {
 
     const setOrder = () => {
         if(localStorage.refreshToken) {
+            // @ts-ignore
             if(items.length > 0 && bun) {
+                // @ts-ignore
                 const order = [bun._id, ...items.map((item: { _id: any; }) => item._id), bun._id]
                 dispatch(loadOrder(order))
             }else{

@@ -4,11 +4,12 @@ import { forgotPswd } from "../../services/actions/auth";
 import { useDispatch, useSelector} from "react-redux";
 import {EmailInput, PasswordInput, Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
+import {useAppDispatch} from "../../services/hook";
 
 const ForgotPassword:React.FC = () => {
 
     const history = useHistory<any>();
-    const dispatch = useDispatch<any>();
+    const dispatch = useAppDispatch();
     const [form, setForm] = useState<any>({ email: '' });
     const onChange = (e:any) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,6 +21,7 @@ const ForgotPassword:React.FC = () => {
 
     const forgotPass = (e:any) => {
         e.preventDefault();
+        // @ts-ignore
         dispatch(forgotPswd(form, redirect));
     };
 

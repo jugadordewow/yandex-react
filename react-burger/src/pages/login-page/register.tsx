@@ -4,12 +4,13 @@ import { useDispatch, useSelector} from "react-redux";
 import {userRegister} from "../../services/actions/auth";
 import {EmailInput, PasswordInput, Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
+import {useAppDispatch} from "../../services/hook";
 
 const Registration: React.FC = () => {
 
     const inputRef: any = useRef<HTMLInputElement>(null);
     const history = useHistory<any>();
-    const dispatch = useDispatch<any>();
+    const dispatch = useAppDispatch();
 
     const [form, setForm] = useState<any>({ name: '', email: '', password: '' });
     const onChange = (e:{target: HTMLInputElement}) => {
@@ -25,6 +26,7 @@ const Registration: React.FC = () => {
 
     const register = (e:SyntheticEvent) => {
         e.preventDefault();
+        // @ts-ignore
         dispatch(userRegister(form, redirect));
     };
 

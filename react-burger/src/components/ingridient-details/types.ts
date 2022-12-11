@@ -1,10 +1,3 @@
-import {ICard} from "../burger-constructor/types";
-
-
-export interface IIngridientId {
-    itemId?: string;
-}
-
 export interface IIngridientDetail {
     _id:string,
     calories:number,
@@ -19,8 +12,7 @@ export interface IIngridientDetail {
     type:string,
 }
 
-export interface IIngridientState {
-    ingridients: {
-        items: Array<IIngridientDetail>
-    }
+export interface IIngridientId {
+    itemId?: number
 }
+

@@ -4,6 +4,7 @@ import { useDispatch, useSelector} from "react-redux";
 import { login } from "../../services/actions/auth";
 import {EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
+import {useAppDispatch, useAppSelector} from "../../services/hook";
 
 interface IProfile {
     auth: {
@@ -28,7 +29,7 @@ interface IProfile {
 
 const Login:React.FC = () => {
 
-    const dispatch = useDispatch<any>()
+    const dispatch = useAppDispatch()
 
     const [form, setForm] = useState<any>({email: '', password: ''})
 
@@ -36,10 +37,11 @@ const Login:React.FC = () => {
         setForm({...form, [e.target.name] : e.target.value})
     }
 
-    const {logoutRequest} = useSelector<IProfile, {logoutRequest: boolean}>(state => state.auth)
+    const {logoutRequest} = useAppSelector(state => state.auth)
 
     const userAuth = (e:SyntheticEvent) => {
         e.preventDefault();
+        // @ts-ignore
         dispatch(login(form))
     }
 

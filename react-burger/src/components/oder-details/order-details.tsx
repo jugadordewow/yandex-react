@@ -3,15 +3,6 @@ import done from '../../images/done.png';
 import {useSelector} from "react-redux";
 import {useAppSelector} from "../../services/hook";
 
-interface OrderDetails {
-    orders: {
-        order: {
-            order:{
-                number?: string
-            }
-        }
-    }
-}
 
 const OrderDetails = () => {
 

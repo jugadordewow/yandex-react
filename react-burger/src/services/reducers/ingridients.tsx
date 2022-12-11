@@ -2,16 +2,16 @@ import {GET_INGRIDIENTS_SUCCESS,
         GET_INGRIDIENTS_ERROR,
         GET_INGRIDIENTS_REQUEST,
         GET_INGRIDIENT_ITEM,
-        RESET_INGRIDIENT_ITEM, TIngridientsActions, IIngridients } from "../actions/ingridients";
+        RESET_INGRIDIENT_ITEM, TIngridientsActions, IIngridientsState, IIngridient } from "../actions/ingridients";
 
-const initialState: IIngridients = {
+const initialState: IIngridientsState = {
     items: [],
     itemsRequest:false,
     itemsFailed: false,
     item: null
 }
 
-export const ingridientsReducer = (state = initialState, action: TIngridientsActions) => {
+export const ingredientsReducer = (state = initialState, action: TIngridientsActions):IIngridientsState => {
     switch(action.type) {
         case GET_INGRIDIENTS_SUCCESS: {
             return {
