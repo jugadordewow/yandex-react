@@ -2,14 +2,15 @@ import {ADD_INGRIDIENT_CONSTRUCTOR,
         ADD_BUN_CONSTRUCTOR,
         REMOVE_INGRIDIENT_CONSTRUCTOR,
         MOVE_INGRIDIENT_CONSTRUCTOR,
-        RESET_CONSTRUCTOR } from "../actions/constructor";
+        RESET_CONSTRUCTOR,
+        IItem, IConstructor, TConstructorActions} from "../actions/constructor";
 
 const initialState = {
         items: [],
         bun: null
 }
 
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (state = initialState, action:TConstructorActions) => {
         switch(action.type){
                 case ADD_BUN_CONSTRUCTOR: {
                         return {
@@ -29,18 +30,14 @@ export const constructorReducer = (state = initialState, action) => {
                                 ...state
                         };
                 } case REMOVE_INGRIDIENT_CONSTRUCTOR: {
-                        const index = action.payload
+                        const index = action.payload;
                         return {
                                 ...state,
                                 items: [...state.items.slice(0,index), ...state.items.slice(index + 1)]
                         }
-                } case RESET_CONSTRUCTOR: {
-                        return{
-                                ...initialState
-                        }
                 }
                 default: {
-                        return state
+                        return initialState
                 }
         }
 }

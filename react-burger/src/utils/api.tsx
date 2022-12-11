@@ -2,7 +2,6 @@ import { isTemplateExpression } from "typescript";
 import { getCookie } from './cookie';
 
 
-
 class BurgerService {
 
     _baseURL = 'https://norma.nomoreparties.space/api';
@@ -25,12 +24,11 @@ class BurgerService {
 
    _registerUser = '/auth/register';
 
-   checkResponse = async (url:string, settings?:object) => {
+   checkResponse = async (url:string, settings:object) => {
 
            const result = await fetch(url, settings);
            const res = result.ok ? await result.json() : await Promise.reject(result);
            return res;
-
    }
 
    getResource = async (url : string, body?: object | string | undefined) => {
@@ -40,7 +38,7 @@ class BurgerService {
              Accept: 'application/json',
              'Content-Type': 'application/json',
          },
-         body: body
+         body: JSON.stringify(body)
      };
 
      if(body){
@@ -64,7 +62,7 @@ class BurgerService {
            credentials: 'same-origin',
            redirect: 'follow',
            referrerPolicy: 'no-referrer',
-           body: body
+           body:  JSON.stringify(body)
        }
 
         if(body){
@@ -73,7 +71,7 @@ class BurgerService {
         return await this.checkResponse(url, settings)
     }
 
-    getAuthData = async (url:string, body: object, method:string) => {
+    getAuthData = async (url:string, body: object | null, method:string) => {
 
         const settings = {
             method:method,
@@ -87,11 +85,12 @@ class BurgerService {
             credentials: 'same-origin',
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
-            body: body
+            body: JSON.stringify(body)
         }
 
         if(body){
             JSON.stringify(body)
+            console.log(JSON.stringify(body))
         }
         return await this.checkResponse(url, settings)
     }
@@ -121,6 +120,7 @@ class BurgerService {
    }
 
     registerUser = (form: {email: string, password: string, name: string}) => {
+
         return this.getAuthData(`${this._baseURL}${this._registerUser}`, {
             email: form.email,
             password: form.password,
@@ -143,7 +143,6 @@ class BurgerService {
    accessToken = () => {
        return this.getAuthPswdData(`${this._baseURL}${this._authToken}`, { token: localStorage.refreshToken}, "POST")
    }
-
 }
 
  export default BurgerService;

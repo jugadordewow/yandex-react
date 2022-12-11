@@ -59,7 +59,7 @@ export const Ingridient:React.FC<ICardProps> = ({item, index}) => {
     const dragDropRef:any = dragRef(dropItemRef(ref))
 
     const deleteItem = () => {
-        dispatch({type: REMOVE_INGRIDIENT_CONSTRUCTOR, payload: index})
+        dispatch({type: REMOVE_INGRIDIENT_CONSTRUCTOR, payload:index})
     }
 
 

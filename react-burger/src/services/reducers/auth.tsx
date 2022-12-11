@@ -1,14 +1,15 @@
-import { createReducer } from "@reduxjs/toolkit";
+import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import {
+    authActions,
     authTokenRequest,
     authTokenFailed,
     authTokenSuccess,
-    forgotPswdRequest,
-    forgotPswdFailed,
-    forgotPswdSuccess,
-    resetPswdFailed,
-    resetPswdRequest,
-    resetPswdSuccess,
+    //forgotPswdRequest,
+    //forgotPswdFailed,
+    //forgotPswdSuccess,
+    //resetPswdFailed,
+    //resetPswdRequest,
+    //resetPswdSuccess,
     registerUserRequest,
     registerUserSuccess,
     registerUserFailed,
@@ -26,7 +27,26 @@ import {
     loginUserSuccess,
 } from '../actions/auth';
 
-const initialState = {
+export interface IAuthState {
+    name: string,
+    email: string,
+    loginRequest: boolean,
+    loginFailed: boolean,
+    logoutRequest: boolean,
+    logoutFailed: boolean,
+    forgotPswdRequest: boolean,
+    forgotPswdFailed: boolean,
+    resetPswdRequest: boolean,
+    resetPswdFailed: boolean,
+    authRequest: boolean,
+    authFailed: boolean,
+    tokenRequest: boolean,
+    tokenFailed: boolean,
+    registerRequest: boolean,
+    registerFailed:boolean
+}
+
+const initialState : IAuthState = {
     name:'',
     email:'',
 
@@ -54,23 +74,23 @@ const initialState = {
 
 export const authReducer = createReducer(initialState,  builder => {
     builder
-        .addCase(forgotPswdRequest, state =>{
+        .addCase(authActions.forgotPswdRequest, state =>{
             state.forgotPswdRequest = true;
         })
-        .addCase(forgotPswdSuccess, state => {
+        .addCase(authActions.forgotPswdSuccess, state => {
             state.forgotPswdRequest = false;
         })
-        .addCase(forgotPswdFailed, state => {
+        .addCase(authActions.forgotPswdFailed, state => {
             state.forgotPswdRequest = false;
             state.forgotPswdFailed = true;
         })
-        .addCase(resetPswdRequest, state => {
+        .addCase(authActions.resetPswdRequest, state => {
             state.resetPswdRequest = true;
         })
-        .addCase(resetPswdSuccess, state => {
+        .addCase(authActions.resetPswdSuccess, state => {
             state.resetPswdRequest = false;
         })
-        .addCase(resetPswdFailed, state => {
+        .addCase(authActions.resetPswdFailed, state => {
             state.resetPswdFailed = true;
         })
         .addCase(registerUserRequest, state => {
@@ -98,7 +118,7 @@ export const authReducer = createReducer(initialState,  builder => {
         .addCase(updateUserRequest, state => {
             state.authRequest = true;
         })
-        .addCase(updateUserSuccess, (state, action) => {
+        .addCase(authActions.updateUserSuccess, (state, action) => {
             state.authRequest = false;
             state.name = action.payload.name;
             state.email = action.payload.email;

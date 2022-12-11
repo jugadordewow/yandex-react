@@ -2,69 +2,85 @@ import {
     deleteCookie,
     setCookie
 } from '../../utils/cookie';
-import { createAction } from '@reduxjs/toolkit';
+import { createAction, EmptyObject, ThunkDispatch} from '@reduxjs/toolkit';
+import {useAppDispatch} from "../hook";
+import {AppThunk, AppDispatch, TAppActions} from "../types";
+import {GET_INGRIDIENTS_SUCCESS, IIngridients} from "./ingridients";
+import {IAuthState} from '../reducers/auth';
 
-export const forgotPswdRequest = createAction("@@forgotPswd/REQUEST")
-export const forgotPswdSuccess = createAction("@@forgotPswd/SUCCESS")
-export const forgotPswdFailed =  createAction('@@forgotPswd/FAILED' )
+export const authActions = {
+    forgotPswdRequest: createAction("@@forgotPswd/REQUEST"),
+    forgotPswdSuccess: createAction("@@forgotPswd/SUCCESS"),
+    forgotPswdFailed: (payload: {error: object}) => createAction('@@forgotPswd/FAILED'),
+    resetPswdRequest: createAction("@@resetPswd/REQUEST"),
+    resetPswdSuccess: createAction("@@resetPswd/SUCCESS"),
+    resetPswdFailed: (error: object) => createAction('@@resetPswd/FAILED'),
+    updateUserSuccess: createAction<{ name: string, email: string }>("@@updateUser/SUCCESS")
+}
+export type TAuthActions = ActionsUnion<typeof authActions>
 
-export const resetPswdRequest = createAction("@@resetPswd/REQUEST")
-export const resetPswdSuccess = createAction("@@resetPswd/SUCCESS")
-export const resetPswdFailed = createAction('@@resetPswd/FAILED' )
+//export const forgotPswdRequest = createAction("FORGOT_PSWD_REQUEST")
+//export const forgotPswdSuccess = createAction("@@forgotPswd/SUCCESS")
+//export const forgotPswdFailed = createAction('@@forgotPswd/FAILED')
+
+//export const resetPswdRequest = createAction("@@resetPswd/REQUEST")
+//export const resetPswdSuccess = createAction("@@resetPswd/SUCCESS")
+//export const resetPswdFailed = createAction('@@resetPswd/FAILED')
 
 export const registerUserRequest = createAction("@@registerUser/REQUEST")
-export const registerUserSuccess = createAction("@@registerUser/SUCCESS")
-export const registerUserFailed = createAction('@@registerUser/FAILED' )
+export const registerUserSuccess = createAction<{ name: string, email: string }, '@@registerUser/SUCCESS'>("@@registerUser/SUCCESS")
+export const registerUserFailed = createAction('@@registerUser/FAILED')
 
 export const loginUserRequest = createAction("@@loginUser/REQUEST")
-export const loginUserSuccess = createAction("@@loginUser/SUCCESS")
-export const loginUserFailed = createAction('@@loginUser/FAILED' )
+export const loginUserSuccess = createAction<{ name: string, email: string }>("@@loginUser/SUCCESS")
+export const loginUserFailed = createAction('@@loginUser/FAILED')
 
 export const logoutUserRequest = createAction("@@logoutUser/REQUEST")
 export const logoutUserSuccess = createAction("@@logoutUser/SUCCESS")
-export const logoutUserFailed = createAction('@@logoutUser/FAILED' )
+export const logoutUserFailed = createAction('@@logoutUser/FAILED')
 
 export const userRequest = createAction("@@user/REQUEST")
-export const userSuccess = createAction("@@user/SUCCESS")
-export const userFailed =  createAction('@@user/FAILED' )
+export const userSuccess = createAction<{ name: string, email: string }>("@@user/SUCCESS")
+export const userFailed = createAction('@@user/FAILED')
 
 export const updateUserRequest = createAction("@@updateUser/REQUEST")
-export const updateUserSuccess = createAction("@@updateUser/SUCCESS")
-export const updateUserFailed =  createAction('@@updateUser/FAILED' )
+//export const updateUserSuccess = createAction<{ name: string, email: string }>("@@updateUser/SUCCESS")
+export const updateUserFailed = createAction('@@updateUser/FAILED')
 
 export const authTokenRequest = createAction("@@authToken/REQUEST")
 export const authTokenSuccess = createAction("@@authToken/SUCCESS")
-export const authTokenFailed = createAction('@@authToken/FAILED' )
+export const authTokenFailed = createAction('@@authToken/FAILED')
 
-export const forgotPswd = (form, redirect) => (dispatch, _, burgerConstructor) => {
-    dispatch(forgotPswdRequest())
+
+export const forgotPswd: AppThunk = (form, redirect) => (dispatch: AppDispatch, _: any, burgerConstructor:any) => {
+    dispatch(authActions.forgotPswdRequest())
     burgerConstructor.remindPswd(form,redirect)
         .then(res => {
             if(res && res.success){
-                dispatch(forgotPswdSuccess())
+                dispatch(authActions.forgotPswdSuccess())
                 redirect()
             } else {
-                dispatch(forgotPswdFailed())
+                dispatch(authActions.forgotPswdFailed)
             }
         })
-        .catch(error => {dispatch(forgotPswdFailed(error))})
+        .catch(error => {dispatch(authActions.forgotPswdFailed(error))})
 }
 
-export const resetPaswd = (form, redirect) => (dispatch, _, burgerConstructor) => {
-    dispatch(resetPswdRequest())
+export const resetPaswd: AppThunk = (form, redirect) => (dispatch:AppDispatch, _, burgerConstructor) => {
+    dispatch(authActions.resetPswdRequest())
     burgerConstructor.resetPswd(form)
         .then(res => {
             if(res && res.success) {
-                dispatch(resetPswdSuccess())
+                dispatch(authActions.resetPswdSuccess())
                 redirect()
             }else {
-                dispatch(resetPswdFailed())
+                dispatch(authActions.resetPswdFailed())
             }
         })
-        .catch((error) => dispatch(resetPswdFailed(error)))
+        .catch((error) => dispatch(authActions.resetPswdFailed(error)))
 }
 
-export const userRegister = (form,redirect) => (dispatch, _, burgerConstructor) => {
+export const userRegister:AppThunk = (form,redirect) => (dispatch:AppDispatch, _, burgerConstructor) => {
     dispatch(registerUserRequest())
     burgerConstructor.registerUser(form)
         .then(res => {
@@ -126,7 +142,7 @@ export const updateAuth = (form) => (dispatch, _, burgerConstructor) => {
     burgerConstructor.updateAuthUser(form)
         .then(res => {
             if (res && res.success) {
-                dispatch(updateUserSuccess(res.user));
+                dispatch(authActions.updateUserSuccess(res.user));
             } else {
                 dispatch(updateUserFailed());
             }

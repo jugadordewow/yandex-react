@@ -1,6 +1,7 @@
 import styles from './order-details.module.css';
 import done from '../../images/done.png';
 import {useSelector} from "react-redux";
+import {useAppSelector} from "../../services/hook";
 
 interface OrderDetails {
     orders: {
@@ -14,7 +15,7 @@ interface OrderDetails {
 
 const OrderDetails = () => {
 
-    const orderNum:any = useSelector<OrderDetails>(state => state.orders.order.order.number)
+    const orderNum = useAppSelector(state => state.orders.order.order.number)
 
     return (
         <div className={styles.order_details_wrapper}>
