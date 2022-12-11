@@ -31,6 +31,8 @@ const App:React.FC = () => {
     };
 
 
+    // @ts-ignore
+    // @ts-ignore
     return (
 
         <div className={styles.App}>

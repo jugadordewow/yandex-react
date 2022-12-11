@@ -5,7 +5,8 @@ import { IIngridientDetail, IIngridientId} from "./types";
 import {useAppSelector} from "../../services/hook";
 
 
-const IngridientDetails : React.FC<IIngridientId> = ({itemId}) => {
+// @ts-ignore
+const IngridientDetails:FC = ({itemId}) => {
 
     const { id } = useParams<any>();
     const itemsInfo = useAppSelector(state => state.ingredients.items)

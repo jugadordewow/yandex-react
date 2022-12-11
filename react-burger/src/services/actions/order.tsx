@@ -1,17 +1,14 @@
+import {AppDispatch, AppThunk} from "../types";
+
 export const GET_ORDER_REQUEST:'GET_ORDER_REQUEST' = "GET_ORDER_REQUEST"
 export const GET_ORDER_SUCCESS:'GET_ORDER_SUCCESS' = "GET_ORDER_SUCCESS"
 export const GET_ORDER_ERROR:'GET_ORDER_ERROR' = "GET_ORDER_ERROR"
 export const ORDER_RESET:'GET_ORDER_RESET' = "GET_ORDER_RESET"
 
 export type TOrder = {
-    _id: string;
-    ingredients: Array<string>;
-    name: string;
-    status: string;
-    number: string;
-    createdAt: string;
-    updatedAt: string;
-    price:number;
+    order: object | null,
+    orderRequest: boolean,
+    orderError: boolean
 };
 
 export interface IGetOrderSuccess {
@@ -32,6 +29,12 @@ export interface IGetOrderError {
     payload: object | null
 }
 
+export type TOrdersActions =
+    | IGetOrderRequest
+    | IGetOrderSuccess
+    | IGetOrderReset
+    | IGetOrderError;
+
 const getOrder = (orderItem: TOrder) => ({
     type: GET_ORDER_SUCCESS,
     payload: orderItem,
@@ -46,9 +49,9 @@ const setError = (err: object) => ({
     payload: err
 })
 
-export const loadOrder = (order) => (dispatch, _, burgerConstructor) => {
+export const loadOrder: AppThunk = (order) => (dispatch:AppDispatch, _: any, burgerConstructor:any) => {
     dispatch(setLoading())
     burgerConstructor.getOrderData(order)
-        .then(res => dispatch(getOrder(res)))
-        .catch(err => dispatch(setError(err)))
+        .then((res: TOrder) => dispatch(getOrder(res)))
+        .catch((err: object) => dispatch(setError(err)))
 }

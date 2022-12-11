@@ -5,6 +5,7 @@ import { store } from '../index';
 import { TIngridientsActions} from "./actions/ingridients";
 import { TConstructorActions } from "./actions/constructor";
 import {TAuthActions} from "./actions/auth";
+import {TOrdersActions} from "./actions/order";
 import {rootReducer} from "./reducers";
 
 
@@ -14,12 +15,14 @@ export type TAppActions =
     | TIngridientsActions
     | TConstructorActions
     | TAuthActions
+    | TOrdersActions
 
 export type AppThunk<TReturn = void> = ThunkAction<
     ReturnType<any>,
     RootState,
-    any,
-    TAppActions
+    TAppActions,
+    any
     >
 
-export type AppDispatch = ThunkDispatch<RootState, any, TAppActions>;
+
+export type AppDispatch = ThunkDispatch<RootState, TAppActions, any>;
