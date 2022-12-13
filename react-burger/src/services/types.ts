@@ -1,11 +1,9 @@
-import { PayloadAction } from '@reduxjs/toolkit';
-import { Action, ActionCreator, Dispatch } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import { store } from '../index';
 import { TIngridientsActions} from "./actions/ingridients";
 import { TConstructorActions } from "./actions/constructor";
 import {TAuthActions} from "./actions/auth";
 import {TOrdersActions} from "./actions/order";
+import {TWsOrdersActions} from "./actions/ws-order";
 import {rootReducer} from "./reducers";
 
 
@@ -16,6 +14,8 @@ export type TAppActions =
     | TConstructorActions
     | TAuthActions
     | TOrdersActions
+    | TWsOrdersActions
+
 
 export type AppThunk<TReturn = void> = ThunkAction<
     ReturnType<any>,

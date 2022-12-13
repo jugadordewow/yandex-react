@@ -82,6 +82,7 @@ const BurgerConstructor:React.FC = () => {
             if(items.length > 0 && bun) {
                 // @ts-ignore
                 const order = [bun._id, ...items.map((item: { _id: any; }) => item._id), bun._id]
+                // @ts-ignore
                 dispatch(loadOrder(order))
             }else{
                 alert('Заправь свой Генедар, иначе воткнешься в Дренор так что обязательно булку добавь ну и соусов там накидай и ингридиентов всяких')
