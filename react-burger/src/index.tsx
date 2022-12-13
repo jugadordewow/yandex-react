@@ -9,6 +9,10 @@ import thunk from 'redux-thunk';
 import {rootReducer} from "./services/reducers";
 import BurgerService from "./utils/api";
 import {BrowserRouter as Router} from "react-router-dom";
+import {socketMiddleware} from "./services/middleware";
+import {WS_URL_ALL, WS_URL_OWNER} from "./utils/ws-constants";
+import {wsActions} from "./services/actions/wsActions";
+import {wsUserActions} from "./services/actions/wsUserActions";
 
 const burgerService = new BurgerService();
 
@@ -20,7 +24,12 @@ declare global {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const enhancer = composeEnhancers(applyMiddleware(thunk.withExtraArgument(burgerService)))
+const enhancer = composeEnhancers(
+    applyMiddleware(
+        socketMiddleware(WS_URL_ALL, wsActions, false),
+        socketMiddleware(WS_URL_OWNER, wsUserActions, true),
+        thunk.withExtraArgument(burgerService)),
+)
 
 export const store = createStore(rootReducer,enhancer)
 

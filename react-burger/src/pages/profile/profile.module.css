@@ -22,6 +22,9 @@ main {
     text-decoration:none;
     cursor:pointer;
 }
+.active_link {
+    color:#fff;
+}
 .text {
     opacity:0.4;
 }

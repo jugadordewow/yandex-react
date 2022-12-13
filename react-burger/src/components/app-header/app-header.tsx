@@ -21,7 +21,7 @@ const AppHeader:FC = () => {
                         <BurgerIcon type="primary" />
                         <span className={style.navItemText + " text text_type_main-default"}>Конструктор</span>
                     </NavLink>
-                    <NavLink to="/orders" className={style.topNavItemLink} >
+                    <NavLink to="/feed" className={style.topNavItemLink} >
                         <ListIcon type="secondary" />
                         <span className={style.navItemText + " text text_type_main-default text_color_inactive"}>Лента заказов</span>
                     </NavLink>

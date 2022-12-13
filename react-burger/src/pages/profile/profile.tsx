@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect, SyntheticEvent} from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import {useHistory, Link, NavLink} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, getAuth, updateAuth} from "../../services/actions/auth";
 import styles from './profile.module.css';
@@ -85,9 +85,27 @@ const ProfilePage:React.FC = () => {
                 <div className={styles.container + ' pt-20'}>
                     <section className={styles.menu + ' mr-15'}>
                         <ul>
-                            <li className={styles.menu_item + ' text text_type_main-medium'}>Профиль</li>
-                            <li className={styles.menu_item + ' text text_type_main-medium'}><Link to="/orders" className={styles.link + ' text_color_inactive'}>История заказов</Link></li>
-                            <li className={styles.menu_item + ' text text_type_main-medium'} onClick={userLogout}><span className={styles.link + ' text_color_inactive'}>Выйти</span></li>
+                        <li className={styles.menu_item + ' text text_type_main-medium'}>
+                            <NavLink className={styles.link + ' text_color_inactive'}
+                                     to="/profile"
+                                     activeClassName={styles.active_link}
+                            >
+                                Профиль
+                            </NavLink>
+                        </li>
+                        <li className={styles.menu_item + ' text text_type_main-medium'}>
+                            <NavLink to="/profile/orders"
+                                     className={styles.link + ' text_color_inactive'}
+                                     activeClassName={styles.active_link}
+                            >
+                                История заказов
+                            </NavLink>
+                        </li>
+                        <li className={styles.menu_item + ' text text_type_main-medium'}   onClick={userLogout}>
+                            <span className={styles.link + ' text_color_inactive'}>
+                                Выйти
+                            </span>
+                        </li>
                         </ul>
                         <p className={styles.text + ' text text_type_main-default text_color_inactive mt-20'}>В этом разделе вы можете изменить свои персональные данные</p>
                     </section>
