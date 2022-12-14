@@ -9,6 +9,9 @@ import {loadIngridients} from "../../services/actions/ingridients";
 import Modal from "../modal/modal";
 import { ProtectedRoute } from '../protected-route';
 import {useAppDispatch} from "../../services/hook";
+import {ProfilePageOrders} from "../../pages/profile/profile-orders";
+import ProfilePageOrder from "../../pages/profile/profile-order";
+import FeedPage from "../../pages/feed-page/feed";
 
 
 
@@ -43,6 +46,9 @@ const App:React.FC = () => {
                         <Route path="/" exact={true} >
                             <HomePage />
                         </Route>
+                        <Route path="/feed" exact={true}>
+                            <FeedPage />
+                        </Route>
                         <Route path="/login" exact={true} >
                             <Login />
                         </Route>
@@ -59,9 +65,17 @@ const App:React.FC = () => {
                          { (!modal) ? <IngridientPage /> : <HomePage/> }
                         </Route>
 
-                        <ProtectedRoute path="/profile" exact={false}>
+                        <ProtectedRoute path="/profile" exact={true}>
                             <ProfilePage />
                         </ProtectedRoute>
+                        <ProtectedRoute path="/profile/orders" exact={true}>
+                            <ProfilePageOrders />
+                        </ProtectedRoute>
+                        <ProtectedRoute  path='/profile/orders/:id' exact={true}>
+                            { (!background) ? <ProfilePageOrder /> : <ProfilePageOrders /> }
+                        </ProtectedRoute >
+
+
                         <Route path="*" exact={true} >
                             <Page404 />
                         </Route>

@@ -61,7 +61,7 @@ const ProfilePage:React.FC = () => {
     const userLogout = (e:SyntheticEvent) => {
         e.preventDefault();
         // @ts-ignore
-        dispatch(logout(redirect));
+        dispatch(logout(redirect(), true, ''));
     };
 
     useEffect(

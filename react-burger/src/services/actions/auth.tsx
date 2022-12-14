@@ -4,6 +4,8 @@ import {
 } from '../../utils/cookie';
 import { createAction} from '@reduxjs/toolkit';
 import {AppThunk, AppDispatch} from "../types";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 
 export const authActions = {
@@ -106,7 +108,7 @@ export const login: AppThunk = (form) => (dispatch:AppDispatch, _: any, burgerCo
 }
 
 export const logout: AppThunk = (redirect) => (dispatch: AppDispatch, _:any, burgerConstructor:any) => {
-    dispatch(authActions.logoutUserRequest())
+    dispatch(authActions.logoutUserRequest)
     burgerConstructor.logoutUser()
         .then((res: { success: any; }) => {
             localStorage.removeItem('refreshToken');

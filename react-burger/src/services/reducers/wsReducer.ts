@@ -4,7 +4,7 @@ import {createReducer} from "@reduxjs/toolkit";
 
 const initialState = {
     wsConnected: false,
-    wsError: {},
+    wsError: false,
     data: {
         orders: [],
         common: 0,
@@ -17,8 +17,8 @@ export const wsReducer = createReducer(initialState, builder => {
     .addCase(wsActions.wsInit, state =>{
         state.wsConnected = true;
     })
-    .addCase(wsActions.onError, (state, action) =>{
-        state.wsError = action.payload;
+    .addCase(wsActions.onError, state =>{
+        state.wsError = false;
     })
     .addCase(wsActions.onClosed, state => {
         state.wsConnected = false;

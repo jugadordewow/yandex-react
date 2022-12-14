@@ -4,6 +4,7 @@ import { TConstructorActions } from "./actions/constructor";
 import {TAuthActions} from "./actions/auth";
 import {TOrdersActions} from "./actions/order";
 import {TWsActions} from "./actions/wsActions";
+import {TWsUserActions} from "./actions/wsUserActions";
 import {rootReducer} from "./reducers";
 
 
@@ -37,6 +38,7 @@ export type TAppActions =
     | TAuthActions
     | TOrdersActions
     | TWsActions
+    | TWsUserActions
 
 
 export type AppThunk<TReturn = void> = ThunkAction<

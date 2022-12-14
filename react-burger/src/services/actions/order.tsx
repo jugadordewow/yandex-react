@@ -5,10 +5,17 @@ export const GET_ORDER_SUCCESS:'GET_ORDER_SUCCESS' = "GET_ORDER_SUCCESS"
 export const GET_ORDER_ERROR:'GET_ORDER_ERROR' = "GET_ORDER_ERROR"
 export const ORDER_RESET:'GET_ORDER_RESET' = "GET_ORDER_RESET"
 
+export interface Order {
+
+            order: {
+                number: number
+            }
+}
+
 export type TOrder = {
-    order: object | null,
-    orderRequest: boolean,
-    orderError: boolean
+        order: object | null | Order,
+        orderRequest: boolean,
+        orderError: boolean
 };
 
 export interface IGetOrderSuccess {

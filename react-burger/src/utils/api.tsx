@@ -41,9 +41,9 @@ class BurgerService {
          body: JSON.stringify(body)
      };
 
-     if(body){
-         JSON.stringify(body)
-     }
+     // if(body){
+     //     JSON.stringify(body)
+     // }
 
     return await this.checkResponse(url, settings)
 
@@ -65,9 +65,9 @@ class BurgerService {
            body:  JSON.stringify(body)
        }
 
-        if(body){
-            JSON.stringify(body)
-        }
+        // if(body){
+        //     JSON.stringify(body)
+        // }
         return await this.checkResponse(url, settings)
     }
 
@@ -88,10 +88,10 @@ class BurgerService {
             body: JSON.stringify(body)
         }
 
-        if(body){
-            JSON.stringify(body)
-            console.log(JSON.stringify(body))
-        }
+        // if(body){
+        //     JSON.stringify(body)
+        //     console.log(JSON.stringify(body))
+        // }
         return await this.checkResponse(url, settings)
     }
 

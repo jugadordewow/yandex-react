@@ -7,15 +7,17 @@ import styles from './profile.module.css';
 
 export const ProfilePageOrders:FC = () => {
 
+    console.log('121')
+
     const orders = useAppSelector(state => state.wsUserData.data.orders)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(wsUserActions.wsInit());
+        //dispatch(wsUserActions.wsInit);
         return () => {
-            dispatch(wsUserActions.onClosed())
+            dispatch(wsUserActions.onClosed)
         }
-    }, [dispatch]);
+    }, []);
 
   return(
       <div>

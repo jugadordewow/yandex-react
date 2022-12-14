@@ -7,7 +7,7 @@ import styles from './Feed.module.css';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 type TFeedDetails = {
-    isAuthorized: true;
+    isAuthorized: boolean;
 }
 
 const FeedDetails:FC<TFeedDetails> = ({isAuthorized}) => {

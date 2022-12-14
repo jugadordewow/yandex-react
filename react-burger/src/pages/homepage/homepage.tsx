@@ -12,14 +12,6 @@ import {RESET_CONSTRUCTOR} from "../../services/actions/constructor";
 import {useAppDispatch, useAppSelector} from "../../services/hook";
 
 
-// interface IOrder {
-//     orders: {
-//         order: {
-//             name: string,
-//             number: number
-//         }
-//     }
-// }
 const HomePage:React.FC = () => {
 
     const dispatch = useAppDispatch()
