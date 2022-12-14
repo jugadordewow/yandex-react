@@ -1,6 +1,7 @@
 import {wsUserActions} from "../actions/wsUserActions";
 import {createReducer} from "@reduxjs/toolkit";
 
+
 const initialState = {
     wsConnected: false,
     wsError: {},
@@ -10,6 +11,16 @@ const initialState = {
         commonToday: 0,
     }
 }
+
+// type TwsState = {
+//     wsConnected: boolean,
+//     wsError: object,
+//     data: {
+//         orders: [],
+//         common: number,
+//         commonToday: number,
+//     }
+// }
 
 export const wsUserReducer = createReducer(initialState, builder => {
     builder
