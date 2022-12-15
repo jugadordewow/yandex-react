@@ -6,7 +6,7 @@ import FeedDetails from "../../components/feed/FeedDetails";
 export const ProfilePageOrder:FC = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
-        //dispatch(wsUserActions.wsInit);
+        dispatch(wsUserActions.wsInit);
         return () => {
             dispatch(wsUserActions.onClosed)
         }

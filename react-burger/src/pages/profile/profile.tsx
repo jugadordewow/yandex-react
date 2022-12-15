@@ -5,6 +5,7 @@ import { logout, getAuth, updateAuth} from "../../services/actions/auth";
 import styles from './profile.module.css';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import {useAppDispatch, useAppSelector} from "../../services/hook";
+import ProfileMenu from "./profile-menu";
 
 interface IProfile {
     auth: {
@@ -51,25 +52,16 @@ const ProfilePage:React.FC = () => {
     const save = (e:SyntheticEvent) => {
         e.preventDefault();
         // @ts-ignore
-        dispatch(updateAuth(form));
+        dispatch(updateAuth(form, '',''));
     }
 
-    const redirect = () => {
-        history.push('/login')
-    };
-
-    const userLogout = (e:SyntheticEvent) => {
-        e.preventDefault();
-        // @ts-ignore
-        dispatch(logout(redirect(), true, ''));
-    };
 
     useEffect(
         () => {
             // @ts-ignore
             dispatch(getAuth());
         },
-        [dispatch]
+        []
     );
 
     useEffect(
@@ -84,29 +76,7 @@ const ProfilePage:React.FC = () => {
             <main>
                 <div className={styles.container + ' pt-20'}>
                     <section className={styles.menu + ' mr-15'}>
-                        <ul>
-                        <li className={styles.menu_item + ' text text_type_main-medium'}>
-                            <NavLink className={styles.link + ' text_color_inactive'}
-                                     to="/profile"
-                                     activeClassName={styles.active_link}
-                            >
-                                Профиль
-                            </NavLink>
-                        </li>
-                        <li className={styles.menu_item + ' text text_type_main-medium'}>
-                            <NavLink to="/profile/orders"
-                                     className={styles.link + ' text_color_inactive'}
-                                     activeClassName={styles.active_link}
-                            >
-                                История заказов
-                            </NavLink>
-                        </li>
-                        <li className={styles.menu_item + ' text text_type_main-medium'}   onClick={userLogout}>
-                            <span className={styles.link + ' text_color_inactive'}>
-                                Выйти
-                            </span>
-                        </li>
-                        </ul>
+                        <ProfileMenu />
                         <p className={styles.text + ' text text_type_main-default text_color_inactive mt-20'}>В этом разделе вы можете изменить свои персональные данные</p>
                     </section>
                     <section className={styles.about}>

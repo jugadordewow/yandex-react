@@ -12,8 +12,6 @@ export const FeedPage:FC = () => {
     const ordersList = useAppSelector(state => state.wsData.data.orders);
 
     useEffect(() => {
-        //dispatch(wsActions.onClosed)
-        console.log(19)
         dispatch(wsActions.wsInit);
         return () => {
             dispatch(wsActions.onClosed)

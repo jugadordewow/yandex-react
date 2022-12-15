@@ -4,8 +4,8 @@ import {
 } from '../../utils/cookie';
 import { createAction} from '@reduxjs/toolkit';
 import {AppThunk, AppDispatch} from "../types";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
+
+
 
 
 export const authActions = {
@@ -38,7 +38,7 @@ export const authActions = {
 class ActionType<T> {
 }
 
-export type TAuthActions =  ActionType<typeof authActions>
+export type TAuthActions =  typeof authActions
 
 export const forgotPswd: AppThunk = (form, redirect) => (dispatch: AppDispatch, _: any, burgerConstructor:any) => {
     dispatch(authActions.forgotPswdRequest())
@@ -114,9 +114,8 @@ export const logout: AppThunk = (redirect) => (dispatch: AppDispatch, _:any, bur
             localStorage.removeItem('refreshToken');
             deleteCookie('token');
             if (res && res.success) {
-                dispatch(authActions.logoutUserSuccess());
-                // @ts-ignore
-                redirect();
+                dispatch(authActions.logoutUserSuccess);
+                redirect(true);
             } else {
                 dispatch(authActions.logoutUserFailed);
             }
@@ -139,7 +138,7 @@ export const updateAuth:AppThunk = (form) => (dispatch:AppDispatch, _:any, burge
         .catch((e: { message: string; }) => {
             if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
                 // @ts-ignore
-                dispatch(getAccessToken());
+                dispatch(getAccessToken);
                 // @ts-ignore
                 dispatch(updateAuth(form));
             } else dispatch(authActions.updateUserFailed())
@@ -168,7 +167,7 @@ export const getAuth:AppThunk = () => (dispatch:AppDispatch, _:any, burgerConstr
 }
 
 export const getAccessToken:AppThunk = () => (dispatch:AppDispatch, _: any, burgerConstructor: { accessToken: () => Promise<any>; }) => {
-        dispatch(authActions.authTokenRequest());
+        dispatch(authActions.authTokenRequest);
         burgerConstructor.accessToken()
             .then(res => {
                 const accessToken = res.accessToken.split('Bearer ')[1];
@@ -176,10 +175,10 @@ export const getAccessToken:AppThunk = () => (dispatch:AppDispatch, _: any, burg
                 setCookie('token', accessToken);
                 localStorage.setItem('refreshToken', refreshToken);
                 if (res && res.success) {
-                    dispatch(authActions.authTokenSuccess());
+                    dispatch(authActions.authTokenSuccess);
                 } else {
-                    dispatch(logout);
                     dispatch(authActions.authTokenFailed);
+                    dispatch(logout);
                 }
             })
             .catch((e: { message: string; }) => {

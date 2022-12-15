@@ -1,9 +1,10 @@
 import {useAppDispatch, useAppSelector} from "../../services/hook";
-import {FC, useEffect} from "react";
+import React, {FC, useEffect} from "react";
 import {wsUserActions} from "../../services/actions/wsUserActions";
 import FeedItem from "../../components/feed/FeedItem";
 import {TOrder} from "../../services/types";
 import styles from './profile.module.css';
+import ProfileMenu from "./profile-menu";
 
 export const ProfilePageOrders:FC = () => {
 
@@ -13,7 +14,7 @@ export const ProfilePageOrders:FC = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        //dispatch(wsUserActions.wsInit);
+        dispatch(wsUserActions.wsInit);
         return () => {
             dispatch(wsUserActions.onClosed)
         }
@@ -24,6 +25,7 @@ export const ProfilePageOrders:FC = () => {
           <main>
               <div className={styles.conteiner + ' pt-20'}>
                   <section className={styles.menu + ' mr-15'}>
+                      <ProfileMenu />
                       <p className={styles.text + ' text text_type_main-default text_color_inactive mt-20'}>В этом разделе вы можете просмотреть свою историю заказов</p>
                   </section>
                   <section className={styles.orders}>

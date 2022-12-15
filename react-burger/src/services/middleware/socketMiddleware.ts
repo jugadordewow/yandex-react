@@ -11,7 +11,9 @@ export const socketMiddleware = (wsUrl : string, Actions:TWsActions | TWsUserAct
             const { dispatch } = store;
             const { type, payload } = action;
             const { wsInit, SendMessage, onOpen, onClosed, onError, GetMessage } = Actions;
+            console.log(user)
             const token = user ? getCookie('token') : null;
+            console.log(token)
             if (type === wsInit.type) {
                 socket = token ? new WebSocket(wsUrl + '?token=' + token) : new WebSocket(wsUrl);
             }
@@ -35,7 +37,7 @@ export const socketMiddleware = (wsUrl : string, Actions:TWsActions | TWsUserAct
                     dispatch({type: onClosed, payload: event});
                 };
 
-                if (type === SendMessage) {
+                if (type === SendMessage.type) {
                     const message = {...payload};
                     socket.send(JSON.stringify(message));
                 }
