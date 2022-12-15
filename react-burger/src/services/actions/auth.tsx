@@ -6,8 +6,6 @@ import { createAction} from '@reduxjs/toolkit';
 import {AppThunk, AppDispatch} from "../types";
 
 
-
-
 export const authActions = {
     forgotPswdRequest: createAction("@@forgotPswd/REQUEST"),
     forgotPswdSuccess: createAction("@@forgotPswd/SUCCESS"),
@@ -35,14 +33,12 @@ export const authActions = {
     authTokenFailed: createAction<{message: string}>('@@authToken/FAILED'),
 }
 
-class ActionType<T> {
-}
 
 export type TAuthActions =  typeof authActions
 
-export const forgotPswd: AppThunk = (form, redirect) => (dispatch: AppDispatch, _: any, burgerConstructor:any) => {
+export const forgotPswd: AppThunk = (form:any,redirect:any) => (dispatch: AppDispatch, _: any, burgerConstructor:any) => {
     dispatch(authActions.forgotPswdRequest())
-    burgerConstructor.remindPswd(form,redirect)
+    burgerConstructor.remindPswd(form)
         .then((res: { success: string; }) => {
             if(res && res.success){
                 dispatch(authActions.forgotPswdSuccess())
@@ -54,7 +50,7 @@ export const forgotPswd: AppThunk = (form, redirect) => (dispatch: AppDispatch, 
         .catch((error: { error: object; }) => {dispatch(authActions.forgotPswdFailed(error))})
 }
 
-export const resetPaswd: AppThunk = (form, redirect) => (dispatch:AppDispatch, _ : any, burgerConstructor:any) => {
+export const resetPaswd: AppThunk = (form:any,redirect:any) => (dispatch:AppDispatch, _ : any, burgerConstructor:any) => {
     dispatch(authActions.resetPswdRequest())
     burgerConstructor.resetPswd(form)
         .then((res: { success: string; }) => {
@@ -68,7 +64,7 @@ export const resetPaswd: AppThunk = (form, redirect) => (dispatch:AppDispatch, _
         .catch((error: { error: object; }) => dispatch(authActions.resetPswdFailed(error)))
 }
 
-export const userRegister:AppThunk = (form,redirect) => (dispatch:AppDispatch, _:any, burgerConstructor:any) => {
+export const userRegister:AppThunk = (form:any,redirect:any) => (dispatch:AppDispatch, _:any, burgerConstructor:any) => {
     dispatch(authActions.registerUserRequest())
     burgerConstructor.registerUser(form)
         .then((res: { accessToken: string; refreshToken: any; success: any; user: { name: string; email: string; }; }) => {
@@ -87,7 +83,7 @@ export const userRegister:AppThunk = (form,redirect) => (dispatch:AppDispatch, _
 
 }
 
-export const login: AppThunk = (form) => (dispatch:AppDispatch, _: any, burgerConstructor: any) => {
+export const login: AppThunk = (form:any) => (dispatch:AppDispatch, _: any, burgerConstructor: any) => {
     dispatch(authActions.loginUserRequest())
     burgerConstructor.authUser(form)
         .then((res: { accessToken: string; refreshToken: any; success: string; user: { name: string; email: string; }; }) => {
@@ -107,7 +103,7 @@ export const login: AppThunk = (form) => (dispatch:AppDispatch, _: any, burgerCo
         });
 }
 
-export const logout: AppThunk = (redirect) => (dispatch: AppDispatch, _:any, burgerConstructor:any) => {
+export const logout: AppThunk = (redirect:any) => (dispatch: AppDispatch, _:any, burgerConstructor:any) => {
     dispatch(authActions.logoutUserRequest)
     burgerConstructor.logoutUser()
         .then((res: { success: any; }) => {
@@ -115,7 +111,7 @@ export const logout: AppThunk = (redirect) => (dispatch: AppDispatch, _:any, bur
             deleteCookie('token');
             if (res && res.success) {
                 dispatch(authActions.logoutUserSuccess);
-                redirect(true);
+                redirect();
             } else {
                 dispatch(authActions.logoutUserFailed);
             }
@@ -125,7 +121,7 @@ export const logout: AppThunk = (redirect) => (dispatch: AppDispatch, _:any, bur
         })
 }
 
-export const updateAuth:AppThunk = (form) => (dispatch:AppDispatch, _:any, burgerConstructor:any) => {
+export const updateAuth:AppThunk = (form:object) => (dispatch:AppDispatch, _:any, burgerConstructor:any) => {
     dispatch(authActions.updateUserRequest())
     burgerConstructor.updateAuthUser(form)
         .then((res: { success: any; user: { name: string; email: string; }; }) => {
@@ -138,7 +134,7 @@ export const updateAuth:AppThunk = (form) => (dispatch:AppDispatch, _:any, burge
         .catch((e: { message: string; }) => {
             if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
                 // @ts-ignore
-                dispatch(getAccessToken);
+                dispatch(getAccessToken());
                 // @ts-ignore
                 dispatch(updateAuth(form));
             } else dispatch(authActions.updateUserFailed())
@@ -166,19 +162,19 @@ export const getAuth:AppThunk = () => (dispatch:AppDispatch, _:any, burgerConstr
         });
 }
 
-export const getAccessToken:AppThunk = () => (dispatch:AppDispatch, _: any, burgerConstructor: { accessToken: () => Promise<any>; }) => {
-        dispatch(authActions.authTokenRequest);
+export const getAccessToken:AppThunk = () => (dispatch:AppDispatch, _: any, burgerConstructor: any) => {
+        dispatch(authActions.authTokenRequest());
         burgerConstructor.accessToken()
-            .then(res => {
+            .then((res: { accessToken: string; refreshToken: any; success: any; }) => {
                 const accessToken = res.accessToken.split('Bearer ')[1];
                 const refreshToken = res.refreshToken;
                 setCookie('token', accessToken);
                 localStorage.setItem('refreshToken', refreshToken);
                 if (res && res.success) {
-                    dispatch(authActions.authTokenSuccess);
+                    dispatch(authActions.authTokenSuccess());
                 } else {
-                    dispatch(authActions.authTokenFailed);
                     dispatch(logout);
+                    dispatch(authActions.authTokenFailed);
                 }
             })
             .catch((e: { message: string; }) => {

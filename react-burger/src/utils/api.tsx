@@ -1,5 +1,24 @@
 import { isTemplateExpression } from "typescript";
 import { getCookie } from './cookie';
+import {ThunkDispatch} from "redux-thunk";
+import {EmptyObject} from "redux";
+import {IGetOrderError, IGetOrderRequest, IGetOrderReset, IGetOrderSuccess, Order} from "../services/actions/order";
+import {IAuthState} from "../services/reducers/auth";
+import {
+    IAddBunConstructor,
+    IAddIngredientConstructor,
+    IConstructor,
+    IMoveIngridientConstructor, IRemoveIngridientConstructor, IResetConstructor
+} from "../services/actions/constructor";
+import {
+    IGetIngridientItem,
+    IIngridientsError,
+    IIngridientsRequest,
+    IIngridientsSuccess, IResetIngridientItem
+} from "../services/actions/ingridients";
+import {TAuthActions} from "../services/actions/auth";
+import {TWsActions} from "../services/actions/wsActions";
+import {TWsUserActions} from "../services/actions/wsUserActions";
 
 
 class BurgerService {
@@ -114,7 +133,7 @@ class BurgerService {
        return this.getAuthPswdData(`${this._baseURL}${this._pswdReset}`, {email: form.email}, "POST")
    }
 
-   authUser = (form: {email:string, password: string }) => {
+   authUser = (form: {email:string, password: string}) => {
         return this.getAuthData(`${this._baseURL}${this._authLogin}`, {email: form.email,
             password: form.password}, "POST")
    }
