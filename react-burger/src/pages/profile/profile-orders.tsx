@@ -5,18 +5,20 @@ import FeedItem from "../../components/feed/FeedItem";
 import {TOrder} from "../../services/types";
 import styles from './profile.module.css';
 import ProfileMenu from "./profile-menu";
+import {getCookie} from "../../utils/cookie";
 
 export const ProfilePageOrders:FC = () => {
-
-    console.log('121')
 
     const orders = useAppSelector(state => state.wsUserData.data.orders)
     const dispatch = useAppDispatch()
 
+    console.log('Orders ' + useAppSelector(state => state.wsUserData.data))
+    console.log('Orders '+ orders)
+
     useEffect(() => {
-        dispatch(wsUserActions.wsInit);
+        dispatch(wsUserActions.wsInit());
         return () => {
-            dispatch(wsUserActions.onClosed)
+            dispatch(wsUserActions.onClosed())
         }
     }, []);
 

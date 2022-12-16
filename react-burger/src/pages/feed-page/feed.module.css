@@ -2,7 +2,24 @@
     text-decoration:none;
     color:#fff;
 }
-
+.feedPageWrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-top: var(--x5);
+    width:100%;
+}
+.itemsFeedWrapper {
+    width:100%;
+    max-width: 584px;
+}
+.itemsFeedWrapper {
+    height: 100vh;
+    overflow: scroll;
+}
+.itemsFeedInfoWrapper {
+    margin-left: var(--x15);
+}
 .item {
     width:100%;
     padding:24px;

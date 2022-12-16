@@ -11,6 +11,7 @@ export const FeedPage:FC = () => {
     const dispatch = useAppDispatch();
     const ordersList = useAppSelector(state => state.wsData.data.orders);
 
+
     useEffect(() => {
         dispatch(wsActions.wsInit);
         return () => {
@@ -19,19 +20,17 @@ export const FeedPage:FC = () => {
     }, []);
 
     return (
-        <div>
             <main>
                 <h1 className="text text_type_main-large">Лента заказов</h1>
-                <div className={styles.container + ' mt-5'}>
-                    <section className={styles.item}>
+                <div className={styles.feedPageWrapper}>
+                    <section className={styles.itemsFeedWrapper}>
                         {ordersList && ordersList.map((order : TOrder) => <FeedItem key={order._id} order={order} />)}
                     </section>
-                    <section className={styles.item}>
+                    <section className={styles.itemsFeedInfoWrapper}>
                         <Feed/>
                     </section>
                 </div>
             </main>
-        </div>
     )
 }
 

@@ -70,7 +70,7 @@ export const userRegister:AppThunk = (form:any,redirect:any) => (dispatch:AppDis
         .then((res: { accessToken: string; refreshToken: any; success: any; user: { name: string; email: string; }; }) => {
             const accessToken = res.accessToken.split('Bearer ')[1];
             const refreshToken = res.refreshToken;
-            setCookie('token', accessToken);
+            setCookie('token', accessToken, { maxAge: 300000, secure: false, sameSite: "Lax" });
             localStorage.setItem('refreshToken', refreshToken);
             if (res && res.success) {
                 dispatch(authActions.registerUserSuccess(res.user));
@@ -89,7 +89,7 @@ export const login: AppThunk = (form:any) => (dispatch:AppDispatch, _: any, burg
         .then((res: { accessToken: string; refreshToken: any; success: string; user: { name: string; email: string; }; }) => {
                 const accessToken = res.accessToken.split('Bearer ')[1];
                 const refreshToken = res.refreshToken;
-                setCookie('token', accessToken);
+            setCookie('token', accessToken, { maxAge: 300000, secure: false, sameSite: "Lax" });
                 localStorage.setItem('refreshToken', refreshToken);
                 if (res && res.success) {
                     dispatch(authActions.loginUserSuccess(res.user))
@@ -106,7 +106,7 @@ export const login: AppThunk = (form:any) => (dispatch:AppDispatch, _: any, burg
 export const logout: AppThunk = (redirect:any) => (dispatch: AppDispatch, _:any, burgerConstructor:any) => {
     dispatch(authActions.logoutUserRequest)
     burgerConstructor.logoutUser()
-        .then((res: { success: any; }) => {
+        .then((res:any) => {
             localStorage.removeItem('refreshToken');
             deleteCookie('token');
             if (res && res.success) {
@@ -153,12 +153,11 @@ export const getAuth:AppThunk = () => (dispatch:AppDispatch, _:any, burgerConstr
             }
         })
         .catch((e: { message: string; }) => {
-            if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
-                dispatch(getAccessToken);
-                dispatch(getAuth);
-            } else { // @ts-ignore
+                // @ts-ignore
+                dispatch(logout(() => useHistory().push('/login')))
+                // @ts-ignore
                 dispatch(authActions.userFailed(e.message))
-            }
+
         });
 }
 
@@ -168,7 +167,7 @@ export const getAccessToken:AppThunk = () => (dispatch:AppDispatch, _: any, burg
             .then((res: { accessToken: string; refreshToken: any; success: any; }) => {
                 const accessToken = res.accessToken.split('Bearer ')[1];
                 const refreshToken = res.refreshToken;
-                setCookie('token', accessToken);
+                setCookie('token', accessToken, { maxAge: 300000, secure: false, sameSite: "Lax" });
                 localStorage.setItem('refreshToken', refreshToken);
                 if (res && res.success) {
                     dispatch(authActions.authTokenSuccess());
@@ -179,9 +178,11 @@ export const getAccessToken:AppThunk = () => (dispatch:AppDispatch, _: any, burg
             })
             .catch((e: { message: string; }) => {
                 if (e.message === 'Token is invalid') {
-                    dispatch(getAccessToken);
+                    // @ts-ignore
+                    getAccessToken();
                 } else { // @ts-ignore
                     dispatch(authActions.authTokenFailed(e.message))
                 }
             });
 };
+

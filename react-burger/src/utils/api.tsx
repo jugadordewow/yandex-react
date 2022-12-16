@@ -2,7 +2,7 @@ import { isTemplateExpression } from "typescript";
 import { getCookie } from './cookie';
 import {ThunkDispatch} from "redux-thunk";
 import {EmptyObject} from "redux";
-import {IGetOrderError, IGetOrderRequest, IGetOrderReset, IGetOrderSuccess, Order} from "../services/actions/order";
+
 import {IAuthState} from "../services/reducers/auth";
 import {
     IAddBunConstructor,
@@ -84,9 +84,9 @@ class BurgerService {
            body:  JSON.stringify(body)
        }
 
-        if(body){
-            JSON.stringify(body)
-        }
+        // if(body){
+        //     JSON.stringify(body)
+        // }
         return await this.checkResponse(url, settings)
     }
 
@@ -107,21 +107,36 @@ class BurgerService {
             body: JSON.stringify(body)
         }
 
-        if(body){
-            JSON.stringify(body)
-            console.log(JSON.stringify(body))
+        // if(body){
+        //     JSON.stringify(body)
+        //     console.log(JSON.stringify(body))
+        // }
+        return await this.checkResponse(url, settings)
+    }
+
+    getOrderNum = async (url:string, body: object | null, method:string) => {
+
+        const settings = {
+            method:method,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${getCookie('token')}`
+            },
+            body: JSON.stringify(body)
         }
         return await this.checkResponse(url, settings)
+
     }
 
 
 
-    getAllData = () => {
+getAllData = () => {
      return this.getResource(`${this._baseURL}${this._apiURL}`)
    }
 
    getOrderData = (orderItem:object) => {
-       return this.getResource(`${this._baseURL}${this._orderURL}`, {ingredients: orderItem})
+       console.log(orderItem)
+       return this.getOrderNum(`${this._baseURL}${this._orderURL}`, {ingredients: orderItem}, "POST")
    }
 
 

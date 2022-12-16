@@ -6,6 +6,7 @@ import styles from './profile.module.css';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import {useAppDispatch, useAppSelector} from "../../services/hook";
 import ProfileMenu from "./profile-menu";
+import {getCookie} from "../../utils/cookie";
 
 interface IProfile {
     auth: {
@@ -37,7 +38,7 @@ const ProfilePage:React.FC = () => {
         state => state.auth
     );
 
-
+    console.log(getCookie('token'))
     const [form, setForm] = useState({ name:name, email:email, password: '' });
     const onChange = (e:{target: HTMLInputElement}) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -51,14 +52,12 @@ const ProfilePage:React.FC = () => {
     }
     const save = (e:SyntheticEvent) => {
         e.preventDefault();
-        // @ts-ignore
-        dispatch(updateAuth(form, '',''));
+        dispatch(updateAuth(form));
     }
 
 
     useEffect(
         () => {
-            // @ts-ignore
             dispatch(getAuth());
         },
         []

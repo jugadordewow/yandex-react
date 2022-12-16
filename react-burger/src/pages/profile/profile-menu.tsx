@@ -3,6 +3,7 @@ import {NavLink, useHistory} from "react-router-dom";
 import React, {FC, SyntheticEvent} from "react";
 import {logout} from "../../services/actions/auth";
 import {useAppDispatch} from "../../services/hook";
+import {deleteCookie} from "../../utils/cookie";
 
 
 const ProfileMenu:FC = () => {
@@ -15,9 +16,13 @@ const ProfileMenu:FC = () => {
     };
 
     const userLogout = (e:SyntheticEvent) => {
+        console.log('pizdec gluchnaya hyinya')
         e.preventDefault();
+
+        deleteCookie('token');
         // @ts-ignore
-        dispatch(logout(redirect(), true, ''));
+        dispatch(logout(redirect()));
+
     };
     return (
         <ul>

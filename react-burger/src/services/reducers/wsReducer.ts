@@ -25,8 +25,8 @@ export const wsReducer = createReducer(initialState, builder => {
     })
     .addCase(wsActions.GetMessage, (state, action) => {
         state.data.orders = action.payload.orders;
-        state.data.common = action.payload.common;
-        state.data.commonToday = action.payload.commonToday;
+        state.data.common = action.payload.total;
+        state.data.commonToday = action.payload.totalToday;
     })
 
 } )

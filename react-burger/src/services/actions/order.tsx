@@ -5,22 +5,15 @@ export const GET_ORDER_SUCCESS:'GET_ORDER_SUCCESS' = "GET_ORDER_SUCCESS"
 export const GET_ORDER_ERROR:'GET_ORDER_ERROR' = "GET_ORDER_ERROR"
 export const ORDER_RESET:'GET_ORDER_RESET' = "GET_ORDER_RESET"
 
-export interface Order {
-
-            order: {
-                number: number
-            }
+export type TOrderItem = {
+    name:string,
+    number:number
 }
 
-export type TOrder = {
-        order: object | null | Order,
-        orderRequest: boolean,
-        orderError: boolean
-};
 
 export interface IGetOrderSuccess {
     readonly type: typeof GET_ORDER_SUCCESS;
-    payload: TOrder | null
+    payload: TOrderItem
 }
 
 export interface IGetOrderRequest {
@@ -42,7 +35,7 @@ export type TOrdersActions =
     | IGetOrderReset
     | IGetOrderError;
 
-const getOrder = (orderItem: TOrder) => ({
+const getOrder = (orderItem: TOrderItem) => ({
     type: GET_ORDER_SUCCESS,
     payload: orderItem,
 })
@@ -59,6 +52,6 @@ const setError = (err: object) => ({
 export const loadOrder: AppThunk = (order) => (dispatch:AppDispatch, _: any, burgerConstructor:any) => {
     dispatch(setLoading())
     burgerConstructor.getOrderData(order)
-        .then((res: TOrder) => dispatch(getOrder(res)))
+        .then((res: TOrderItem) => dispatch(getOrder(res)))
         .catch((err: object) => dispatch(setError(err)))
 }

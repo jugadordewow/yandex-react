@@ -1,9 +1,9 @@
 import {getCookie} from "../../utils/cookie";
-import { AnyAction, MiddlewareAPI } from 'redux';
+import {AnyAction, Middleware, MiddlewareAPI} from 'redux';
 import { TWsActions} from "../actions/wsActions";
 import {TWsUserActions} from "../actions/wsUserActions";
 
-export const socketMiddleware = (wsUrl : string, Actions:TWsActions | TWsUserActions, user : boolean) => {
+export const socketMiddleware = (wsUrl : string, Actions:TWsActions | TWsUserActions, user : boolean):Middleware => {
     return (store : MiddlewareAPI) => {
         let socket: WebSocket | null = null;
 
@@ -11,9 +11,15 @@ export const socketMiddleware = (wsUrl : string, Actions:TWsActions | TWsUserAct
             const { dispatch } = store;
             const { type, payload } = action;
             const { wsInit, SendMessage, onOpen, onClosed, onError, GetMessage } = Actions;
-            console.log(user)
-            const token = user ? getCookie('token') : null;
-            console.log(token)
+            console.log(getCookie('token'))
+            let token;
+            console.log('This is USER ' + user)
+            if(user) {
+                token = getCookie('token')
+            }
+            //const token = user ? getCookie('token') : null;
+            console.log('This token ' + token)
+
             if (type === wsInit.type) {
                 socket = token ? new WebSocket(wsUrl + '?token=' + token) : new WebSocket(wsUrl);
             }
@@ -29,8 +35,8 @@ export const socketMiddleware = (wsUrl : string, Actions:TWsActions | TWsUserAct
                 socket.onmessage = ( event : AnyAction ) => {
                     const { data } = event;
                     const parsedData = JSON.parse(data);
-                    const { success, ...restParsedData } = parsedData;
-                    dispatch({type: GetMessage, payload: restParsedData});
+                    console.log(parsedData)
+                    dispatch({type: GetMessage, payload: parsedData});
                 };
 
                 socket.onclose = ( event : AnyAction ) => {
@@ -39,6 +45,7 @@ export const socketMiddleware = (wsUrl : string, Actions:TWsActions | TWsUserAct
 
                 if (type === SendMessage.type) {
                     const message = {...payload};
+                    console.log(message)
                     socket.send(JSON.stringify(message));
                 }
             }
