@@ -52,12 +52,14 @@ const ProfilePage:React.FC = () => {
     }
     const save = (e:SyntheticEvent) => {
         e.preventDefault();
+        // @ts-ignore
         dispatch(updateAuth(form));
     }
 
 
     useEffect(
         () => {
+            // @ts-ignore
             dispatch(getAuth());
         },
         []
@@ -73,7 +75,7 @@ const ProfilePage:React.FC = () => {
     return (
         <>
             <main>
-                <div className={styles.container + ' pt-20'}>
+                <div className={styles.profileWrapper + ' pt-20'}>
                     <section className={styles.menu + ' mr-15'}>
                         <ProfileMenu />
                         <p className={styles.text + ' text text_type_main-default text_color_inactive mt-20'}>В этом разделе вы можете изменить свои персональные данные</p>

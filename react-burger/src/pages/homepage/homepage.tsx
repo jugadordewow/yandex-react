@@ -21,7 +21,6 @@ const HomePage:React.FC = () => {
 
     const orderInfo = useAppSelector(state => state.orders.order)
 
-    console.log(orderInfo)
 
     const handleClose = () => {
         productInfo &&  dispatch({type: RESET_INGRIDIENT_ITEM})

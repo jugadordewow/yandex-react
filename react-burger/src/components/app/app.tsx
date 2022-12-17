@@ -46,7 +46,7 @@ const App:React.FC = () => {
                             <FeedPage />
                         </Route>
                         <Route path="/feed/:id" exact={true}>
-                             <OrderFeedPage />
+                            { (modal) ? <FeedDetails isAuthorized={false} isModal={true}/> : <OrderFeedPage />  }
                         </Route>
                         <Route path="/login" exact={true} >
                             <Login />
@@ -70,9 +70,8 @@ const App:React.FC = () => {
                             <ProfilePageOrders />
                         </ProtectedRoute>
                         <ProtectedRoute  path='/profile/orders/:id' exact={true}>
-                            { (!background) ? <ProfilePageOrder /> : <ProfilePageOrders /> }
+                            { (!modal) ? <ProfilePageOrder /> : <ProfilePageOrders /> }
                         </ProtectedRoute >
-
 
                         <Route path="*" exact={true} >
                             <Page404 />
@@ -88,14 +87,14 @@ const App:React.FC = () => {
                 {background && (
                     <Route path='/feed/:id' exact={true}>
                         <Modal onClose={returnFromModal}>
-                            <FeedDetails isAuthorized={false}/>
+                            <FeedDetails isAuthorized={false} isModal={true}/>
                         </Modal>
                     </Route>
                 )}
                 {background && (
                     <Route path='/profile/orders/:id' exact={true}>
                         <Modal onClose={returnFromModal}>
-                            <FeedDetails isAuthorized={true}/>
+                            <FeedDetails isAuthorized={true} isModal={true}/>
                         </Modal>
                     </Route>
                 )}

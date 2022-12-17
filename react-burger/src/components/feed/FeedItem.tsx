@@ -44,7 +44,7 @@ const FeedItem: FC<TFeed> = ({order}) => {
                                 const image = ingredient.image_large;
                                 if (zIndex > 0) {
                                     return (
-                                        <div className={styles.img_item} style={{ zIndex }} key={index}>
+                                        <div className={styles.img_item}  key={index}>
                                             <img src={image} alt={ingredient.name}/>
                                         </div>
                                     );

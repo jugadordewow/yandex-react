@@ -8,22 +8,29 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 type TFeedDetails = {
     isAuthorized: boolean;
+    isModal?:boolean;
 }
 
-const FeedDetails:FC<TFeedDetails> = ({isAuthorized}) => {
+const FeedDetails:FC<TFeedDetails> = ({isAuthorized, isModal}) => {
 
-    const id = useParams();
-    const orders =  useAppSelector(state => (isAuthorized) ? state.wsUserData.data : state.wsData.data)
+    const { id } = useParams<any>();
+    const orders =  useAppSelector(state => (isAuthorized) ? state.wsUserData.data.orders : state.wsData.data.orders)
+    const heightStyles = isModal ? styles.modalHeight : styles.pageHeight;
     const ingridients = useAppSelector(state => state.ingredients.items)
 
-    // @ts-ignore
-    let order = (orders.length > 0) && orders.find((item:TOrder) => item.number == id);
+    console.log(isModal)
+
+    const order:TOrder | any  = (orders.length > 0) && orders.find((item:TOrder) => item.number == id);
     const date = (order) ? getOrderDate(order) : null;
+
     const status : {name:string, style:string} = (order && (order.status === 'done')) ? {name:'Выполнен', style:'done'}
         : (order && (order.status === 'pending')) ? {name:'Создан', style:'pending'}
             : (order && (order.status === 'created')) ? {name:'Готовится', style:'created'}
                 : { name: 'Отменён', style:'cancel' };
 
+
+
+    // @ts-ignore
     const orderUnical = order && order.ingredients.map((order:object) => order)
     let counts:any = [];
 
@@ -39,16 +46,15 @@ const FeedDetails:FC<TFeedDetails> = ({isAuthorized}) => {
 
     return (
         <>
-            {order && (
-                <div className={styles.container}>
+                <div className={styles.containerFeedDetails}>
                     <p className={styles.center + " text text_type_digits-default mt-6"}>
-                        id
+                        #{id}
                     </p>
 
                     <p className="text text_type_main-medium mt-10">{order.name}</p>
                     <p className={`text text_type_main-default mt-10 ${status.style}`}>{status.name}</p>
                     <p className="text text_type_main-medium mt-15 mb-6">Состав:</p>
-                    <ul className={styles.list}>
+                    <ul className={isModal ? styles.modalHeight : styles.pageHeight}>
                         { filterCache && filterCache.map((id : string, index : number) => {
 
                             let ingredient = (ingridients != null) && ingridients.find((item) => item._id === id);
@@ -59,11 +65,12 @@ const FeedDetails:FC<TFeedDetails> = ({isAuthorized}) => {
                                 const name = ingredient.name;
                                 sum += counts[ingredient._id]*price
                                 return (
-                                    <li className={styles.list_item + ' mb-4'} key={index}>
-                                        <div className={styles.about}>
+                                    <li className={styles.list_itemFeedDetails + ' mb-4'} key={index}>
+
                                             <div className={styles.img_item} style={{zIndex: 6}}>
                                                 <img src={image} alt={name}/>
                                             </div>
+                                        <div className={styles.aboutFeedDetails}>
                                             <p className="text text_type_main-default ml-4">{name}</p>
                                         </div>
                                         <div className={styles.price}>
@@ -83,7 +90,6 @@ const FeedDetails:FC<TFeedDetails> = ({isAuthorized}) => {
                         </p>
                     </div>
                 </div>
-            )}
         </>
     )
 }
