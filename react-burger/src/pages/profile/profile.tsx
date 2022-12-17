@@ -7,6 +7,7 @@ import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-de
 import {useAppDispatch, useAppSelector} from "../../services/hook";
 import ProfileMenu from "./profile-menu";
 import {getCookie} from "../../utils/cookie";
+import {object} from "prop-types";
 
 interface IProfile {
     auth: {
@@ -52,15 +53,14 @@ const ProfilePage:React.FC = () => {
     }
     const save = (e:SyntheticEvent) => {
         e.preventDefault();
-        // @ts-ignore
-        dispatch(updateAuth(form));
+        dispatch(updateAuth);
     }
 
 
     useEffect(
         () => {
-            // @ts-ignore
-            dispatch(getAuth());
+
+            dispatch(getAuth);
         },
         []
     );

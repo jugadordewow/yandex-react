@@ -10,9 +10,9 @@ main {
     flex-wrap: nowrap;
     margin-top: var(--x20);
 }
-.menu {
-    width:320px;
-}
+/*.menu {*/
+/*    width:320px;*/
+/*}*/
 .menu ul {
     padding:0;
 }
