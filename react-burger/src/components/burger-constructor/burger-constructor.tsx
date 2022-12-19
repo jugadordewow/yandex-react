@@ -53,6 +53,7 @@ const BurgerConstructor:React.FC = () => {
         })
     })
 
+
     // @ts-ignore
     const ingredientCard = items.map((item:IItem, index:number, moveListItem:() => void) => {
         return(

@@ -21,7 +21,6 @@ export const ProtectedRoute: React.FC<RouteProps> = ({ children, ...rest }:any) 
 
     useEffect(() => {
         if (refreshToken) {
-            // @ts-ignore
             dispatch(getAccessToken());
         }
     }, [dispatch, refreshToken]);

@@ -18,7 +18,6 @@ const App:React.FC = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        // @ts-ignore
         dispatch(loadIngridients())
     }, [])
     

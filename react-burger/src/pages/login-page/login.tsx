@@ -31,7 +31,7 @@ const Login:React.FC = () => {
 
     const dispatch = useAppDispatch()
 
-    const [form, setForm] = useState<any>({email: '', password: ''})
+    const [form, setForm] = useState<{email: string, password:string}>({email: '', password: ''})
 
     const onChange = (e:{target: HTMLInputElement}) => {
         setForm({...form, [e.target.name] : e.target.value})

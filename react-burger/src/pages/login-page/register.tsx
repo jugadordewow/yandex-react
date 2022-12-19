@@ -8,10 +8,10 @@ import {useAppDispatch} from "../../services/hook";
 const Registration: React.FC = () => {
 
     const inputRef: any = useRef<HTMLInputElement>(null);
-    const history = useHistory<any>();
+    const history = useHistory<object>();
     const dispatch = useAppDispatch();
 
-    const [form, setForm] = useState<any>({ name: '', email: '', password: '' });
+    const [form, setForm] = useState<{name:string, email:string, password:string}>({ name: '', email: '', password: '' });
     const onChange = (e:{target: HTMLInputElement}) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };

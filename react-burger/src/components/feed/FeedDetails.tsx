@@ -29,8 +29,6 @@ const FeedDetails:FC<TFeedDetails> = ({isAuthorized, isModal}) => {
                 : { name: 'Отменён', style:'cancel' };
 
 
-
-    // @ts-ignore
     const orderUnical = order && order.ingredients.map((order:object) => order)
     let counts:any = [];
 

@@ -1,11 +1,16 @@
 import {AppThunk, AppDispatch} from "../types";
 import {createAction} from "@reduxjs/toolkit";
-import burgerConstructor from "../../components/burger-constructor/burger-constructor";
+
 
 export const ingridientActions = {
     getIngridientsSuccess: createAction<{data: Array<IIngridient>}>("GET_INGRIDIENTS_SUCCESS"),
-    getIngridientItem: createAction("GET_INGRIDIENT_ITEM")
+    getIngridientItem: createAction<{item: IIngridient}>("GET_INGRIDIENT_ITEM"),
+    resetIngridientItem: createAction("RESET_INGRIDIENT_ITEM"),
+    getIngridientsRequest: createAction("GET_INGRIDIENTS_REQUEST"),
+    getIngridientsError: createAction("GET_INGRIDIENTS_ERROR")
 }
+
+
 export const GET_INGRIDIENTS_SUCCESS : 'GET_INGRIDIENTS_SUCCESS' = "GET_INGRIDIENTS_SUCCESS"
 export const GET_INGRIDIENT_ITEM : 'GET_INGRIDIENT_ITEM' = "GET_INGRIDIENT_ITEM"
 export const RESET_INGRIDIENT_ITEM : 'RESET_INGRIDIENT_ITEM' = "RESET_INGRIDIENT_ITEM"

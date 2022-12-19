@@ -37,8 +37,6 @@ const HomePage:React.FC = () => {
                 </DndProvider>
                 { productInfo && <Modal onClose={handleClose}><IngridientDetails/></Modal>}
                 { orderInfo && <Modal onClose={handleClose}><OrderDetails/></Modal> }
-                {/*{ orderInfo && <Modal onClose={handleClose}><FeedDetails isAuthorized={false}/></Modal> }*/}
-                {/*{ orderInfo && <Modal onClose={handleClose}><FeedDetails isAuthorized={true}/></Modal> }*/}
         </>
     );
 }

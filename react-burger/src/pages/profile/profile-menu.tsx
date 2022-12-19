@@ -8,7 +8,7 @@ import {deleteCookie} from "../../utils/cookie";
 
 const ProfileMenu:FC = () => {
 
-    const history = useHistory()
+    const history = useHistory<string>()
     const dispatch = useAppDispatch()
 
     const redirect = () => {
@@ -16,11 +16,8 @@ const ProfileMenu:FC = () => {
     };
 
     const userLogout = (e:SyntheticEvent) => {
-        console.log('pizdec gluchnaya hyinya')
         e.preventDefault();
-
         deleteCookie('token');
-        // @ts-ignore
         dispatch(logout(redirect()));
 
     };

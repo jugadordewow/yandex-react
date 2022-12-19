@@ -13,6 +13,6 @@ export interface IIngridientDetail {
 }
 
 export interface IIngridientId {
-    itemId: string
+    itemId?: string
 }
 

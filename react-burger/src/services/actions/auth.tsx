@@ -52,7 +52,7 @@ export const forgotPswd: (form: { email: string }, redirect: () => void) => (dis
         .catch((error: { error: object; }) => {dispatch(authActions.forgotPswdFailed(error))})
 }
 
-export const resetPaswd: AppThunk = (form:{email:string,password:string},redirect:any) => (dispatch:AppDispatch, _ : any, burgerConstructor:any) => {
+export const resetPaswd: AppThunk = (form:{email:string,password:string},redirect:()=>void) => (dispatch:AppDispatch, _ : any, burgerConstructor:any) => {
     dispatch(authActions.resetPswdRequest())
     burgerConstructor.resetPswd(form)
         .then((res: { success: string; }) => {
@@ -67,10 +67,10 @@ export const resetPaswd: AppThunk = (form:{email:string,password:string},redirec
 }
 
 export const userRegister:AppThunk = (form:{email:string
-password: string, name: string},redirect:any) => (dispatch:AppDispatch, _:any, burgerConstructor:any) => {
+password: string, name: string},redirect:() => void) => (dispatch:AppDispatch, _:any, burgerConstructor:any) => {
     dispatch(authActions.registerUserRequest())
     burgerConstructor.registerUser(form)
-        .then((res: { accessToken: string; refreshToken: any; success: any; user: { name: string; email: string; }; }) => {
+        .then((res: { accessToken: string; refreshToken: any; success: string; user: { name: string; email: string; }; }) => {
             const accessToken = res.accessToken.split('Bearer ')[1];
             const refreshToken = res.refreshToken;
             setCookie('token', accessToken, { maxAge: 300000, secure: false, sameSite: "Lax" });
@@ -82,7 +82,7 @@ password: string, name: string},redirect:any) => (dispatch:AppDispatch, _:any, b
                 dispatch(authActions.registerUserFailed);
             }
         })
-        .catch((error: any) => dispatch(authActions.registerUserFailed(error)))
+        .catch((error: { error: object; }) => dispatch(authActions.registerUserFailed(error)))
 
 }
 
@@ -143,7 +143,7 @@ export const updateAuth:AppThunk = (form:{name:string, email:string}) => (dispat
         })
 }
 
-export const getAuth:AppThunk = () => (dispatch:AppDispatch, _:any, burgerConstructor: any) => {
+export const getAuth:AppThunk = () => (dispatch:AppDispatch, _, burgerConstructor: any) => {
     dispatch(authActions.userRequest());
     burgerConstructor.getAuthUser()
         .then((res: { success: any; user: { name: string; email: string; }; }) => {
