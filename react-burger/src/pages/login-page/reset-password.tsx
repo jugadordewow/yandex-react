@@ -30,7 +30,6 @@ const ResetPassword: React.FC = () => {
 
     const reset = (e:React.SyntheticEvent) => {
         e.preventDefault();
-        // @ts-ignore
         dispatch(resetPaswd(form, redirect));
     };
 

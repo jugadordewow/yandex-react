@@ -25,7 +25,6 @@ const Registration: React.FC = () => {
 
     const register = (e:SyntheticEvent) => {
         e.preventDefault();
-        // @ts-ignore
         dispatch(userRegister(form, redirect));
     };
 
