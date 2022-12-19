@@ -13,7 +13,7 @@ type TFeedDetails = {
 
 const FeedDetails:FC<TFeedDetails> = ({isAuthorized, isModal}) => {
 
-    const { id } = useParams<any>();
+    const { id } = useParams<{id:string}>();
     const orders =  useAppSelector(state => (isAuthorized) ? state.wsUserData.data.orders : state.wsData.data.orders)
     const heightStyles = isModal ? styles.modalHeight : styles.pageHeight;
     const ingridients = useAppSelector(state => state.ingredients.items)

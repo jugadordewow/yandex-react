@@ -25,7 +25,7 @@ const Modal: React.FC<IModal> = (props) => {
 
     const portalEl:any = document.getElementById('modal');
     
-    // @ts-ignore
+
     return ReactDOM.createPortal(
                 <div className={styles.modal}>
                     <ModalOverlay  onClose={toggler}/>

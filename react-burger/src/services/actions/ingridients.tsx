@@ -1,5 +1,6 @@
 import {AppThunk, AppDispatch} from "../types";
 import {createAction} from "@reduxjs/toolkit";
+import burgerConstructor from "../../components/burger-constructor/burger-constructor";
 
 export const ingridientActions = {
     getIngridientsSuccess: createAction<{data: Array<IIngridient>}>("GET_INGRIDIENTS_SUCCESS"),
@@ -79,7 +80,8 @@ const setError = (err: object | null) => ({
     payload: err
 })
 
-export const loadIngridients:AppThunk = () => (dispatch:AppDispatch, _: any, burgerConstructor:any) => {
+
+export const loadIngridients:AppThunk = () => (dispatch:AppDispatch, _, burgerConstructor:any) => {
     dispatch(setLoading())
     burgerConstructor.getAllData()
         .then((res: { data: object }) => res.data)

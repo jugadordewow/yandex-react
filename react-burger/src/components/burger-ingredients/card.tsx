@@ -11,7 +11,7 @@ import {useAppDispatch, useAppSelector} from "../../services/hook";
 const Card: React.FC<IIngridient> = ({_id, image, name, price, item}) => {
 
     const dispatch = useAppDispatch()
-    const location = useLocation<any>()
+    const location = useLocation<object>()
 
     const bun:any = useAppSelector(state => state.burger.bun)
 

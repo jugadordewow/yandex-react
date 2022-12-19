@@ -22,7 +22,6 @@ const ForgotPassword:React.FC = () => {
 
     const forgotPass = (e:any) => {
         e.preventDefault();
-        // @ts-ignore
         dispatch(authActions.forgotPswdRequest(), forgotPswd(form,redirect));
     };
 

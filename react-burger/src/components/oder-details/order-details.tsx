@@ -5,10 +5,7 @@ import {useAppSelector} from "../../services/hook";
 
 const OrderDetails = () => {
 
-
-    // @ts-ignore
-    const orderNum = useAppSelector(state => state.orders.order.order.number)
-
+    const orderNum = useAppSelector(state => state.orders.order?.number)
 
     return (
         <div className={styles.order_details_wrapper}>

@@ -1,9 +1,7 @@
 import React, {useCallback, useMemo} from "react";
-import PropTypes from 'prop-types';
 import {CurrencyIcon,  Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor.module.css';
 import {Bun, Ingridient} from "./ingridient-item";
-import {useDispatch, useSelector} from "react-redux";
 import {v4 as uidKey} from 'uuid'
 import {useDrop} from "react-dnd";
 import {loadOrder} from "../../services/actions/order";
@@ -18,7 +16,7 @@ import {useAppDispatch, useAppSelector} from "../../services/hook";
 const BurgerConstructor:React.FC = () => {
 
     const dispatch = useAppDispatch()
-    const history = useHistory<any>()
+    const history = useHistory<object>()
 
     const items = useAppSelector(state => state.burger.items)
 
@@ -55,7 +53,6 @@ const BurgerConstructor:React.FC = () => {
         })
     })
 
-
     // @ts-ignore
     const ingredientCard = items.map((item:IItem, index:number, moveListItem:() => void) => {
         return(
@@ -78,11 +75,8 @@ const BurgerConstructor:React.FC = () => {
 
     const setOrder = () => {
         if(localStorage.refreshToken) {
-            // @ts-ignore
             if(items.length > 0 && bun) {
-                // @ts-ignore
-                const order = [bun._id, ...items.map((item: { _id: any; }) => item._id), bun._id]
-                // @ts-ignore
+                const order = [bun._id, ...items.map((item: { _id: string; }) => item._id), bun._id]
                 dispatch(loadOrder(order))
             }else{
                 alert('Заправь свой Генедар, иначе воткнешься в Дренор так что обязательно булку добавь ну и соусов там накидай и ингридиентов всяких')

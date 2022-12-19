@@ -17,7 +17,7 @@ const Feed:FC = () => {
                             status: string;
                             type: TOrder; }) => item.status.match("done")).slice(0,5).map(
                            (item: object)=>{
-                              const {number}:any = {...item};
+                              const {number}:any | string = {...item};
                                 return (
                                   <li className="text text_type_digits-default mt-2" key={number}>{number}</li>
                                 )
@@ -32,7 +32,7 @@ const Feed:FC = () => {
                             status: string;
                             type: TOrder; }) => item.status.match("pending")).slice(0,5).map(
                             (item: object)=>{
-                                const {number}:any = {...item};
+                                const {number}:any | string = {...item};
                                 return (
                                     <li className="text text_type_digits-default mt-2" key={number}>{number}</li>
                                 )

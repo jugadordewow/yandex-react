@@ -2,7 +2,6 @@ import { ConstructorElement, DragIcon, CurrencyIcon,  Button} from "@ya.praktiku
 import styles from './burger-constructor.module.css';
 import React, {useRef} from 'react';
 import {useDrag, useDrop} from "react-dnd";
-import {useDispatch} from "react-redux";
 import {MOVE_INGRIDIENT_CONSTRUCTOR, REMOVE_INGRIDIENT_CONSTRUCTOR} from "../../services/actions/constructor";
 import { ICard, ICardProps, ICardBunProps } from "./types";
 import {useAppDispatch} from "../../services/hook";
@@ -10,7 +9,7 @@ import {useAppDispatch} from "../../services/hook";
 
 
 export const Ingridient:React.FC<ICardProps> = ({item, index}) => {
-    const {_id, name, price, image}:any = {...item}
+    const {_id, name, price, image}:ICard | any = {...item}
 
     const dispatch = useAppDispatch()
 
@@ -81,7 +80,7 @@ export const Ingridient:React.FC<ICardProps> = ({item, index}) => {
 }
 
 export const Bun: React.FC<ICardBunProps> = ({bun, pos}) => {
-    const {name, _id, price, image}:any = {...bun}
+    const {name, _id, price, image}:ICard = {...bun}
     let typeText = pos === 'top' ? '(верх)' : '(низ)'
 
     return (
