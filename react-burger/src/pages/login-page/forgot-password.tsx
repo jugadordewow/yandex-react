@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { useHistory, Link } from 'react-router-dom';
 import { forgotPswd } from "../../services/actions/auth";
+import {authActions} from "../../services/actions/auth";
 import { useDispatch, useSelector} from "react-redux";
 import {EmailInput, PasswordInput, Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
@@ -10,7 +11,7 @@ const ForgotPassword:React.FC = () => {
 
     const history = useHistory<any>();
     const dispatch = useAppDispatch();
-    const [form, setForm] = useState<any>({ email: '' });
+    const [form, setForm] = useState<{email: string}>({ email: '' });
     const onChange = (e:any) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
@@ -22,7 +23,7 @@ const ForgotPassword:React.FC = () => {
     const forgotPass = (e:any) => {
         e.preventDefault();
         // @ts-ignore
-        dispatch(forgotPswd(form, redirect));
+        dispatch(authActions.forgotPswdRequest(), forgotPswd(form,redirect));
     };
 
     if (localStorage.refreshToken) history.push('/');

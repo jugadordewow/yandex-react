@@ -28,9 +28,8 @@ const enhancer = composeEnhancers(
     applyMiddleware(
         socketMiddleware(WS_URL_ALL, wsActions, false),
         socketMiddleware(WS_URL_OWNER, wsUserActions, true),
-
         thunk.withExtraArgument(burgerService)),
-)
+);
 
 export const store = createStore(rootReducer,enhancer)
 

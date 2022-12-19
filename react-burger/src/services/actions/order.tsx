@@ -49,7 +49,7 @@ const setError = (err: object) => ({
     payload: err
 })
 
-export const loadOrder: AppThunk = (order) => (dispatch:AppDispatch, _: any, burgerConstructor:any) => {
+export const loadOrder: AppThunk<any> = (order) => (dispatch:AppDispatch, burgerConstructor:any) => {
     dispatch(setLoading())
     burgerConstructor.getOrderData(order)
         .then((res: TOrderItem) => dispatch(getOrder(res)))

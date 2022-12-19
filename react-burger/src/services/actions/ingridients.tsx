@@ -1,5 +1,10 @@
 import {AppThunk, AppDispatch} from "../types";
+import {createAction} from "@reduxjs/toolkit";
 
+export const ingridientActions = {
+    getIngridientsSuccess: createAction<{data: Array<IIngridient>}>("GET_INGRIDIENTS_SUCCESS"),
+    getIngridientItem: createAction("GET_INGRIDIENT_ITEM")
+}
 export const GET_INGRIDIENTS_SUCCESS : 'GET_INGRIDIENTS_SUCCESS' = "GET_INGRIDIENTS_SUCCESS"
 export const GET_INGRIDIENT_ITEM : 'GET_INGRIDIENT_ITEM' = "GET_INGRIDIENT_ITEM"
 export const RESET_INGRIDIENT_ITEM : 'RESET_INGRIDIENT_ITEM' = "RESET_INGRIDIENT_ITEM"
@@ -74,10 +79,10 @@ const setError = (err: object | null) => ({
     payload: err
 })
 
-export const loadIngridients:AppThunk = () => (dispatch:AppDispatch, _: any, burgerConstructor: { getAllData: () => Promise<{ data: any; }>; }) => {
+export const loadIngridients:AppThunk = () => (dispatch:AppDispatch, _: any, burgerConstructor:any) => {
     dispatch(setLoading())
     burgerConstructor.getAllData()
-        .then((res: { data: any }) => res.data)
+        .then((res: { data: object }) => res.data)
         .then((res: IIngridientsState) => dispatch(getIngridients(res)))
         .catch((err:object | null) => {
             dispatch(setError(err))

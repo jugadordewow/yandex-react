@@ -1,25 +1,5 @@
 import { isTemplateExpression } from "typescript";
 import { getCookie } from './cookie';
-import {ThunkDispatch} from "redux-thunk";
-import {EmptyObject} from "redux";
-
-import {IAuthState} from "../services/reducers/auth";
-import {
-    IAddBunConstructor,
-    IAddIngredientConstructor,
-    IConstructor,
-    IMoveIngridientConstructor, IRemoveIngridientConstructor, IResetConstructor
-} from "../services/actions/constructor";
-import {
-    IGetIngridientItem,
-    IIngridientsError,
-    IIngridientsRequest,
-    IIngridientsSuccess, IResetIngridientItem
-} from "../services/actions/ingridients";
-import {TAuthActions} from "../services/actions/auth";
-import {TWsActions} from "../services/actions/wsActions";
-import {TWsUserActions} from "../services/actions/wsUserActions";
-
 
 class BurgerService {
 

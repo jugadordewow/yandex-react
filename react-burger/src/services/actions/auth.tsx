@@ -4,6 +4,8 @@ import {
 } from '../../utils/cookie';
 import { createAction} from '@reduxjs/toolkit';
 import {AppThunk, AppDispatch} from "../types";
+import {ThunkActionDispatch} from "redux-thunk";
+import {useHistory} from "react-router-dom";
 
 
 export const authActions = {
@@ -30,13 +32,13 @@ export const authActions = {
     updateUserFailed: createAction('@@updateUser/FAILED'),
     authTokenRequest: createAction("@@authToken/REQUEST"),
     authTokenSuccess: createAction("@@authToken/SUCCESS"),
-    authTokenFailed: createAction<{message: string}>('@@authToken/FAILED'),
+    authTokenFailed: createAction<{e:{message: string}}>('@@authToken/FAILED'),
 }
 
 
 export type TAuthActions =  typeof authActions
 
-export const forgotPswd: AppThunk = (form:any,redirect:any) => (dispatch: AppDispatch, _: any, burgerConstructor:any) => {
+export const forgotPswd: (form: { email: string }, redirect: () => void) => (dispatch: AppDispatch, _: any, burgerConstructor: { remindPswd: (arg0: object) => Promise<{ success: string }> }) => void = (form:{email:string}, redirect:()=> void) => (dispatch: AppDispatch, _: any, burgerConstructor: { remindPswd: (arg0: object) => Promise<{ success: string; }>; }):void => {
     dispatch(authActions.forgotPswdRequest())
     burgerConstructor.remindPswd(form)
         .then((res: { success: string; }) => {
@@ -50,7 +52,7 @@ export const forgotPswd: AppThunk = (form:any,redirect:any) => (dispatch: AppDis
         .catch((error: { error: object; }) => {dispatch(authActions.forgotPswdFailed(error))})
 }
 
-export const resetPaswd: AppThunk = (form:any,redirect:any) => (dispatch:AppDispatch, _ : any, burgerConstructor:any) => {
+export const resetPaswd: AppThunk = (form:{email:string,password:string},redirect:any) => (dispatch:AppDispatch, _ : any, burgerConstructor:any) => {
     dispatch(authActions.resetPswdRequest())
     burgerConstructor.resetPswd(form)
         .then((res: { success: string; }) => {
@@ -64,7 +66,8 @@ export const resetPaswd: AppThunk = (form:any,redirect:any) => (dispatch:AppDisp
         .catch((error: { error: object; }) => dispatch(authActions.resetPswdFailed(error)))
 }
 
-export const userRegister:AppThunk = (form:any,redirect:any) => (dispatch:AppDispatch, _:any, burgerConstructor:any) => {
+export const userRegister:AppThunk = (form:{email:string
+password: string, name: string},redirect:any) => (dispatch:AppDispatch, _:any, burgerConstructor:any) => {
     dispatch(authActions.registerUserRequest())
     burgerConstructor.registerUser(form)
         .then((res: { accessToken: string; refreshToken: any; success: any; user: { name: string; email: string; }; }) => {
@@ -83,27 +86,28 @@ export const userRegister:AppThunk = (form:any,redirect:any) => (dispatch:AppDis
 
 }
 
-export const login: AppThunk = (form:any) => (dispatch:AppDispatch, _: any, burgerConstructor: any) => {
-    dispatch(authActions.loginUserRequest())
-    burgerConstructor.authUser(form)
-        .then((res: { accessToken: string; refreshToken: any; success: string; user: { name: string; email: string; }; }) => {
-                const accessToken = res.accessToken.split('Bearer ')[1];
-                const refreshToken = res.refreshToken;
-            setCookie('token', accessToken, { maxAge: 300000, secure: false, sameSite: "Lax" });
-                localStorage.setItem('refreshToken', refreshToken);
-                if (res && res.success) {
-                    dispatch(authActions.loginUserSuccess(res.user))
-                } else {
-                    dispatch(authActions.loginUserFailed)
+export const login: AppThunk = (form:{email:string, password:string}) => {
+    return function (dispatch: AppDispatch, _: any, burgerConstructor: any) {
+        dispatch(authActions.loginUserRequest())
+        burgerConstructor.authUser(form)
+            .then((res: { accessToken: string; refreshToken: any; success: string; user: { name: string; email: string; }; }) => {
+                    const accessToken = res.accessToken.split('Bearer ')[1];
+                    const refreshToken = res.refreshToken;
+                    setCookie('token', accessToken, {maxAge: 300000, secure: false, sameSite: "Lax"});
+                    localStorage.setItem('refreshToken', refreshToken);
+                    if (res && res.success) {
+                        dispatch(authActions.loginUserSuccess(res.user))
+                    } else {
+                        dispatch(authActions.loginUserFailed)
+                    }
                 }
-            }
-        )
-        .catch((error: any) => {
-            dispatch(authActions.loginUserFailed(error))
-        });
+            )
+            .catch((error: any) => {
+                dispatch(authActions.loginUserFailed(error))
+            });
+    }
 }
-
-export const logout: AppThunk = (redirect:any) => (dispatch: AppDispatch, _:any, burgerConstructor:any) => {
+export const logout: AppThunk = (redirect:()=>void) => (dispatch: AppDispatch, _:any, burgerConstructor:any) => {
     dispatch(authActions.logoutUserRequest)
     burgerConstructor.logoutUser()
         .then((res:any) => {
@@ -121,7 +125,7 @@ export const logout: AppThunk = (redirect:any) => (dispatch: AppDispatch, _:any,
         })
 }
 
-export const updateAuth:AppThunk = (form:object) => (dispatch:AppDispatch, _:any, burgerConstructor:any) => {
+export const updateAuth:AppThunk = (form:{name:string, email:string}) => (dispatch:AppDispatch, _:any, burgerConstructor:any) => {
     dispatch(authActions.updateUserRequest())
     burgerConstructor.updateAuthUser(form)
         .then((res: { success: any; user: { name: string; email: string; }; }) => {
@@ -133,15 +137,13 @@ export const updateAuth:AppThunk = (form:object) => (dispatch:AppDispatch, _:any
         })
         .catch((e: { message: string; }) => {
             if ((e.message === 'jwt expired') || (e.message === 'Token is invalid')) {
-                // @ts-ignore
                 dispatch(getAccessToken());
-                // @ts-ignore
                 dispatch(updateAuth(form));
             } else dispatch(authActions.updateUserFailed())
         })
 }
 
-export const getAuth:AppThunk = () => (dispatch:AppDispatch, _:any, burgerConstructor:any) => {
+export const getAuth:AppThunk = () => (dispatch:AppDispatch, _:any, burgerConstructor: any) => {
     dispatch(authActions.userRequest());
     burgerConstructor.getAuthUser()
         .then((res: { success: any; user: { name: string; email: string; }; }) => {
@@ -153,11 +155,8 @@ export const getAuth:AppThunk = () => (dispatch:AppDispatch, _:any, burgerConstr
             }
         })
         .catch((e: { message: string; }) => {
-                // @ts-ignore
                 dispatch(logout(() => useHistory().push('/login')))
-                // @ts-ignore
-                dispatch(authActions.userFailed(e.message))
-
+                dispatch(authActions.userFailed(e))
         });
 }
 
@@ -172,16 +171,15 @@ export const getAccessToken:AppThunk = () => (dispatch:AppDispatch, _: any, burg
                 if (res && res.success) {
                     dispatch(authActions.authTokenSuccess());
                 } else {
-                    dispatch(logout);
+                    dispatch(logout());
                     dispatch(authActions.authTokenFailed);
                 }
             })
             .catch((e: { message: string; }) => {
                 if (e.message === 'Token is invalid') {
-                    // @ts-ignore
                     getAccessToken();
-                } else { // @ts-ignore
-                    dispatch(authActions.authTokenFailed(e.message))
+                } else {
+                    dispatch(authActions.authTokenFailed)
                 }
             });
 };

@@ -41,7 +41,6 @@ const Login:React.FC = () => {
 
     const userAuth = (e:SyntheticEvent) => {
         e.preventDefault();
-        // @ts-ignore
         dispatch(login(form))
     }
 
