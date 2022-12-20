@@ -1,5 +1,5 @@
 import {Link, useHistory } from "react-router-dom";
-import React, {useState, useRef } from 'react';
+import React, {useState, useRef, ChangeEvent} from 'react';
 import { useDispatch, useSelector} from "react-redux";
 import {resetPaswd} from "../../services/actions/auth";
 import {EmailInput, PasswordInput, Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";

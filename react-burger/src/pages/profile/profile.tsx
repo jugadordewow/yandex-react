@@ -1,13 +1,12 @@
 import React, {useState, useRef, useEffect, SyntheticEvent} from 'react';
-import {useHistory, Link, NavLink} from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout, getAuth, updateAuth} from "../../services/actions/auth";
+import {useHistory} from 'react-router-dom';
+import { getAuth, updateAuth} from "../../services/actions/auth";
 import styles from './profile.module.css';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import {useAppDispatch, useAppSelector} from "../../services/hook";
 import ProfileMenu from "./profile-menu";
 import {getCookie} from "../../utils/cookie";
-import {object} from "prop-types";
+
 
 interface IProfile {
     auth: {
