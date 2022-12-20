@@ -32,7 +32,9 @@ const Modal: React.FC<IModal> = (props) => {
                     <ModalOverlay  onClose={toggler}/>
                     <div className = {styles.modal_wrapepr}>
                         <div className={styles.modal_close_wrapper} >
-                            <CloseIcon type="primary"  className="btn-close" onClick={toggler}/>
+                           <div className="btn-close" onClick={toggler}>
+                               <CloseIcon type="primary"/>
+                           </div>
                         </div>
                         {props.children}
                     </div>

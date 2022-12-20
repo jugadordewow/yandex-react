@@ -2,9 +2,10 @@ import React, {ChangeEvent, SyntheticEvent, useState} from "react";
 import { useHistory, Link } from 'react-router-dom';
 import { forgotPswd } from "../../services/actions/auth";
 import {authActions} from "../../services/actions/auth";
-import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
 import {useAppDispatch} from "../../services/hook";
+import {Button} from "../../services/uiTypes";
 
 const ForgotPassword:React.FC = () => {
 
@@ -40,7 +41,7 @@ const ForgotPassword:React.FC = () => {
                     />
                 </div>
                 <div className={styles.formField}>
-                    <Button type="primary" size="medium" htmlType="submit">
+                    <Button type="primary" size="medium" >
                         Восстановить
                     </Button>
                 </div>

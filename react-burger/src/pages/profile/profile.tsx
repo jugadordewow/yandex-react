@@ -2,11 +2,11 @@ import React, {useState, useRef, useEffect, SyntheticEvent} from 'react';
 import {useHistory} from 'react-router-dom';
 import { getAuth, updateAuth} from "../../services/actions/auth";
 import styles from './profile.module.css';
-import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import {useAppDispatch, useAppSelector} from "../../services/hook";
 import ProfileMenu from "./profile-menu";
 import {getCookie} from "../../utils/cookie";
-
+import  { Button }  from '../../services/uiTypes';
 
 interface IProfile {
     auth: {

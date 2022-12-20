@@ -1,11 +1,11 @@
 import {Link, useHistory } from "react-router-dom";
-import React, {useState, useRef, ChangeEvent} from 'react';
-import { useDispatch, useSelector} from "react-redux";
+import React, {useState, useRef} from 'react';
 import {resetPaswd} from "../../services/actions/auth";
-import {EmailInput, PasswordInput, Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {EmailInput, PasswordInput, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
 import {useAppDispatch} from "../../services/hook";
 import {ILocation} from "../../services/types";
+import {Button} from "../../services/uiTypes";
 
 const ResetPassword: React.FC = () => {
 

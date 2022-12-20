@@ -7,6 +7,9 @@ import {TWsActions} from "./actions/wsActions";
 import {TWsUserActions} from "./actions/wsUserActions";
 import {rootReducer} from "./reducers";
 import {Action, ActionCreator, AnyAction, Dispatch, Middleware} from "redux";
+import { Button as ButtonUI, Tab as TabUI } from "@ya.praktikum/react-developer-burger-ui-components";
+import {FC, SyntheticEvent} from "react";
+
 
 
 export type RootState = ReturnType<typeof rootReducer>;

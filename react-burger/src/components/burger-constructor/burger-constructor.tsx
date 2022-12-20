@@ -1,5 +1,5 @@
 import React, {useMemo} from "react";
-import {CurrencyIcon,  Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor.module.css';
 import {Bun, Ingridient} from "./ingridient-item";
 import {v4 as uidKey} from 'uuid'
@@ -12,6 +12,7 @@ import {useHistory} from "react-router-dom";
 import {IItem} from './types'
 import {useAppDispatch, useAppSelector} from "../../services/hook";
 import {getCookie} from "../../utils/cookie";
+import {Button} from "../../services/uiTypes";
 
 const BurgerConstructor:React.FC = () => {
 

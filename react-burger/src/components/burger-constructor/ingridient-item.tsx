@@ -1,11 +1,11 @@
-import { ConstructorElement, DragIcon, CurrencyIcon,  Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import { DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor.module.css';
 import React, {useRef} from 'react';
 import {useDrag, useDrop} from "react-dnd";
 import {MOVE_INGRIDIENT_CONSTRUCTOR, REMOVE_INGRIDIENT_CONSTRUCTOR} from "../../services/actions/constructor";
 import { ICard, ICardProps, ICardBunProps } from "./types";
 import {useAppDispatch} from "../../services/hook";
-
+import {ConstructorElement} from "../../services/uiTypes";
 
 
 export const Ingridient:React.FC<ICardProps> = ({item, index}) => {

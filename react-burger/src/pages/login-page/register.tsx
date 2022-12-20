@@ -1,9 +1,10 @@
 import {Link, useHistory} from "react-router-dom";
 import React, {useState, useRef, SyntheticEvent} from 'react';
 import {userRegister} from "../../services/actions/auth";
-import {EmailInput, PasswordInput, Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import {EmailInput, PasswordInput, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
 import {useAppDispatch} from "../../services/hook";
+import {Button} from "../../services/uiTypes";
 
 const Registration: React.FC = () => {
 

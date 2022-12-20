@@ -1,9 +1,10 @@
 import {Link, Redirect} from "react-router-dom";
 import React, {SyntheticEvent, useState} from 'react';
 import { login } from "../../services/actions/auth";
-import {EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import {EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
 import {useAppDispatch, useAppSelector} from "../../services/hook";
+import {Button} from "../../services/uiTypes";
 
 interface IProfile {
     auth: {
