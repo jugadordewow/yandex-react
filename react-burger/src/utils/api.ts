@@ -98,7 +98,7 @@ import { getCookie } from './cookie';
             method:method,
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${getCookie('token')}`
+                'Authorization': `Bearer ${getCookie('token')}`
             },
             body: JSON.stringify(body)
         }

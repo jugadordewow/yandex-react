@@ -9,7 +9,7 @@ import {ADD_BUN_CONSTRUCTOR,
         ADD_INGRIDIENT_CONSTRUCTOR,
         } from "../../services/actions/constructor";
 import {useHistory} from "react-router-dom";
-import {ICard, IItem, IConstructorState, ICardProps} from './types'
+import {IItem} from './types'
 import {useAppDispatch, useAppSelector} from "../../services/hook";
 import {getCookie} from "../../utils/cookie";
 
@@ -77,7 +77,7 @@ const BurgerConstructor:React.FC = () => {
     }, [bun,items])
 
     const setOrder = () => {
-        if(isAuthorized) {
+        if(localStorage.refreshToken) {
             if(items.length > 0 && bun) {
                 const order = [bun._id, ...items.map((item: { _id: string; }) => item._id), bun._id]
                 dispatch(loadOrder(order))
