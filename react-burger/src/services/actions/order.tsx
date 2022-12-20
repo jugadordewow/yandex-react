@@ -1,4 +1,5 @@
-import {AppDispatch, AppThunk, TAppActions} from "../types";
+import {AppDispatch, AppThunk} from "../types";
+import {getOrderData} from "../../utils/api";
 
 export const GET_ORDER_REQUEST:'GET_ORDER_REQUEST' = "GET_ORDER_REQUEST"
 export const GET_ORDER_SUCCESS:'GET_ORDER_SUCCESS' = "GET_ORDER_SUCCESS"
@@ -49,9 +50,12 @@ const setError = (err: object) => ({
     payload: err
 })
 
-export const loadOrder: AppThunk = (order:{order:string[]}) => (dispatch:AppDispatch, _, burgerConstructor:any) => {
-    dispatch(setLoading())
-    burgerConstructor.getOrderData(order)
-        .then((res: TOrderItem) => dispatch(getOrder(res)))
-        .catch((err: object) => dispatch(setError(err)))
+
+export const loadOrder: AppThunk = (order: Array<TOrderItem>) => {
+    return function (dispatch: AppDispatch){
+        dispatch(setLoading())
+        getOrderData(order)
+            .then((res: TOrderItem) => dispatch(getOrder(res)))
+            .catch((err: object) => dispatch(setError(err)))
+    }
 }

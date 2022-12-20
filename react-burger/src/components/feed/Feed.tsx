@@ -15,7 +15,7 @@ const Feed:FC = () => {
                     <ul className={styles.list}>
                         {data.orders.filter((item: {
                             status: string;
-                            type: TOrder; }) => item.status.match("done")).slice(0,5).map(
+                             }) => item.status.match("done")).slice(0,5).map(
                            (item: object)=>{
                               const {number}:any | string = {...item};
                                 return (
@@ -30,7 +30,7 @@ const Feed:FC = () => {
                     <ul className={styles.list}>
                         {data.orders.filter((item: {
                             status: string;
-                            type: TOrder; }) => item.status.match("pending")).slice(0,5).map(
+                             }) => item.status.match("pending")).slice(0,5).map(
                             (item: object)=>{
                                 const {number}:any | string = {...item};
                                 return (

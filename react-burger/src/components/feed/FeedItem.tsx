@@ -1,7 +1,7 @@
 import styles from './Feed.module.css';
 import {useLocation, Link} from "react-router-dom";
 import {FC} from "react";
-import {TOrder} from "../../services/types";
+import {ILocation, TOrder} from "../../services/types";
 import {getOrderDate} from "../../utils/order-dates";
 import {useAppSelector} from "../../services/hook";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -12,7 +12,7 @@ type TFeed = {
 
 const FeedItem: FC<TFeed> = ({order}) => {
 
-    const location = useLocation<any>();
+    const location = useLocation<ILocation>();
     const path = (location.pathname === '/feed') ? `/feed/${order.number}`: `/profile/orders/${order.number}`;
     const orderDate = getOrderDate(order);
     const ingridients = useAppSelector(state => state.ingredients.items);

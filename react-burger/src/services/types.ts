@@ -11,12 +11,17 @@ import {Action, ActionCreator, AnyAction, Dispatch, Middleware} from "redux";
 
 export type RootState = ReturnType<typeof rootReducer>;
 
+export interface ILocation {
+    from?: Location,
+    background?: Location,
+    pathname?: string
+}
 
 export type TwsState = {
     wsConnected: boolean,
-    wsError: object,
+    wsError: boolean,
     data: {
-        orders: [],
+        orders: Array<TOrder>,
         common: number,
         commonToday: number
     }

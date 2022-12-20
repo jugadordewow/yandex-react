@@ -41,7 +41,7 @@ const ForgotPassword:React.FC = () => {
                     />
                 </div>
                 <div className={styles.formField}>
-                    <Button type="primary" size="medium" >
+                    <Button type="primary" size="medium" htmlType="submit">
                         Восстановить
                     </Button>
                 </div>

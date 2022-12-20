@@ -1,5 +1,6 @@
 import {AppThunk, AppDispatch} from "../types";
 import {createAction} from "@reduxjs/toolkit";
+import {getAllData} from "../../utils/api";
 
 
 export const ingridientActions = {
@@ -86,14 +87,16 @@ const setError = (err: object | null) => ({
 })
 
 
-export const loadIngridients:AppThunk = () => (dispatch:AppDispatch, _, burgerConstructor:any) => {
-    dispatch(setLoading())
-    burgerConstructor.getAllData()
-        .then((res: { data: object }) => res.data)
-        .then((res: IIngridientsState) => dispatch(getIngridients(res)))
-        .catch((err:object | null) => {
-            dispatch(setError(err))
-        })
+export const loadIngridients:AppThunk = () => {
+    return function(dispatch:AppDispatch) {
+            dispatch(setLoading())
+            getAllData()
+                .then((res) => res.data)
+                .then((res: IIngridientsState) => dispatch(getIngridients(res)))
+                .catch((err:object | null) => {
+                    dispatch(setError(err))
+                })
+    }
 }
 
 

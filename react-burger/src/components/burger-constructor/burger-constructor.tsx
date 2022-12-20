@@ -107,7 +107,7 @@ const BurgerConstructor:React.FC = () => {
               <CurrencyIcon type="primary" />
           </div>
           
-           <Button type="primary" size="large"  onClick={setOrder}>
+           <Button type="primary" size="large" htmlType="button" onClick={setOrder}>
                 Заказать
            </Button>
       </div>

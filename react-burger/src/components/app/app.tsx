@@ -3,7 +3,7 @@ import { Switch, Route, useLocation, useHistory} from "react-router-dom";
 import { useEffect} from 'react';
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import {HomePage, Login, ResetPassword, Registration, ForgotPassword, Page404, ProfilePage, IngridientPage, ProfilePageOrder, OrderFeedPage, ProfilePageOrders, ProfileOrder, FeedPage } from '../../pages';
+import {HomePage, Login, ResetPassword, Registration, ForgotPassword, Page404, ProfilePage, IngridientPage, ProfilePageOrder, OrderFeedPage, ProfilePageOrders, FeedPage } from '../../pages';
 import IngridientDetails from "../ingridient-details/ingridient-details";
 import {loadIngridients} from "../../services/actions/ingridients";
 import Modal from "../modal/modal";
@@ -19,7 +19,7 @@ const App:React.FC = () => {
 
     useEffect(() => {
         dispatch(loadIngridients())
-    }, [])
+    }, [dispatch])
     
 
     const location = useLocation<any>();

@@ -9,7 +9,7 @@ import {useAppSelector} from "../../services/hook";
 // @ts-ignore
 const IngridientDetails:FC<IIngridientId> = ({itemId}) => {
 
-    const { id } = useParams<any>();
+    const { id } = useParams<{id:string}>();
     const itemsInfo = useAppSelector(state => state.ingredients.items)
     const itemModalInfo = (itemsInfo.length > 0 ) ? itemsInfo.find(i => i._id === id) : null;
     const itemPageInfo = (itemsInfo.length > 0 &&  itemId) ? itemsInfo.find(i => i._id === itemId) : null;

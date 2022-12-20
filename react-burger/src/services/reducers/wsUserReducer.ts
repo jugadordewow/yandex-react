@@ -1,8 +1,9 @@
 import {wsUserActions} from "../actions/wsUserActions";
 import {createReducer} from "@reduxjs/toolkit";
+import {TwsState} from "../types";
 
 
-const initialState = {
+const initialState:TwsState = {
     wsConnected: false,
     wsError: false,
     data: {
