@@ -5,7 +5,7 @@ import {useAppSelector} from "../../services/hook";
 
 const OrderDetails = () => {
 
-    const orderNum = useAppSelector(state => state.orders.order?.number)
+    const orderNum = useAppSelector(state => state.orders.order?.order?.number)
 
     return (
         <div className={styles.order_details_wrapper}>
@@ -17,7 +17,6 @@ const OrderDetails = () => {
             <div className={styles.order_details_info_active}>Ваш заказ начали готовить</div>
             <div className={styles.order_details_info}>Дождитесь готовности на орбитальной станции</div>
         </div>
-
     )
 }
 

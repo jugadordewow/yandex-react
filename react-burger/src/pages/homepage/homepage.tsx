@@ -11,6 +11,7 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {ORDER_RESET} from "../../services/actions/order";
 import {RESET_CONSTRUCTOR} from "../../services/actions/constructor";
 import {useAppDispatch, useAppSelector} from "../../services/hook";
+import {LoadingElem} from "../../services/skeleton";
 
 
 const HomePage:React.FC = () => {
@@ -21,11 +22,13 @@ const HomePage:React.FC = () => {
 
     const orderInfo = useAppSelector(state => state.orders.order)
 
+    const orderRequest = useAppSelector(state => state.orders.orderRequest)
+
 
     const handleClose = () => {
         productInfo &&  dispatch({type: RESET_INGRIDIENT_ITEM})
         orderInfo && dispatch({type: ORDER_RESET})
-        orderInfo &&   dispatch({type: RESET_CONSTRUCTOR})
+        orderInfo &&  dispatch({type: RESET_CONSTRUCTOR})
     }
 
 
@@ -37,6 +40,7 @@ const HomePage:React.FC = () => {
                 </DndProvider>
                 { productInfo && <Modal onClose={handleClose}><IngridientDetails/></Modal>}
                 { orderInfo && <Modal onClose={handleClose}><OrderDetails/></Modal> }
+                {orderRequest && <Modal onClose={handleClose}><LoadingElem/></Modal>}
         </>
     );
 }

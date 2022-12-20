@@ -28,7 +28,7 @@ export const ProfilePageOrders:FC = () => {
                       <p className={styles.text + ' text text_type_main-default text_color_inactive mt-20'}>В этом разделе вы можете просмотреть свою историю заказов</p>
                   </section>
                   <section className={styles.orders}>
-                      {orders && orders.map((order : TOrder) => <FeedItem key={order._id} order={order} />)}
+                      {orders && orders.map((order : TOrder) => <FeedItem key={order._id} order={order} />).reverse()}
                   </section>
               </div>
           </main>

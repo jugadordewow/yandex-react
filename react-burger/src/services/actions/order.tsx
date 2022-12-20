@@ -7,6 +7,9 @@ export const GET_ORDER_ERROR:'GET_ORDER_ERROR' = "GET_ORDER_ERROR"
 export const ORDER_RESET:'GET_ORDER_RESET' = "GET_ORDER_RESET"
 
 export type TOrderItem = {
+    order: {
+        number: number
+    };
     name:string,
     number:number
 }
@@ -55,8 +58,7 @@ export const loadOrder: AppThunk = (order: string[]) => {
     return function (dispatch: AppDispatch){
         dispatch(setLoading())
         getOrderData(order)
-            .then(res => console.log(res))
-            //.then((res: TOrderItem) => dispatch(getOrder(res)))
+            .then((res: TOrderItem) => dispatch(getOrder(res)))
             .catch((err: object) => dispatch(setError(err)))
     }
 }

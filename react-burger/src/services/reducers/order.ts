@@ -25,7 +25,8 @@ export const orderReducer = (state = initialState, action:TOrdersActions)=> {
             return {
                 ...state,
                 order: action.payload,
-                orders: [...state.orders, action.payload]
+                orders: [...state.orders, action.payload],
+                orderRequest: false,
             }
         }
         case GET_ORDER_REQUEST: {
