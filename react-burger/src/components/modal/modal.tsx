@@ -9,10 +9,11 @@ const Modal: React.FC<IModal> = (props) => {
 
     const toggler = props.onClose ? props.onClose : undefined;
 
-    const onPressEsc = useCallback((e:any) => {
+    const onPressEsc = useCallback((e:KeyboardEvent) => {
         if(e.key === 'Escape') {
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-            toggler;
+            if (toggler) {
+                toggler();
+            }
         }
     }, [toggler]);
 

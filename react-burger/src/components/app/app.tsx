@@ -10,6 +10,7 @@ import Modal from "../modal/modal";
 import { ProtectedRoute } from '../protected-route';
 import {useAppDispatch} from "../../services/hook";
 import FeedDetails from "../feed/FeedDetails";
+import {ILocation} from "../../services/types";
 
 
 
@@ -22,8 +23,8 @@ const App:React.FC = () => {
     }, [dispatch])
     
 
-    const location = useLocation<any>();
-    const history = useHistory<any>();
+    const location = useLocation<ILocation | any>();
+    const history = useHistory<ILocation>();
     const modal = (window.history.state != null) ? (window.history.state.modal || false) : false;
     const background = location.state && location.state.background;
     const returnFromModal = () => {

@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from "react";
+import React, {useMemo} from "react";
 import {CurrencyIcon,  Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor.module.css';
 import {Bun, Ingridient} from "./ingridient-item";
@@ -7,16 +7,18 @@ import {useDrop} from "react-dnd";
 import {loadOrder} from "../../services/actions/order";
 import {ADD_BUN_CONSTRUCTOR,
         ADD_INGRIDIENT_CONSTRUCTOR,
-        MOVE_INGRIDIENT_CONSTRUCTOR,
         } from "../../services/actions/constructor";
 import {useHistory} from "react-router-dom";
 import {ICard, IItem, IConstructorState, ICardProps} from './types'
 import {useAppDispatch, useAppSelector} from "../../services/hook";
+import {getCookie} from "../../utils/cookie";
 
 const BurgerConstructor:React.FC = () => {
 
     const dispatch = useAppDispatch()
-    const history = useHistory<object>()
+    const history = useHistory<string>()
+
+    const isAuthorized = getCookie('token')
 
     const items = useAppSelector(state => state.burger.items)
 
@@ -75,7 +77,7 @@ const BurgerConstructor:React.FC = () => {
     }, [bun,items])
 
     const setOrder = () => {
-        if(localStorage.refreshToken) {
+        if(isAuthorized) {
             if(items.length > 0 && bun) {
                 const order = [bun._id, ...items.map((item: { _id: string; }) => item._id), bun._id]
                 dispatch(loadOrder(order))

@@ -103,7 +103,6 @@ import { getCookie } from './cookie';
             body: JSON.stringify(body)
         }
         return await checkResponse(url, settings)
-
     }
 
 
@@ -112,7 +111,7 @@ import { getCookie } from './cookie';
         return getResource(`${_baseURL}${_apiURL}`)
     }
 
-    export const getOrderData = (orderItem:object) => {
+    export const getOrderData = (orderItem: string[]) => {
         console.log(orderItem)
         return getOrderNum(`${_baseURL}${_orderURL}`, {ingredients: orderItem}, "POST")
     }

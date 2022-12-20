@@ -14,7 +14,8 @@ export type RootState = ReturnType<typeof rootReducer>;
 export interface ILocation {
     from?: Location,
     background?: Location,
-    pathname?: string
+    pathname?: string,
+    reset?: boolean
 }
 
 export type TwsState = {

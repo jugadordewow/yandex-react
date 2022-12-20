@@ -51,11 +51,12 @@ const setError = (err: object) => ({
 })
 
 
-export const loadOrder: AppThunk = (order: Array<TOrderItem>) => {
+export const loadOrder: AppThunk = (order: string[]) => {
     return function (dispatch: AppDispatch){
         dispatch(setLoading())
         getOrderData(order)
-            .then((res: TOrderItem) => dispatch(getOrder(res)))
+            .then(res => console.log(res))
+            //.then((res: TOrderItem) => dispatch(getOrder(res)))
             .catch((err: object) => dispatch(setError(err)))
     }
 }

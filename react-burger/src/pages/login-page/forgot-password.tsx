@@ -1,18 +1,17 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, SyntheticEvent, useState} from "react";
 import { useHistory, Link } from 'react-router-dom';
 import { forgotPswd } from "../../services/actions/auth";
 import {authActions} from "../../services/actions/auth";
-import { useDispatch, useSelector} from "react-redux";
-import {EmailInput, PasswordInput, Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
 import {useAppDispatch} from "../../services/hook";
 
 const ForgotPassword:React.FC = () => {
 
-    const history = useHistory<any>();
+    const history = useHistory<{}>();
     const dispatch = useAppDispatch();
     const [form, setForm] = useState<{email: string}>({ email: '' });
-    const onChange = (e:any) => {
+    const onChange = (e:ChangeEvent<{name: string, value:string}>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
@@ -20,7 +19,7 @@ const ForgotPassword:React.FC = () => {
         history.push('/reset-password', {reset:true})
     };
 
-    const forgotPass = (e:any) => {
+    const forgotPass = (e:SyntheticEvent) => {
         e.preventDefault();
         dispatch(authActions.forgotPswdRequest(), forgotPswd(form,redirect));
     };

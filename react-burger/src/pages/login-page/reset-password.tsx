@@ -5,14 +5,15 @@ import {resetPaswd} from "../../services/actions/auth";
 import {EmailInput, PasswordInput, Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
 import {useAppDispatch} from "../../services/hook";
+import {ILocation} from "../../services/types";
 
 const ResetPassword: React.FC = () => {
 
     const dispatch = useAppDispatch();
-    const history = useHistory<any>();
+    const history = useHistory<ILocation>();
     const inputRef: any = useRef<HTMLInputElement>(null);
 
-    const [form, setForm] = useState({ token: '', password: '' });
+    const [form, setForm] = useState<{token:string, password: string}>({ token: '', password: '' });
     const onChange = (e:{target: HTMLInputElement}) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };

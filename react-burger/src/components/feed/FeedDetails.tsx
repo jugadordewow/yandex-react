@@ -29,7 +29,7 @@ const FeedDetails:FC<TFeedDetails> = ({isAuthorized, isModal}) => {
 
 
     const orderUnical = order && order.ingredients.map((order:object) => order)
-    let counts:any = [];
+    let counts: any = [];
 
     const filterCache = orderUnical && orderUnical.filter((i:string,id:number)=> orderUnical.indexOf(i) === id)
 
