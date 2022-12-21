@@ -48,5 +48,5 @@ export interface IConstructorState {
 
 export interface ICardBunProps {
     bun: ICard,
-    pos: string
+    pos: 'top' | 'bottom'
 }

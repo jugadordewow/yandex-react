@@ -23,7 +23,7 @@ export const  ConstructorElement: React.FC<{
     text: string;
     thumbnail: string;
     price: number;
-    type?: 'top' | 'bottom' | string;
+    type?: 'top' | 'bottom';
     isLocked?: boolean;
     extraClass?: string;
     handleClose?: () => void;
