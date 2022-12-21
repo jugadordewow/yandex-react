@@ -3,14 +3,16 @@ main {
     margin:0 auto;
     text-align:left;
 }
-.container {
+.feedsProfileWrapper {
     display:flex;
     flex-direction:row;
     justify-content:flex-start;
+    flex-wrap: nowrap;
+    margin-top: var(--x20);
 }
-.menu {
-    width:320px;
-}
+/*.menu {*/
+/*    width:320px;*/
+/*}*/
 .menu ul {
     padding:0;
 }
@@ -21,6 +23,9 @@ main {
 .link {
     text-decoration:none;
     cursor:pointer;
+}
+.active_link {
+    color:#fff;
 }
 .text {
     opacity:0.4;
@@ -36,4 +41,7 @@ main {
 }
 .cancel:hover {
     text-shadow: 0 0 4px rgb(51, 51, 255);
+}
+.profileWrapper {
+    display: flex;
 }

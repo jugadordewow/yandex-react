@@ -1,21 +1,32 @@
 import {GET_ORDER_REQUEST,
         GET_ORDER_ERROR,
         ORDER_RESET,
-        GET_ORDER_SUCCESS} from "../actions/order";
+        GET_ORDER_SUCCESS, TOrderItem, TOrdersActions} from "../actions/order";
 
-const initialState = {
+
+export type TOrderInitialState = {
+    orders: Array<TOrderItem>,
+    order: TOrderItem | null,
+    orderRequest: boolean,
+    orderError: boolean
+};
+
+const initialState:TOrderInitialState = {
+    orders:[],
     order: null,
     orderRequest: false,
     orderError: false
 }
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action:TOrdersActions)=> {
 
     switch(action.type){
         case GET_ORDER_SUCCESS: {
             return {
                 ...state,
-                order: action.payload
+                order: action.payload,
+                orders: [...state.orders, action.payload],
+                orderRequest: false,
             }
         }
         case GET_ORDER_REQUEST: {

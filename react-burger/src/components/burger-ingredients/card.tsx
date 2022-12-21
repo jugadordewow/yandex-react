@@ -1,20 +1,20 @@
 import styles from "./burger-ingridients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
-import {useDispatch, useSelector } from "react-redux";
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
-import {IIngridientsList, IIngridientsState, IIngridient} from './types'
+import { IIngridient} from './types'
+import {useAppSelector} from "../../services/hook";
+import {ILocation} from "../../services/types";
 
 
 const Card: React.FC<IIngridient> = ({_id, image, name, price, item}) => {
 
-    const dispatch = useDispatch<any>()
-    const location = useLocation<any>()
+    const location = useLocation<ILocation>()
 
-    const bun:any = useSelector<IIngridientsState>(state => state.burger.bun)
+    const bun:any = useAppSelector(state => state.burger.bun)
 
-    const burgerItems:any = useSelector<IIngridientsState>(state=> state.burger.items)
+    const burgerItems:any = useAppSelector(state=> state.burger.items)
 
 
     let counter!: number;

@@ -1,9 +1,12 @@
 import React, {useState, useRef, useEffect, SyntheticEvent} from 'react';
-import { useHistory, Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout, getAuth, updateAuth} from "../../services/actions/auth";
+import {useHistory} from 'react-router-dom';
+import { getAuth, updateAuth} from "../../services/actions/auth";
 import styles from './profile.module.css';
-import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import {useAppDispatch, useAppSelector} from "../../services/hook";
+import ProfileMenu from "./profile-menu";
+import {getCookie} from "../../utils/cookie";
+import  { Button }  from '../../services/uiTypes';
 
 interface IProfile {
     auth: {
@@ -30,12 +33,12 @@ const ProfilePage:React.FC = () => {
 
     const history = useHistory();
     const inputRef:any = useRef<HTMLInputElement | null>(null);
-    const dispatch = useDispatch<any>();
-    const { name, email } = useSelector<IProfile, {name: string, email:string}>(
+    const dispatch = useAppDispatch();
+    const { name, email } = useAppSelector(
         state => state.auth
     );
 
-
+    console.log(getCookie('token'))
     const [form, setForm] = useState({ name:name, email:email, password: '' });
     const onChange = (e:{target: HTMLInputElement}) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -49,23 +52,16 @@ const ProfilePage:React.FC = () => {
     }
     const save = (e:SyntheticEvent) => {
         e.preventDefault();
-        dispatch(updateAuth(form));
+        dispatch(updateAuth);
     }
 
-    const redirect = () => {
-        history.push('/login')
-    };
-
-    const userLogout = (e:SyntheticEvent) => {
-        e.preventDefault();
-        dispatch(logout(redirect));
-    };
 
     useEffect(
         () => {
-            dispatch(getAuth());
+
+            dispatch(getAuth);
         },
-        [dispatch]
+        []
     );
 
     useEffect(
@@ -78,13 +74,9 @@ const ProfilePage:React.FC = () => {
     return (
         <>
             <main>
-                <div className={styles.container + ' pt-20'}>
+                <div className={styles.profileWrapper + ' pt-20'}>
                     <section className={styles.menu + ' mr-15'}>
-                        <ul>
-                            <li className={styles.menu_item + ' text text_type_main-medium'}>Профиль</li>
-                            <li className={styles.menu_item + ' text text_type_main-medium'}><Link to="/orders" className={styles.link + ' text_color_inactive'}>История заказов</Link></li>
-                            <li className={styles.menu_item + ' text text_type_main-medium'} onClick={userLogout}><span className={styles.link + ' text_color_inactive'}>Выйти</span></li>
-                        </ul>
+                        <ProfileMenu />
                         <p className={styles.text + ' text text_type_main-default text_color_inactive mt-20'}>В этом разделе вы можете изменить свои персональные данные</p>
                     </section>
                     <section className={styles.about}>
@@ -117,7 +109,7 @@ const ProfilePage:React.FC = () => {
                                         onClick={cancel}>
                                     Отмена
                                 </button>
-                                <Button type="primary" size="medium">
+                                <Button type="primary" htmlType="submit" size="medium">
                                     Сохранить
                                 </Button>
                             </div>

@@ -1,27 +1,29 @@
-import React, {useCallback, useMemo} from "react";
-import PropTypes from 'prop-types';
-import {CurrencyIcon,  Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import React, {useMemo} from "react";
+import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor.module.css';
 import {Bun, Ingridient} from "./ingridient-item";
-import {useDispatch, useSelector} from "react-redux";
 import {v4 as uidKey} from 'uuid'
 import {useDrop} from "react-dnd";
 import {loadOrder} from "../../services/actions/order";
 import {ADD_BUN_CONSTRUCTOR,
         ADD_INGRIDIENT_CONSTRUCTOR,
-        MOVE_INGRIDIENT_CONSTRUCTOR,
         } from "../../services/actions/constructor";
 import {useHistory} from "react-router-dom";
-import {ICard, IItem, IConstructorState, ICardProps} from './types'
+import {IItem} from './types'
+import {useAppDispatch, useAppSelector} from "../../services/hook";
+import {getCookie} from "../../utils/cookie";
+import {Button} from "../../services/uiTypes";
 
 const BurgerConstructor:React.FC = () => {
 
-    const dispatch = useDispatch<any>()
-    const history = useHistory<any>()
+    const dispatch = useAppDispatch()
+    const history = useHistory<string>()
 
-    const items:any = useSelector<IConstructorState>(state => state.burger.items)
+    const isAuthorized = getCookie('token')
 
-    const bun:any = useSelector<IConstructorState>(state => state.burger.bun)
+    const items = useAppSelector(state => state.burger.items)
+
+    const bun = useAppSelector(state => state.burger.bun)
 
     const addIngridient = (item:IItem) => {
        if (item.type === 'bun') {
@@ -55,6 +57,7 @@ const BurgerConstructor:React.FC = () => {
     })
 
 
+    // @ts-ignore
     const ingredientCard = items.map((item:IItem, index:number, moveListItem:() => void) => {
         return(
             <Ingridient item={item} index={index} moveListItem={moveListItem} key={item.uid}/>
@@ -77,7 +80,7 @@ const BurgerConstructor:React.FC = () => {
     const setOrder = () => {
         if(localStorage.refreshToken) {
             if(items.length > 0 && bun) {
-                const order = [bun._id, ...items.map((item: { _id: any; }) => item._id), bun._id]
+                const order = [bun._id, ...items.map((item: { _id: string; }) => item._id), bun._id]
                 dispatch(loadOrder(order))
             }else{
                 alert('Заправь свой Генедар, иначе воткнешься в Дренор так что обязательно булку добавь ну и соусов там накидай и ингридиентов всяких')
@@ -107,7 +110,7 @@ const BurgerConstructor:React.FC = () => {
               <CurrencyIcon type="primary" />
           </div>
           
-           <Button type="primary" size="large"  onClick={setOrder}>
+           <Button type="primary" size="large" htmlType="button" onClick={setOrder}>
                 Заказать
            </Button>
       </div>

@@ -1,9 +1,10 @@
 import {Link, Redirect} from "react-router-dom";
 import React, {SyntheticEvent, useState} from 'react';
-import { useDispatch, useSelector} from "react-redux";
 import { login } from "../../services/actions/auth";
-import {EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import {EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
+import {useAppDispatch, useAppSelector} from "../../services/hook";
+import {Button} from "../../services/uiTypes";
 
 interface IProfile {
     auth: {
@@ -28,15 +29,15 @@ interface IProfile {
 
 const Login:React.FC = () => {
 
-    const dispatch = useDispatch<any>()
+    const dispatch = useAppDispatch()
 
-    const [form, setForm] = useState<any>({email: '', password: ''})
+    const [form, setForm] = useState<{email: string, password:string}>({email: '', password: ''})
 
     const onChange = (e:{target: HTMLInputElement}) => {
         setForm({...form, [e.target.name] : e.target.value})
     }
 
-    const {logoutRequest} = useSelector<IProfile, {logoutRequest: boolean}>(state => state.auth)
+    const {logoutRequest} = useAppSelector(state => state.auth)
 
     const userAuth = (e:SyntheticEvent) => {
         e.preventDefault();
@@ -56,7 +57,7 @@ const Login:React.FC = () => {
                     <PasswordInput name={'password'} onChange={onChange} value={form.password}/>
                 </div>
                 <div className={styles.formField}>
-                    <Button type="primary" size="medium">
+                    <Button type="primary" htmlType="submit" size="medium">
                         Войти
                     </Button>
                 </div>

@@ -3,26 +3,28 @@ import { Switch, Route, useLocation, useHistory} from "react-router-dom";
 import { useEffect} from 'react';
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import {HomePage, Login, ResetPassword, Registration, ForgotPassword, Page404, ProfilePage, IngridientPage } from '../../pages';
-import IngridientDetails from '../ingridient-details/ingridient-details';
-import {useDispatch} from "react-redux";
+import {HomePage, Login, ResetPassword, Registration, ForgotPassword, Page404, ProfilePage, IngridientPage, ProfilePageOrder, OrderFeedPage, ProfilePageOrders, FeedPage } from '../../pages';
+import IngridientDetails from "../ingridient-details/ingridient-details";
 import {loadIngridients} from "../../services/actions/ingridients";
 import Modal from "../modal/modal";
 import { ProtectedRoute } from '../protected-route';
+import {useAppDispatch} from "../../services/hook";
+import FeedDetails from "../feed/FeedDetails";
+import {ILocation} from "../../services/types";
 
 
 
 const App:React.FC = () => {
 
-    const dispatch = useDispatch<any>()
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(loadIngridients())
-    }, [])
+    }, [dispatch])
     
 
-    const location = useLocation<any>();
-    const history = useHistory<any>();
+    const location = useLocation<ILocation | any>();
+    const history = useHistory<ILocation>();
     const modal = (window.history.state != null) ? (window.history.state.modal || false) : false;
     const background = location.state && location.state.background;
     const returnFromModal = () => {
@@ -40,6 +42,12 @@ const App:React.FC = () => {
                         <Route path="/" exact={true} >
                             <HomePage />
                         </Route>
+                        <Route path="/feed" exact={true}>
+                            <FeedPage />
+                        </Route>
+                        <Route path="/feed/:id" exact={true}>
+                            { (modal) ? <FeedDetails isAuthorized={false} isModal={true}/> : <OrderFeedPage />  }
+                        </Route>
                         <Route path="/login" exact={true} >
                             <Login />
                         </Route>
@@ -55,10 +63,16 @@ const App:React.FC = () => {
                         <Route path="/ingredients/:id" exact={true}>
                          { (!modal) ? <IngridientPage /> : <HomePage/> }
                         </Route>
-
-                        <ProtectedRoute path="/profile" exact={false}>
+                        <ProtectedRoute path="/profile" exact={true}>
                             <ProfilePage />
                         </ProtectedRoute>
+                        <ProtectedRoute path="/profile/orders" exact={true}>
+                            <ProfilePageOrders />
+                        </ProtectedRoute>
+                        <ProtectedRoute  path='/profile/orders/:id' exact={true}>
+                            { (!modal) ? <ProfilePageOrder /> : <ProfilePageOrders /> }
+                        </ProtectedRoute >
+
                         <Route path="*" exact={true} >
                             <Page404 />
                         </Route>
@@ -66,7 +80,21 @@ const App:React.FC = () => {
                 {background && (
                     <Route path='/ingredients/:id' exact={true}>
                         <Modal onClose={returnFromModal}>
-                            <IngridientDetails  itemId={'/ingredients/:id'}/>
+                            <IngridientDetails itemId={'/ingredients/:id'}/>
+                        </Modal>
+                    </Route>
+                )}
+                {background && (
+                    <Route path='/feed/:id' exact={true}>
+                        <Modal onClose={returnFromModal}>
+                            <FeedDetails isAuthorized={false} isModal={true}/>
+                        </Modal>
+                    </Route>
+                )}
+                {background && (
+                    <Route path='/profile/orders/:id' exact={true}>
+                        <Modal onClose={returnFromModal}>
+                            <FeedDetails isAuthorized={true} isModal={true}/>
                         </Modal>
                     </Route>
                 )}

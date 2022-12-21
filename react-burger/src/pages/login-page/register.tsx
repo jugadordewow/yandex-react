@@ -1,17 +1,18 @@
 import {Link, useHistory} from "react-router-dom";
 import React, {useState, useRef, SyntheticEvent} from 'react';
-import { useDispatch, useSelector} from "react-redux";
 import {userRegister} from "../../services/actions/auth";
-import {EmailInput, PasswordInput, Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import {EmailInput, PasswordInput, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
+import {useAppDispatch} from "../../services/hook";
+import {Button} from "../../services/uiTypes";
 
 const Registration: React.FC = () => {
 
     const inputRef: any = useRef<HTMLInputElement>(null);
-    const history = useHistory<any>();
-    const dispatch = useDispatch<any>();
+    const history = useHistory<object>();
+    const dispatch = useAppDispatch();
 
-    const [form, setForm] = useState<any>({ name: '', email: '', password: '' });
+    const [form, setForm] = useState<{name:string, email:string, password:string}>({ name: '', email: '', password: '' });
     const onChange = (e:{target: HTMLInputElement}) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
@@ -60,7 +61,7 @@ const Registration: React.FC = () => {
                     />
                 </div>
                 <div className={styles.formField}>
-                    <Button type="primary" size="medium">
+                    <Button type="primary" htmlType='submit' size="medium">
                         Регистрация
                     </Button>
                 </div>

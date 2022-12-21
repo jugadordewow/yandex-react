@@ -1,7 +1,7 @@
-import React, {  useState, useRef } from "react";
+import React, {useState, useRef} from "react";
 import styles from './burger-ingridients.module.css';
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngridientsList from "./ingridients-list";
+import {Tab} from "../../services/uiTypes";
 
 
 const BurgerIngredients: React.FC = () => {

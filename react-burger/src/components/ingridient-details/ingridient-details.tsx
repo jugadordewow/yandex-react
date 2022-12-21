@@ -1,18 +1,17 @@
-import React, { Fragment } from "react";
+import React, {FC, Fragment} from "react";
 import styles from "./ingridient-details.module.css";
-import {useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import {IIngridientId, IIngridientDetail, IIngridientState} from "./types";
+import { IIngridientDetail, IIngridientId} from "./types";
+import {useAppSelector} from "../../services/hook";
 
 
 
-const IngridientDetails:React.FC<IIngridientId> = ({itemId}) => {
+// @ts-ignore
+const IngridientDetails:FC<IIngridientId> = ({itemId}) => {
 
-    const { id } = useParams<any>();
-    const itemsInfo = useSelector<IIngridientState>(state => state.ingridients.items)
-    // @ts-ignore
+    const { id } = useParams<{id:string}>();
+    const itemsInfo = useAppSelector(state => state.ingredients.items)
     const itemModalInfo = (itemsInfo.length > 0 ) ? itemsInfo.find(i => i._id === id) : null;
-    // @ts-ignore
     const itemPageInfo = (itemsInfo.length > 0 &&  itemId) ? itemsInfo.find(i => i._id === itemId) : null;
     const modalStyles = styles.ingridient_detailes_heading;
     const pageStyles = styles.ingridient_detailes_page_heading;

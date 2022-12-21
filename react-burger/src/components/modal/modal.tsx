@@ -9,10 +9,11 @@ const Modal: React.FC<IModal> = (props) => {
 
     const toggler = props.onClose ? props.onClose : undefined;
 
-    const onPressEsc = useCallback((e:any) => {
+    const onPressEsc = useCallback((e:KeyboardEvent) => {
         if(e.key === 'Escape') {
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-            toggler;
+            if (toggler) {
+                toggler();
+            }
         }
     }, [toggler]);
 
@@ -25,13 +26,15 @@ const Modal: React.FC<IModal> = (props) => {
 
     const portalEl:any = document.getElementById('modal');
     
-    // @ts-ignore
+
     return ReactDOM.createPortal(
                 <div className={styles.modal}>
                     <ModalOverlay  onClose={toggler}/>
                     <div className = {styles.modal_wrapepr}>
                         <div className={styles.modal_close_wrapper} >
-                            <CloseIcon type="primary"  className="btn-close" onClick={toggler}/>
+                           <div className="btn-close" onClick={toggler}>
+                               <CloseIcon type="primary"/>
+                           </div>
                         </div>
                         {props.children}
                     </div>

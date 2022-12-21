@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import { useDispatch } from 'react-redux';
 import {
     Redirect,
     Route,
@@ -9,11 +8,13 @@ import {
 import {getCookie} from "../utils/cookie";
 
 import {getAccessToken} from "../services/actions/auth";
+import {useAppDispatch} from "../services/hook";
+import {ILocation} from "../services/types";
 
 
-export const ProtectedRoute: React.FC<RouteProps> = ({ children, ...rest }:any) => {
-    const dispatch = useDispatch<any>();
-    const location = useLocation<any>();
+export const ProtectedRoute = ({ children, ...rest }:RouteProps & {children?: React.ReactNode}) => {
+    const dispatch = useAppDispatch();
+    const location = useLocation<ILocation>();
     const refreshToken = localStorage.refreshToken;
     const isAuthorized = getCookie('token')
 

@@ -4,11 +4,12 @@ import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import Card from "./card";
 import {IIngridientsList, IIngridientsState} from './types'
+import {useAppSelector} from "../../services/hook";
 
 
 const IngridientsList = forwardRef<HTMLElement, IIngridientsList>(({name, type}, ref) => {
 
-    const data:any = useSelector<IIngridientsState>(state => state.ingridients.items)
+    const data = useAppSelector(state => state.ingredients.items)
 
     return (
         <section ref={ref}>

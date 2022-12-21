@@ -1,17 +1,19 @@
 import {Link, useHistory } from "react-router-dom";
-import React, {useState, useRef } from 'react';
-import { useDispatch, useSelector} from "react-redux";
+import React, {useState, useRef} from 'react';
 import {resetPaswd} from "../../services/actions/auth";
-import {EmailInput, PasswordInput, Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {EmailInput, PasswordInput, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './styles.module.css'
+import {useAppDispatch} from "../../services/hook";
+import {ILocation} from "../../services/types";
+import {Button} from "../../services/uiTypes";
 
 const ResetPassword: React.FC = () => {
 
-    const dispatch = useDispatch<any>();
-    const history = useHistory<any>();
+    const dispatch = useAppDispatch();
+    const history = useHistory<ILocation>();
     const inputRef: any = useRef<HTMLInputElement>(null);
 
-    const [form, setForm] = useState({ token: '', password: '' });
+    const [form, setForm] = useState<{token:string, password: string}>({ token: '', password: '' });
     const onChange = (e:{target: HTMLInputElement}) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
@@ -55,7 +57,7 @@ const ResetPassword: React.FC = () => {
                     />
                 </div>
                 <div className={styles.formField}>
-                    <Button type="primary" size="medium">
+                    <Button type="primary" htmlType="submit" size="medium">
                         Сохранить
                     </Button>
                 </div>
