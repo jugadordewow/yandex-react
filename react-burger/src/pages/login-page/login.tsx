@@ -57,7 +57,7 @@ const Login:React.FC = () => {
                     <PasswordInput name={'password'} onChange={onChange} value={form.password}/>
                 </div>
                 <div className={styles.formField}>
-                    <Button type="primary" size="medium">
+                    <Button type="primary" htmlType="submit" size="medium">
                         Войти
                     </Button>
                 </div>

@@ -109,7 +109,7 @@ const ProfilePage:React.FC = () => {
                                         onClick={cancel}>
                                     Отмена
                                 </button>
-                                <Button type="primary" size="medium">
+                                <Button type="primary" htmlType="submit" size="medium">
                                     Сохранить
                                 </Button>
                             </div>
