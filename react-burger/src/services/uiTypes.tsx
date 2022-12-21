@@ -7,7 +7,7 @@ export const Button: FC<{
     onClick?: (() => void) | ((e: SyntheticEvent) => void);
     disabled?: boolean;
     name?: string;
-    htmlType?: 'button' | 'submit' | 'reset';
+    htmlType: 'button' | 'submit' | 'reset';
     className?: string;
     children: React.ReactNode;
 }> = ButtonUI
