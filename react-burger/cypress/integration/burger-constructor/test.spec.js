@@ -4,10 +4,10 @@ describe('Проверка конструктора', () => {
   })
 
   it('Добавление ингредиента в конструктор', function () {
-    cy.get('[class^=BurgerIngredientsStyle_wrap__]').contains('Флюоресцентная булка').should('not.exist');
+    cy.get('[class^=burger-ingridients_card_items_wrapper__]').contains('Флюоресцентная булка').should('not.exist');
     cy.contains('Флюоресцентная булка').trigger('dragstart');
-    cy.get('[class^=BurgerConstructor_wrap__]').trigger('drop');
-    cy.get('[class^=BurgerConstructor_wrap__]').contains('Флюоресцентная булка').should('exist');
+    cy.get('[class^=burger-constructor_constructorBlock__]').trigger('drop');
+    cy.get('[class^=burger-constructor_constructorBlock__]').contains('Флюоресцентная булка').should('exist');
   });
 
   it('Оформление заказа без авторизации', function () {
@@ -17,19 +17,19 @@ describe('Проверка конструктора', () => {
 
   it('Оформление заказа с авторизацией', function () {
     cy.get('[class^=input__container]').first().get('[class^=input__icon]').first().click();
-    cy.get('input[name="email"]').type('dimon89_06@mail.ru');
+    cy.get('input[name="email"]').type('teset@teset.ru');
     cy.get('input[name="password"]').type('123456');
     cy.get('button').contains('Войти').click();
     cy.url().should('eq', 'http://localhost:3000/');
     cy.get('button').contains('Оформить заказ').click();
-    cy.get('[class^=Modal]').as('Modal').should('exist');
+    cy.get('[class^=modal_modal_wrapepr__]').as('Modal').should('exist');
     cy.contains('Ваш заказа начали готовить');
     cy.contains('Дождитесь готовности на орбитальной станцыи');
   });
 
   it('Закрытие модального окна', function () {
-    cy.get('[class^=Modal_close__]').click();
-    cy.get('[class^=Modal]').should('not.exist');
+    cy.get('[class^=btn_close]').click();
+    cy.get('[class^=modal_modal_wrapepr__]').should('not.exist');
   });
 
 })

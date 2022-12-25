@@ -5,7 +5,7 @@ describe('Проверка модального окна ингредиента'
 
     it('Открытие модального окна', function () {
         cy.contains('Флюоресцентная булка').click();
-        cy.get('[class^=modal_modal]').as('modal');
+        cy.get('[class^=modal_modal_wrapepr__]').as('modal');
         cy.get('@modal').contains('Детали иградиента');
         cy.get('@modal').contains('Флюоресцентная булка R2-D3');
         cy.get('@modal').contains('Калории,ккал');
@@ -15,7 +15,7 @@ describe('Проверка модального окна ингредиента'
     });
 
     it('Закрытие модального окна', function () {
-        cy.get('[class^=btn_close__]').click();
-        cy.get('[class^=modal]').should('not.exist');
+        cy.get('[class^=btn_close]').click();
+        cy.get('[class^=modal_modal_wrapepr__]').should('not.exist');
     });
 });
