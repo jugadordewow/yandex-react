@@ -159,4 +159,16 @@ getAllData = () => {
    }
 }
 
+type TBurgerService = {
+    accessToken: Promise<{data: object}>;
+    logoutUser: Promise<{data: string}>;
+    updateAuthUser: Promise<{data:string}>;
+    getAuthUser: Promise<{data:string}>;
+    registerUser: Promise<{data:{name: string, email: string, password: string}}>;
+    getAllData: Promise<{data: Array<object>}>;
+    resetPswd: Promise<{data: string}>;
+    authUser: Promise<{data: string}>;
+    getOrderData: Promise<{data: string[]}>;
+}
+
  export default BurgerService;
