@@ -1,56 +1,48 @@
-import {orderReducer} from "./order";
+import {orderReducer, initialState} from "./order";
 import * as types from '../actions/order'
+import {GET_ORDER_ERROR, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, ORDER_RESET} from "../actions/order";
 
-const initialState = {
-    orders:[],
-    order: null,
-    orderRequest: false,
-    orderError: false
-}
+describe("order number reducer", () => {
+    it("should return the order number reducer inital state", () => {
+        expect(orderReducer(undefined, {})).toEqual(initialState);
+    });
 
-describe('orderReducer', () => {
-    it('should return the initial state', () => {
-        expect(orderReducer(undefined,{})).toEqual(
-            initialState
-        )
-    })
-    it('should handle GET_ORDER_REQUEST', () => {
-        expect(orderReducer(initialState,{
-            type: types.GET_ORDER_REQUEST
-        })).toEqual(
-            {
-                orderRequest:true
-            }
-        )
-    })
-    it('should handle GET_ORDER_ERROR', () => {
-        expect(orderReducer(initialState,{
-            type: types.GET_ORDER_ERROR
-        })).toEqual(
-            {
-                orderError: true
-            }
-        )
-    })
-    it('should handle ORDER_RESET', () => {
-        expect(orderReducer(initialState,{
-            type:types.ORDER_RESET
-        })).toEqual(
-            {
-                order: null
-            }
-        )
-    })
-    it('should handle GET_ORDER_SUCCESS', () => {
-        expect(orderReducer(initialState,{
-            type: types.GET_ORDER_SUCCESS,
-            order:[{name:'Name', number:'45456'}]
-        })).toEqual(
-            {
-                order:[{name:'Name', number:'45456'}],
-                orders: [{}, {}]
-            }
-        )
+    it("should handle GET_ORDER_REQUEST", () => {
+        expect(orderReducer(initialState, {
+            type: GET_ORDER_REQUEST
+        })).toEqual({
+            ...initialState,
+            orderRequest: true
+        });
     })
 
-})
+    it("should handle GET_ORDER_ERROR", () => {
+        expect(orderReducer(initialState, {
+            type: GET_ORDER_ERROR
+        })).toEqual({
+            ...initialState,
+            orderError: true
+        });
+    })
+
+    it("should handle GET_ORDER_SUCCESS", () => {
+        expect(orderReducer(initialState, {
+            type: GET_ORDER_SUCCESS,
+            data: {name: 'some', number: '123'}
+        })).toEqual({
+            ...initialState,
+            order: {name: 'some', number: '123'},
+            orders: [{order:{name: 'some', number: '123'}}],
+            orderRequest: false,
+        });
+    })
+
+    it("should handle ORDER_RESET", () => {
+        expect(orderReducer({
+            ...initialState,
+        }, {
+            type: ORDER_RESET,
+        })).toEqual(initialState);
+    })
+});
+
