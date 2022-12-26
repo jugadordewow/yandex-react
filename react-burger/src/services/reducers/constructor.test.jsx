@@ -1,6 +1,11 @@
 import {constructorReducer, initialState} from "./constructor";
 import * as types from '../actions/constructor';
-import {ADD_BUN_CONSTRUCTOR, ADD_INGRIDIENT_CONSTRUCTOR, MOVE_INGRIDIENT_CONSTRUCTOR} from "../actions/constructor";
+import {
+    ADD_BUN_CONSTRUCTOR,
+    ADD_INGRIDIENT_CONSTRUCTOR,
+    MOVE_INGRIDIENT_CONSTRUCTOR,
+    REMOVE_INGRIDIENT_CONSTRUCTOR
+} from "../actions/constructor";
 
 
 
@@ -81,36 +86,24 @@ describe('constructorReducer', () => {
             }
         )
     })
-    // it('should handle MOVE_INGRIDIENT_CONSTRUCTOR', () => {
-    //     expect(constructorReducer(initialState, {
-    //             type: types.MOVE_INGRIDIENT_CONSTRUCTOR,
-    //             payload:{dragIndex:1,hoverIndex:2}
-    //         })
-    //     ).toEqual(
-    //         {
-    //             ...initialState,
-    //             items: [
-    //                 {name:'name3', _id:'2324fgrg3', price:'2344', image:'/some3.jpeg'},
-    //                 {name:'name2', _id:'2324fgrg2', price:'2343', image:'/some2.jpeg'},
-    //                 {name:'name', _id:'2324fgrg', price:'234', image:'/some.jpeg'},
-    //             ]
-    //         }
-    //     )
-    // })
-    // it('should handle REMOVE_INGRIDIENT_CONSTRUCTOR', () => {
-    //     expect(
-    //         constructorReducer(initialState, {
-    //             type: types.REMOVE_INGRIDIENT_CONSTRUCTOR,
-    //             payload:{index:2}
-    //         })
-    //     ).toEqual(
-    //         {
-    //             bun: null,
-    //             items: [
-    //                 {name:'name3', _id:'2324fgrg3', price:'2344', image:'/some3.jpeg'},
-    //                 {name:'name2', _id:'2324fgrg2', price:'2343', image:'/some2.jpeg'},
-    //             ]
-    //         }
-    //     )
-    // })
+    let state = constructorReducer(undefined, {});
+    const testIngredient = (actualIngredient, expectedIngredient) => {
+        for (let x in actualIngredient) {
+            if (x !== "uid")
+                expect(actualIngredient[x]).toEqual(expectedIngredient[x]);
+        }
+        expect(actualIngredient).toBeDefined();
+    }
+
+    it('should handle MOVE_INGRIDIENT_CONSTRUCTOR', () => {
+        state = constructorReducer({items: [ingr2,  ingr3]}, { type: MOVE_INGRIDIENT_CONSTRUCTOR, payload: {dragIndex: 0, hoverIndex: 1 }});
+        expect(state.items.length).toBe(2);
+        testIngredient(state.items[0], ingr3);
+        testIngredient(state.items[1], ingr2);
+    })
+    it('should handle REMOVE_INGRIDIENT_CONSTRUCTOR', () => {
+        state = constructorReducer({items: [ingr2,  ingr3]}, { type: REMOVE_INGRIDIENT_CONSTRUCTOR, payload: 0});
+        expect(state.items.length).toBe(1);
+        testIngredient(state.items[0], ingr3);
+    })
 })

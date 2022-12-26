@@ -11,7 +11,6 @@ export const initialState: IConstructor = {
 }
 
 export const constructorReducer = (state = initialState, action:TConstructorActions) => {
-        console.log(action)
         switch(action.type){
                 case ADD_BUN_CONSTRUCTOR: {
                         return {
