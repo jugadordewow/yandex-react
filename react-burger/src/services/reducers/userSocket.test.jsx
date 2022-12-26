@@ -1,18 +1,8 @@
-import {wsUserReducer} from "./wsUserReducer";
+import {wsUserReducer, initialState} from "./wsUserReducer";
 import {wsUserActions} from "../actions/wsUserActions";
 
-const initialState = {
-    wsConnected: false,
-    wsError: false,
-    data: {
-        orders: [],
-        common: 0,
-        commonToday: 0
-    }
-}
 
-
-describe('wsReducer', () => {
+describe('wsUserReducer', () => {
     it('should return the initial state', ()=>{
         expect(wsUserReducer(undefined, {})).toEqual(
             initialState
@@ -31,10 +21,10 @@ describe('wsReducer', () => {
             type: wsUserActions.onError
         })).toEqual({
             ...initialState,
-            wsError: false
+            wsError: true
         })
     })
-    it('should handle wsConnected', ()=>{
+    it('should handle wsClosed', ()=>{
         expect(wsUserReducer(initialState, {
             type: wsUserActions.onClosed
         })).toEqual({
@@ -42,14 +32,23 @@ describe('wsReducer', () => {
             wsConnected: false
         })
     })
-    it('should handle GetMessage', ()=>{
+    it('should handle wsGetMessage', ()=>{
         expect(wsUserReducer(initialState, {
-            type: wsUserActions.GetMessage
-        })).toEqual({
+            type: wsUserActions.GetMessage,
+            payload: {
+                orders: [{},{}],
+                total: 234,
+                totalToday: 12,
+            }
+        })).toEqual(expect.objectContaining({
             ...initialState,
-            orders: [],
-            common: 234,
-            commonToday: 12
-        })
+            wsError: false,
+            data: {
+                ...initialState.data,
+                orders: [{},{}],
+                common: 234,
+                commonToday: 12,
+            }
+        }))
     })
 })

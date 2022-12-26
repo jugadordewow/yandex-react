@@ -1,15 +1,5 @@
-import {wsReducer} from "./wsReducer";
+import {wsReducer, initialState} from "./wsReducer";
 import {wsActions} from "../actions/wsActions";
-
-const initialState = {
-    wsConnected: false,
-    wsError: false,
-    data: {
-        orders: [],
-        common: 0,
-        commonToday: 0
-    }
-}
 
 
 describe('wsReducer', () => {
@@ -44,12 +34,22 @@ describe('wsReducer', () => {
     })
     it('should handle wsGetMessage', ()=>{
         expect(wsReducer(initialState, {
-            type: wsActions.GetMessage
-        })).toEqual({
+            type: wsActions.GetMessage,
+            payload: {
+                orders: [{},{}],
+                total: 234,
+                totalToday: 12,
+            }
+        })).toEqual(expect.objectContaining({
             ...initialState,
-            orders: [],
-            common: 234,
-            commonToday: 12
-        })
+            wsError: false,
+            data: {
+                ...initialState.data,
+                orders: [{},{}],
+                common: 234,
+                commonToday: 12,
+            }
+
+        }))
     })
 })

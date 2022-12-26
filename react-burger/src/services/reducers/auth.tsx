@@ -23,7 +23,7 @@ export interface IAuthState {
     registerFailed:boolean
 }
 
-const initialState : IAuthState = {
+export const initialState : IAuthState = {
     name:'',
     email:'',
     error: {},

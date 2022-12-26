@@ -1,25 +1,5 @@
-import {authReducer} from "./auth";
+import {authReducer, initialState} from "./auth";
 import {authActions} from "../actions/auth";
-
-const initialState = {
-    name:'',
-    email:'',
-    error: {},
-    loginRequest: false,
-    loginFailed: false,
-    logoutRequest: false,
-    logoutFailed: false,
-    forgotPswdRequest: false,
-    forgotPswdFailed: false,
-    resetPswdRequest: false,
-    resetPswdFailed: false,
-    authRequest: false,
-    authFailed: false,
-    tokenRequest: false,
-    tokenFailed: false,
-    registerRequest: false,
-    registerFailed:false
-};
 
 describe('authReducer', () => {
     it('should return the initial state', ()=>{
@@ -46,7 +26,7 @@ describe('authReducer', () => {
     it('should handle forgotPswdFailed', ()=>{
         expect(authReducer(initialState, {
             type: authActions.forgotPswdFailed,
-            error:{error: 'some error'}
+            payload:{error: {error: 'some error'}}
         })).toEqual({
             ...initialState,
             forgotPswdRequest: false,
@@ -65,7 +45,7 @@ describe('authReducer', () => {
     it('should handle resetPswdFailed', ()=>{
         expect(authReducer(initialState, {
             type: authActions.resetPswdFailed,
-            error: {error: 'some error'},
+            payload: {error: {error: 'some error'}},
         })).toEqual({
             ...initialState,
             resetPswdFailed: true,
@@ -83,19 +63,21 @@ describe('authReducer', () => {
     it('should handle registerUserSuccess', ()=>{
         expect(authReducer(initialState, {
             type: authActions.registerUserSuccess,
-            name: {name:'Name'},
-            email: {email: 'Email'}
+            payload: {
+                name:'Username',
+                email: 'Email'
+            }
         })).toEqual({
             ...initialState,
             registerRequest: false,
-            name: {name:'Name'},
-            email: {email: 'Email'}
+            name: 'Username',
+            email: 'Email'
         })
     })
     it('should handle registerUserFailed', ()=>{
         expect(authReducer(initialState, {
             type: authActions.registerUserFailed,
-            error: {error: 'some error'}
+            payload: {error: {error: 'some error'}}
         })).toEqual({
             ...initialState,
             registerFailed: true,
@@ -112,13 +94,15 @@ describe('authReducer', () => {
     it('should handle userSuccess', ()=>{
         expect(authReducer(initialState, {
             type: authActions.userSuccess,
-            name: {name:'Name'},
-            email: {email: 'Email'}
+            payload: {
+                name:'Username',
+                email: 'Email'
+            }
         })).toEqual({
             ...initialState,
             authRequest: false,
-            name: {name:'Name'},
-            email: {email: 'Email'}
+            name: 'Username',
+            email: 'Email'
         })
     })
     it('should handle userFailed', ()=>{
@@ -140,13 +124,15 @@ describe('authReducer', () => {
     it('should handle updateUserSuccess', ()=>{
         expect(authReducer(initialState, {
             type: authActions.updateUserSuccess,
-            name: {name:'Name'},
-            email: {email: 'Email'}
+            payload: {
+                name:'Username',
+                email: 'Email'
+            }
         })).toEqual({
             ...initialState,
             authRequest: false,
-            name: {name:'Name'},
-            email: {email: 'Email'}
+            name: 'Username',
+            email: 'Email'
         })
     })
     it('should handle updateUserFailed', ()=>{
@@ -168,13 +154,15 @@ describe('authReducer', () => {
     it('should handle loginUserSuccess', ()=>{
         expect(authReducer(initialState, {
             type: authActions.loginUserSuccess,
-            name: {name:'Name'},
-            email: {email: 'Email'}
+            payload: {
+                name:'Username',
+                email: 'Email'
+            }
         })).toEqual({
             ...initialState,
             loginRequest: false,
-            name: {name:'Name'},
-            email: {email: 'Email'}
+            name: 'Username',
+            email: 'Email'
         })
     })
     it('should handle loginUserFailed', ()=>{

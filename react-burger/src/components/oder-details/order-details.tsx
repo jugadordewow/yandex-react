@@ -6,6 +6,7 @@ import {useAppSelector} from "../../services/hook";
 const OrderDetails = () => {
 
     const orderNum = useAppSelector(state => state.orders.order?.order?.number)
+    console.log(useAppSelector(state => state.orders))
 
     return (
         <div className={styles.order_details_wrapper}>

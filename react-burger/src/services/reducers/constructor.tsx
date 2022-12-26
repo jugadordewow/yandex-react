@@ -5,12 +5,13 @@ import {ADD_INGRIDIENT_CONSTRUCTOR,
         RESET_CONSTRUCTOR,
         IItem, IConstructor, TConstructorActions} from "../actions/constructor";
 
-const initialState: IConstructor = {
+export const initialState: IConstructor = {
         items: [],
         bun: null
 }
 
 export const constructorReducer = (state = initialState, action:TConstructorActions) => {
+        console.log(action)
         switch(action.type){
                 case ADD_BUN_CONSTRUCTOR: {
                         return {

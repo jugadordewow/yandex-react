@@ -42,6 +42,7 @@ export type TOrdersActions =
 const getOrder = (orderItem: TOrderItem) => ({
     type: GET_ORDER_SUCCESS,
     payload: orderItem,
+
 })
 
 const setLoading = () => ({
@@ -61,4 +62,5 @@ export const loadOrder: AppThunk = (order: string[]) => {
             .then((res: TOrderItem) => dispatch(getOrder(res)))
             .catch((err: object) => dispatch(setError(err)))
     }
+
 }
