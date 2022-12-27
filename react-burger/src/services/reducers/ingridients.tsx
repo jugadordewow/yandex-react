@@ -4,7 +4,7 @@ import {GET_INGRIDIENTS_SUCCESS,
         GET_INGRIDIENT_ITEM,
         RESET_INGRIDIENT_ITEM, TIngridientsActions, IIngridientsState, IIngridient } from "../actions/ingridients";
 
-const initialState: IIngridientsState = {
+export const initialState: IIngridientsState = {
     items: [],
     itemsRequest:false,
     itemsFailed: false,

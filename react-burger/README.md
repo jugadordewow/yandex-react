@@ -1,3 +1,6 @@
+#Адрес проекта в сети:
+https://jugadordewow.github.io/yandex-react/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

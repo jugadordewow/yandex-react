@@ -3,7 +3,7 @@ import {createReducer} from "@reduxjs/toolkit";
 import {TwsState} from "../types";
 
 
-const initialState: TwsState = {
+export const initialState: TwsState = {
     wsConnected: false,
     wsError: false,
     data: {

@@ -11,7 +11,7 @@ export type TOrderInitialState = {
     orderError: boolean
 };
 
-const initialState:TOrderInitialState = {
+export const initialState:TOrderInitialState = {
     orders:[],
     order: null,
     orderRequest: false,
@@ -19,7 +19,6 @@ const initialState:TOrderInitialState = {
 }
 
 export const orderReducer = (state = initialState, action:TOrdersActions)=> {
-
     switch(action.type){
         case GET_ORDER_SUCCESS: {
             return {
